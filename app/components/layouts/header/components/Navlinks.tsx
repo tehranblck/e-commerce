@@ -72,6 +72,7 @@ const Navlinks = () => {
       </ul>
 
       {/* Mobile  */}
+      
       <div className="xl:hidden">
         <button type="button" onClick={() => hanfleOpenMobileMenu()}>
           <MenuIcon className="text-[#fff]" />
