@@ -1,4 +1,3 @@
-"use client";
 import React, { useState } from "react";
 import InfoIcon from "@mui/icons-material/Info";
 import CallIcon from "@mui/icons-material/Call";
@@ -54,15 +53,16 @@ const Navlinks = () => {
       icon: <CallIcon className="text-[18px] cursor-pointer" />,
     },
   ];
+
   return (
-    //  Desktop
+    // Desktop
     <div className="xl:py-4">
-      <ul className="hidden  xl:flex">
+      <ul className="hidden xl:flex">
         {links.map((link) => (
-          <li className="flex items-center text-[#fff] " key={link.id}>
-            <Link href={link.link} className="flex items-center ">
+          <li className="flex items-center text-[#fff]" key={link.id}>
+            <Link href={link.link} className="flex items-center">
               <span className={`${link.id === 1 ? "hidden" : "mx-4"}`}>|</span>
-              <div className="hover:bg-yellow-500 px-2 hover:text-black rounded-full transition-all  duration-500 whitespace-nowrap">
+              <div className="hover:bg-yellow-500 px-2 hover:text-black rounded-full transition-all duration-500 whitespace-nowrap">
                 <span className="mr-2">{link.icon}</span>
                 <span className="text-[16px]">{link.title}</span>
               </div>
@@ -71,10 +71,9 @@ const Navlinks = () => {
         ))}
       </ul>
 
-      {/* Mobile  */}
-      
+      {/* Mobile */}
       <div className="xl:hidden">
-        <button type="button" onClick={() => hanfleOpenMobileMenu()}>
+        <button type="button" onClick={hanfleOpenMobileMenu}>
           <MenuIcon className="text-[#fff]" />
         </button>
 
@@ -88,7 +87,7 @@ const Navlinks = () => {
           <div className="text-end">
             <button
               type="button"
-              onClick={() => handleCloseMobileMenu()}
+              onClick={handleCloseMobileMenu}
               className="align-left mr-5 text-[25px] border-[2px] border-red-800 w-fit px-[5px] rounded-md"
             >
               <CloseIcon className="text-red-800" />
@@ -96,20 +95,17 @@ const Navlinks = () => {
           </div>
 
           {links.map((link) => (
-            <>
-              <li className="flex items-center text-[#fff]" key={link.id}>
-                <Link href={link.link} className="flex items-center ">
-                  {/* <span className={`${link.id === 1 ? "hidden" : "mx-4"}`}>
-                  |
-                 </span> */}
-                  <div className="hover:bg-yellow-500 px-2 hover:text-black rounded-full transition-all  duration-500 whitespace-nowrap">
+            <div key={link.id}>
+              <li className="flex items-center text-[#fff]">
+                <Link href={link.link} className="flex items-center">
+                  <div className="hover:bg-yellow-500 px-2 hover:text-black rounded-full transition-all duration-500 whitespace-nowrap">
                     <span className="mr-2">{link.icon}</span>
                     <span className="text-[16px]">{link.title}</span>
                   </div>
                 </Link>
               </li>
-              <hr className="border-[1x] border-[#221f1f] w-full" />
-            </>
+              <hr className="border-[1px] border-[#221f1f] w-full" />
+            </div>
           ))}
         </ul>
       </div>
