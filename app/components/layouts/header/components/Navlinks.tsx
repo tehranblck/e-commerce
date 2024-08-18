@@ -7,6 +7,8 @@ import CottageIcon from "@mui/icons-material/Cottage";
 import Link from "next/link";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import PhoneIcon from "@mui/icons-material/Phone";
 
 const Navlinks = () => {
   const [openMobileMenu, setOpenMobileMenu] = useState(false);
@@ -82,7 +84,7 @@ const Navlinks = () => {
             openMobileMenu
               ? "translate-x-0 opacity-100"
               : "-translate-x-full opacity-0"
-          } transform transition-transform duration-300 ease-in absolute flex flex-col top-0 h-[500px] w-[300px] md:w-[400px] left-0 border-r-[2px] border-b-[2px] border-[#221f1f] bg-[#181818] text-black pt-10 justify-between`}
+          } transform transition-transform duration-300 ease-in absolute flex flex-col space-y-4  top-0 h-[500px] w-[300px] md:w-[400px] left-0 border-r-[2px] border-b-[2px] border-[#221f1f] bg-[#181818] text-black pt-10 justify-between rounded-br-lg`}
         >
           <div className="text-end">
             <button
@@ -97,8 +99,8 @@ const Navlinks = () => {
           {links.map((link) => (
             <div key={link.id}>
               <li className="flex items-center text-[#fff]">
-                <Link href={link.link} className="flex items-center">
-                  <div className="hover:bg-yellow-500 px-2 hover:text-black rounded-full transition-all duration-500 whitespace-nowrap">
+                <Link href={link.link} className="flex items-center pb-4 pl-2">
+                  <div className="hover:bg-yellow-500 px-2 hover:text-black rounded-full transition-all duration-500 whitespace-nowrap ">
                     <span className="mr-2">{link.icon}</span>
                     <span className="text-[16px]">{link.title}</span>
                   </div>
@@ -107,6 +109,13 @@ const Navlinks = () => {
               <hr className="border-[1px] border-[#221f1f] w-full" />
             </div>
           ))}
+          <div className="py-4 flex space-x-6 w-full text-[#fff] items-center justify-center">
+            <InstagramIcon className="text-[25px]  cursor-pointer text-end" />
+            <span>
+              <PhoneIcon className="text-[25px]  cursor-pointer" />
+              +994 50 658 26 16
+            </span>
+          </div>
         </ul>
       </div>
     </div>
