@@ -20,7 +20,7 @@ const Login = () => {
 
     try {
       const response = await fetch(
-        "http://api.muslimanshop.com/api/user/login/",
+        "https://api.muslimanshop.com/api/user/login/",
         {
           method: "POST",
           headers: {
@@ -84,7 +84,7 @@ const Login = () => {
           </div>
           <div className="w-full text-end mt-6">
             <Link
-              href={"/forgot"}
+              href={"/auth/forgotpassword"}
               className="text-white text-[14px] underline cursor-pointer"
             >
               Şifrəni Unutmuşam
@@ -109,7 +109,6 @@ const Login = () => {
           </div>
         </form>
       </div>
-      {/* <ToastContainer /> */}
     </section>
   );
 };

@@ -68,7 +68,7 @@ const SignUp = () => {
 
     try {
         const data = await fetcher(
-          "http://api.muslimanshop.com/api/user/register/",
+          "https://api.muslimanshop.com/api/user/register/",
           formData,
         );
          toast.success("Qeydiyyat uğurla tamamlandı! Zəhmət olmasa giriş edin.", {
