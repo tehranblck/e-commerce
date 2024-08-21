@@ -15,7 +15,7 @@ const ProductCard = ({ productData }: { productData: Product }) => {
           />
         </div>
         <div className="flex flex-col justify-center items-center mt-4">
-          <h2 className="text-[#fff] text-sm">{productData.name} 120 uc</h2>
+          <h2 className="text-[#fff] text-sm">Pubg Mobile {productData.title}</h2>
           <span className="text-indigo-500 text-sm">
             {productData.price.toFixed(2)} Azn
           </span>
