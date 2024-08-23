@@ -2,6 +2,7 @@ import { Product } from "@/app/models/ui/Product";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { UseSelector } from "react-redux";
 
 const ProductCard = ({ productData }: { productData: Product }) => {
   return (
@@ -14,8 +15,8 @@ const ProductCard = ({ productData }: { productData: Product }) => {
             alt={productData.title}
           />
         </div>
-        <div className="flex flex-col justify-center items-center mt-4">
-          <h2 className="text-[#fff] text-sm">Pubg Mobile {productData.title}</h2>
+        <div className="flex flex-col justify-center items-center mt-4">  
+          <h2 className="text-[#fff] text-sm">{productData.title}</h2>
           <span className="text-indigo-500 text-sm">
             {productData.price.toFixed(2)} Azn
           </span>

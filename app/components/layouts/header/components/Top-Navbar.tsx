@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
 import Navlinks from "./Navlinks";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
@@ -16,19 +15,22 @@ const TopNavbar = () => {
       if (!token) return;
 
       try {
-        const res = await fetch("http://api.muslimanshop.com/api/user/profile/", {
-          method: "GET",
-          headers: {
-            Authorization: token, 
+        const res = await fetch(
+          "https://api.muslimanshop.com/api/user/profile/",
+          {
+            method: "GET",
+            headers: {
+              Authorization: token,
+            },
           },
-        });
+        );
 
         if (!res.ok) {
           throw new Error("Failed to fetch user profile");
         }
 
         const data = await res.json();
-        setUsername(data.first_name); 
+        setUsername(data.first_name);
       } catch (error) {
         setUsername(null);
       }
@@ -56,19 +58,29 @@ const TopNavbar = () => {
                   {username} (0 ₼)
                 </span>
                 <span className="mx-1"> / </span>
-                <Link href={"/"} onClick={handleLogout} className="flex text-4 cursor-pointer hover:text-yellow-400 transition-all duration-300">
+                <Link
+                  href={"/"}
+                  onClick={handleLogout}
+                  className="flex text-4 cursor-pointer hover:text-yellow-400 transition-all duration-300"
+                >
                   <LogoutIcon className="mr-2 " />
                   Hesabdan çıx
                 </Link>
               </>
             ) : (
               <>
-                <Link href={"/auth/login"} className="flex text-4 cursor-pointer hover:text-yellow-400 transition-all duration-300">
+                <Link
+                  href={"/auth/login"}
+                  className="flex text-4 cursor-pointer hover:text-yellow-400 transition-all duration-300"
+                >
                   <Person2Icon className="mr-2 hover:bg-yellow-500 hover:text-black rounded-full transition-all  duration-500" />
                   Daxil ol
                 </Link>
                 <span className="mx-1"> / </span>
-                <Link href={"/auth/signup"} className="flex text-4 cursor-pointer hover:text-yellow-400 transition-all duration-300">
+                <Link
+                  href={"/auth/signup"}
+                  className="flex text-4 cursor-pointer hover:text-yellow-400 transition-all duration-300"
+                >
                   Qeydiyyatdan keç
                 </Link>
               </>
