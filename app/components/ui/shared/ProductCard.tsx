@@ -6,7 +6,7 @@ import { UseSelector } from "react-redux";
 
 const ProductCard = ({ productData }: { productData: Product }) => {
   return (
-    <Link href={`/${productData.id}`} className=" mx- md:mx-0 my-2">
+    <Link href={`/${productData.id}`} className=" md:mx-0 my-2 ">
       <div className="bg-[#181818] py-4 px-8 rounded-md">
         <div className="overflow-hidden w-[210px] h-[240px] md:w-[150px] md:h-[170px] rounded-md transform transition-transform duration-300 ease-in-out hover:scale-105">
           <img
@@ -16,7 +16,7 @@ const ProductCard = ({ productData }: { productData: Product }) => {
           />
         </div>
         <div className="flex flex-col justify-center items-center mt-4">  
-          <h2 className="text-[#fff] text-sm">{productData.title}</h2>
+          <h2 className="text-[#fff] text-sm">{productData.title.substring(0,20)}+{"..."}</h2>
           <span className="text-indigo-500 text-sm">
             {productData.price.toFixed(2)} Azn
           </span>

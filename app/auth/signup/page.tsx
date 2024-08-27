@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import { UserRegister } from "@/app/models/auth/userregister";
+import { UserRegister } from "@/app/models/auth/UserRegister";
 import useSWR from "swr";
 import { ToastContainer, toast } from 'react-toastify';
 import { useRouter } from "next/navigation";

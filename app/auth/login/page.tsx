@@ -3,19 +3,23 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/app/store/features/auth/authSlice";
+import { setCookie } from 'cookies-next';
 
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const loginData = {
-      email: email,
-      password: password,
+      email,
+      password,
     };
 
     try {
@@ -36,8 +40,25 @@ const Login = () => {
       }
 
       const data = await response.json();
+      localStorage.setItem("token", data.first_name);
 
-      localStorage.setItem("token", data.token);
+      const profileResponse = await fetch(
+        "https://api.muslimanshop.com/api/user/profile/",
+        {
+          method: "GET",
+          headers: {
+            Authorization: data.token,
+          },
+        },
+      );
+
+      if (!profileResponse.ok) {
+        throw new Error("Failed to fetch user profile");
+      }
+
+      const userProfile = await profileResponse.json();
+      dispatch(setUser(userProfile));
+      setCookie('userProfile', JSON.stringify(userProfile), { maxAge: 60 * 60 * 24 * 7 });
 
       toast.success("Daxil oldunuz!", {
         position: "top-right",
@@ -51,12 +72,13 @@ const Login = () => {
       });
     }
   };
+
   return (
     <section className="bg-black">
       <div className="flex justify-center py-8 px-4">
         <form
           className="w-[500px] bg-[#151515] rounded-lg p-8 mt-4"
-          onSubmit={handleSubmit} // Added onSubmit handler
+          onSubmit={handleSubmit}
         >
           <div className="text-white flex flex-col justify-center items-center mb-6">
             <h1 className="font-bold text-[32px]">Daxil Ol</h1>

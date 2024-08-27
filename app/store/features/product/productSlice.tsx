@@ -1,6 +1,6 @@
 //counterSlice.jsx
 
-"use client"; //this is a client side component
+"use client"; 
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Product } from "@/app/models/ui/Product";
@@ -20,8 +20,28 @@ export const productSlice = createSlice({
   initialState,
   reducers: {
     addProduct: (state, action: PayloadAction<Product>) => {
-      state.products.push(action.payload);
+      const newProduct = action.payload;
+      const existingProduct = state.products.find(product => product.id === newProduct.id);
+      if (existingProduct) {
+        existingProduct.quantity = (existingProduct.quantity || 0) + 1;
+      } else {
+        state.products.push({ ...newProduct, quantity: 1 });
+      }
     },
+    increaseQuantity: (state, action: PayloadAction<number>) => {
+     const existingProduct = state.products.find(product => product.id === action.payload);
+     if (existingProduct) {
+       existingProduct.quantity = (existingProduct.quantity || 0) + 1;
+     }    
+
+      
+    },
+    decreaseQuantity: (state, action: PayloadAction<number>) => {
+      const existingProduct = state.products.find(product => product.id === action.payload);
+      if (existingProduct && existingProduct.quantity !== undefined && existingProduct.quantity >= 1) {
+        existingProduct.quantity = (existingProduct.quantity || 0) - 1;
+      }
+    },    
     removeProduct: (state, action: PayloadAction<Product>) => {
       state.products = state.products.filter(
         (product) => product.id !== action.payload.id,
@@ -30,6 +50,6 @@ export const productSlice = createSlice({
   },
 });
 
-export const { addProduct, removeProduct } = productSlice.actions;
+export const { addProduct, removeProduct,increaseQuantity,decreaseQuantity } = productSlice.actions;
 
 export default productSlice.reducer;
