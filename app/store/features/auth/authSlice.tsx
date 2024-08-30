@@ -9,7 +9,6 @@ interface User {
   last_name: string;
   phone_number: string;
 }
-
 interface AuthState {
   user: User | null;
 }

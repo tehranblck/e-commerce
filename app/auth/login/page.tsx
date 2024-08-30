@@ -59,6 +59,10 @@ const Login = () => {
       const userProfile = await profileResponse.json();
       dispatch(setUser(userProfile));
       setCookie('userProfile', JSON.stringify(userProfile), { maxAge: 60 * 60 * 24 * 7 });
+      console.log(data.token,'data.token');
+      
+      setCookie('userToken', JSON.stringify(data.token), { maxAge: 60 * 60 * 24 * 7 });
+
 
       toast.success("Daxil oldunuz!", {
         position: "top-right",

@@ -52,20 +52,20 @@ const ProductDetail = ({ params }: { params: { id: number } }) => {
   const handleAddProduct = () => {
     if (pubgId === "") {
       toast.error("Pubg ID sahəsi boş ola bilməz", {
-        position: "top-right",
+        position: "top-left",
       });
     } else {
       if (cartProduct) {
         // If the product already exists in the cart, increase its quantity
         dispatch(increaseQuantity(product.id));
         toast.success("Product miqdarı artırıldı", {
-          position: "top-right",
+          position: "top-left",
         });
       } else {
         // If the product does not exist in the cart, add it
         dispatch(addProduct({ ...product, quantity: 1 }));
         toast.success("Product səbətə əlavə edildi", {
-          position: "top-right",
+          position: "top-left",
         });
       }
     }
