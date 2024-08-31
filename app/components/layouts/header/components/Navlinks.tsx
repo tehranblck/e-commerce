@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import InfoIcon from "@mui/icons-material/Info";
 import CallIcon from "@mui/icons-material/Call";
 import RuleIcon from "@mui/icons-material/Rule";
@@ -10,10 +10,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import PhoneIcon from "@mui/icons-material/Phone";
 
-const Navlinks = () => {
-  const [openMobileMenu, setOpenMobileMenu] = useState(false);
+const Navlinks: React.FC = () => {
+  const [openMobileMenu, setOpenMobileMenu] = useState<boolean>(false);
+  const menuRef = useRef<HTMLUListElement>(null);
 
-  const hanfleOpenMobileMenu = () => {
+  const handleOpenMobileMenu = () => {
     setOpenMobileMenu(true);
     console.log("open mobile menu");
   };
@@ -21,6 +22,25 @@ const Navlinks = () => {
   const handleCloseMobileMenu = () => {
     setOpenMobileMenu(false);
     console.log("close mobile menu");
+  };
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      handleCloseMobileMenu();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleLinkClick = () => {
+    if (openMobileMenu) {
+      handleCloseMobileMenu();
+    }
   };
 
   const links = [
@@ -74,17 +94,18 @@ const Navlinks = () => {
       </ul>
 
       {/* Mobile */}
-      <div className="xl:hidden">
-        <button type="button" onClick={hanfleOpenMobileMenu}>
+      <div className="xl:hidden ">
+        <button type="button" onClick={handleOpenMobileMenu}>
           <MenuIcon className="text-[#fff]" />
         </button>
 
         <ul
+          ref={menuRef}
           className={`${
             openMobileMenu
               ? "translate-x-0 opacity-100"
               : "-translate-x-full opacity-0"
-          } transform transition-transform duration-300 ease-in absolute flex flex-col space-y-4  top-0 h-[500px] w-[300px] md:w-[400px] left-0 border-r-[2px] border-b-[2px] border-[#221f1f] bg-[#181818] text-black pt-10 justify-between rounded-br-lg`}
+          } transform z-50 transition-transform duration-300 ease-in absolute flex flex-col space-y-4  top-0 h-[500px] w-[300px] md:w-[400px] left-0 border-r-[2px] border-b-[2px] border-[#221f1f] bg-[#181818] text-black pt-10 justify-between rounded-br-lg`}
         >
           <div className="text-end">
             <button
@@ -99,7 +120,11 @@ const Navlinks = () => {
           {links.map((link) => (
             <div key={link.id}>
               <li className="flex items-center text-[#fff]">
-                <Link href={link.link} className="flex items-center pb-4 pl-2">
+                <Link
+                  href={link.link}
+                  className="flex items-center pb-4 pl-2"
+                  onClick={handleLinkClick}
+                >
                   <div className="hover:bg-yellow-500 px-2 hover:text-black rounded-full transition-all duration-500 whitespace-nowrap ">
                     <span className="mr-2">{link.icon}</span>
                     <span className="text-[16px]">{link.title}</span>
