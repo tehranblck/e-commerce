@@ -3,7 +3,7 @@ import React from "react";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Image from "next/image";
-import Logo from "../../../../../public/assets/svg/MS.svg";
+import Logo from "../../../../../public/assets/images/MUSLIMANSHOP-LOGO.png";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 
@@ -15,8 +15,8 @@ const Navbar = () => {
         <span>
           <Image
             src={Logo}
-            width={120}
-            height={120}
+            width={220}
+            height={220}
             className="text-yellow-600 "
             alt="logo"
           />
