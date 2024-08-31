@@ -63,7 +63,7 @@ const ProductDetail = ({ params }: { params: { id: number } }) => {
         });
       } else {
         // If the product does not exist in the cart, add it
-        dispatch(addProduct({ ...product, quantity: 1 }));
+        dispatch(addProduct({ ...product, quantity: 1, pubgId }));
         toast.success("Product səbətə əlavə edildi", {
           position: "top-left",
         });

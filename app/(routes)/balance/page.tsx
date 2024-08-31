@@ -60,6 +60,7 @@ const BalanceComponent = () => {
     }
 
     setIsSubmitting(true);
+    
 
     const formData = {
       receipt_image: selectedFile,
