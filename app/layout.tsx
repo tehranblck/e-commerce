@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Providers } from "./store/provider";
 const inter = Inter({ subsets: ["latin"] });
+import Footer from "./components/layouts/footer/Footer";
 
 export const metadata: Metadata = {
   title: "Shop",
@@ -23,6 +24,7 @@ export default function RootLayout({
         <Providers>
           <Header />
           {children}
+          <Footer />
         </Providers>
         <ToastContainer />
       </body>

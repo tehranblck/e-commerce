@@ -9,6 +9,7 @@ import Link from "next/link";
 import { getCookie } from "cookies-next";
 import { toast } from "react-toastify";
 import { setUser } from "@/app/store/features/auth/authSlice";
+import FutureCard from "@/app/components/ui/shared/FutureCard";
 
 const ShoppingCart = () => {
   const products = useSelector(
@@ -102,7 +103,7 @@ const ShoppingCart = () => {
 
   return (
     <section className="bg-[#121212] py-6">
-      <div className=" flex items-center justify-center w-full">
+      <div className=" flex items-center justify-center w-full pt-[190px]  lg:pt-[130px]">
         <h1 className="text-[42px] text-[#fff]">Səbət</h1>
       </div>
 
@@ -162,13 +163,13 @@ const ShoppingCart = () => {
               </tbody>
             </table>
           ) : (
-            <div className="flex text-xl text-white py-4 items-center w-full justify-center ">
+            <div className="flex text-xl text-white py-4 items-center w-full justify-center pb-24 ">
               Səbət Boşdur!
             </div>
           )}
         </div>
         {products.length > 0 && (
-          <div className="text-[#fff] bg-[#1E201E] px-10  rounded-md py-5 md:h-[200px] w-full md:w-[370px] mt-4 lg:mt-0 flex flex-col items-center justify-between ">
+          <div className="text-[#fff] bg-[#1E201E] px-10 mb-5 lg:mb-10  rounded-md py-5 md:h-[200px] w-full md:w-[370px] mt-4 lg:mt-0 flex flex-col items-center justify-between ">
             <div className="flex items-center justify-center">
               <h2 className="text-xl text-indigo-500 pb-4 ">Səbət İcmalı</h2>
             </div>
@@ -223,6 +224,9 @@ const ShoppingCart = () => {
           </div>
         )}
       </div>
+
+      <FutureCard />
+
     </section>
   );
 };

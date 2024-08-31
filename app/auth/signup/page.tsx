@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import { UserRegister } from "@/app/models/auth/userregister";
+import { UserRegister } from "@/app/models/auth/UserRegister";
 import useSWR from "swr";
 import { ToastContainer, toast } from 'react-toastify';
 import { useRouter } from "next/navigation";
@@ -87,7 +87,7 @@ const SignUp = () => {
   };
   return (
     <section className="bg-black">
-      <div className="flex justify-center py-8 px-4">
+      <div className="flex justify-center py-8 px-4 pt-[220px] lg:pt-[150px]">
         <form
           action=""
           className="w-[500px] bg-[#151515] rounded-lg p-8 mt-4"

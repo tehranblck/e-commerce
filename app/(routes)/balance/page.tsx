@@ -105,7 +105,7 @@ const BalanceComponent = () => {
       }
   };
   return (
-    <section className="bg-[#121212] py-6">
+    <section className="bg-[#121212] py-6 pt-[200px] lg:pt-[150px]">
       <div className="max-w-[1280px] mx-auto">
         <div className=" flex items-center justify-center w-full mb-4">
           <h1 className="text-[42px] text-[#fff]">Balans</h1>

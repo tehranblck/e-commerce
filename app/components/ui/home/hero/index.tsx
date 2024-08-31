@@ -6,7 +6,7 @@ import ElectroImage from "../../../../../public/assets/images/electro-image.png"
 
 const Hero = () => {
   return (
-    <section className="bg-black py-6 h-[100vh] lg:h-full">
+    <section className="bg-black py-6  lg:h-full">
       <div className="flex flex-col space-y-4 h-full lg:space-y-0 lg:flex-row items-center justify-center lg:justify-between max-w-[1280px] mx-auto text-[#fff] py-2 lg:px-2 lg:space-x-3">
         <div className="text-[#000] ">
           <Image
@@ -17,6 +17,7 @@ const Hero = () => {
             alt="ss"
           />
         </div>
+        
         <div>
           <div className="flex flex-col lg:justify-between space-y-4 lg:space-y-0 h-[370px] items-stretch">
             <Image  

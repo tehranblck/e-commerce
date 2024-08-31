@@ -10,9 +10,9 @@ import { useSelector } from "react-redux";
 const Navbar = () => {
   const products = useSelector((state: any) => state.product.products);
   return (
-    <nav className=" bg-[#151515] px-4 xl:px-0">
-      <div className="flex items-center justify-between max-w-[1280px] mx-auto text-[#fff] py-2">
-        <span>
+    <nav className=" bg-[#151515] px-4 xl:px-0 ">
+      <div className="flex items-center justify-between max-w-[1280px] lg:h-[70px] mx-auto text-[#fff] py-2">
+        <Link href={'/'}>
           <Image
             src={Logo}
             width={220}
@@ -20,7 +20,7 @@ const Navbar = () => {
             className="text-yellow-600 "
             alt="logo"
           />
-        </span>
+        </Link>
         <div className="sm:space-x-4 flex flex-col space-y-2 sm:space-y-0 sm:flex-row">
           <Link
             href={"/balance"}
