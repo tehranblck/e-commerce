@@ -17,6 +17,7 @@ const SignUp = () => {
     password: "",
     password2: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false); // Added isSubmitting state
 
   const fetcher = async (url: string, formData: UserRegister) => {
     const res = await fetch(url, {
@@ -41,7 +42,7 @@ const SignUp = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     if (!name || !lastName || !phoneNumber || !email || !password.password || !password.password2) {
       toast.error("Bütün sahələr doldurulmalıdır.", { position: "top-right" });
       return;
@@ -66,25 +67,26 @@ const SignUp = () => {
       password2: password.password2,
     } as UserRegister;
 
+    setIsSubmitting(true); // Start loading
+
     try {
-        const data = await fetcher(
-          "https://api.muslimanshop.com/api/user/register/",
-          formData,
-        );
-         toast.success("Qeydiyyat uğurla tamamlandı! Zəhmət olmasa giriş edin.", {
-          position: "top-right",
-        });
-        router.push("/auth/login");
-
-      
-
-    } catch (error) {
-      toast.error(`istifadəçi artıq mövcuddur.`, {
+      const data = await fetcher(
+        "https://api.muslimanshop.com/api/user/register/",
+        formData,
+      );
+      toast.success("Qeydiyyat uğurla tamamlandı! Zəhmət olmasa giriş edin.", {
         position: "top-right",
       });
+      router.push("/auth/login");
+    } catch (error) {
+      toast.error(`İstifadəçi artıq mövcuddur.`, {
+        position: "top-right",
+      });
+    } finally {
+      setIsSubmitting(false); // Stop loading
     }
-    console.log(formData);
   };
+
   return (
     <section className="bg-black">
       <div className="flex justify-center py-8 px-4 pt-[220px] lg:pt-[150px]">
@@ -93,7 +95,7 @@ const SignUp = () => {
           className="w-[500px] bg-[#151515] rounded-lg p-8 mt-4"
           onSubmit={handleSubmit}
         >
-          <div className=" text-white flex flex-col justify-center items-center mb-6">
+          <div className="text-white flex flex-col justify-center items-center mb-6">
             <h1 className="font-bold text-[32px]">Daxil Ol</h1>
             <p>Məlumatları daxil edin</p>
           </div>
@@ -105,7 +107,7 @@ const SignUp = () => {
               }
               type="text"
               placeholder="Ad"
-              className="border-[2px]  py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
+              className="border-[2px] py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
             />
             <input
               value={lastName}
@@ -114,7 +116,7 @@ const SignUp = () => {
               }
               type="text"
               placeholder="Soyad"
-              className="border-[2px]  py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
+              className="border-[2px] py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
             />
             <input
               value={email}
@@ -123,7 +125,7 @@ const SignUp = () => {
               }
               type="email"
               placeholder="Email Asdresi"
-              className="border-[2px]  py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
+              className="border-[2px] py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
             />
             <input
               value={phoneNumber}
@@ -132,7 +134,7 @@ const SignUp = () => {
               }
               type="text"
               placeholder="Telefon Nömrəsi"
-              className="border-[3px]  py-2 rounded-md outline-none  pl-2 focus:border-yellow-500"
+              className="border-[3px] py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
             />
             <input
               value={password.password}
@@ -144,7 +146,7 @@ const SignUp = () => {
               }
               type="password"
               placeholder="Şifrə"
-              className="border-[3px]  py-2 rounded-md outline-none  pl-2 focus:border-yellow-500"
+              className="border-[3px] py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
             />
             <input
               value={password.password2}
@@ -156,7 +158,7 @@ const SignUp = () => {
               }
               type="password"
               placeholder="Təkrar Şifrə"
-              className="border-[3px]  py-2 rounded-md outline-none  pl-2 focus:border-yellow-500"
+              className="border-[3px] py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
             />
           </div>
           <div className="w-full text-end mt-6">
@@ -167,17 +169,44 @@ const SignUp = () => {
               Şifrəni Unutmuşam
             </Link>
           </div>
-          <div className="flex flex-col items-center justify-center w-full mt-4 ">
+          <div className="flex flex-col items-center justify-center w-full mt-4">
             <button
               type="submit"
-              className="align-center text-center text-white text-[18px] font-bold transition-all duration-300 hover:opacity-85 bg-indigo-700 w-full rounded-md py-4"
+              className={`align-center text-center text-white text-[18px] font-bold transition-all duration-300 hover:opacity-85 bg-indigo-700 w-full rounded-md py-4 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+              disabled={isSubmitting} // Disable button when submitting
             >
-              Qeydiyyatdan keç
+              {isSubmitting ? (
+                <span className="flex items-center justify-center">
+                  <svg
+                    className="w-5 h-5 mr-3 animate-spin"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v2a6 6 0 00-6 6h2z"
+                    ></path>
+                  </svg>
+                  Yüklənir...
+                </span>
+              ) : (
+                "Qeydiyyatdan keç"
+              )}
             </button>
             <span className="text-white mt-6 mb-4">Artıq hesabınız var?</span>
             <Link
               href={"/auth/login"}
-              className="align-center text-center text-[18px] font-bold transition-all duration-300 text-[#fff] bg-indigo-700 opacity-45 hover:opacity-100 w-full rounded-md py-4 "
+              className="align-center text-center text-[18px] font-bold transition-all duration-300 text-[#fff] bg-indigo-700 opacity-45 hover:opacity-100 w-full rounded-md py-4"
             >
               Daxil ol
             </Link>

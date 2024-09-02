@@ -48,7 +48,7 @@ const ForgotPassword = () => {
 
   return (
     <section className="bg-black">
-      <div className="flex justify-center py-8 px-4">
+      <div className="flex justify-center py-8 px-4 pt-[200px] lg:pt-[140px]">
         <form
           className="w-[500px] bg-[#151515] rounded-lg p-8 mt-4"
           onSubmit={handleSubmit}

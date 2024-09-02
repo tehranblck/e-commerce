@@ -7,15 +7,17 @@ import { useDispatch } from "react-redux";
 import { setUser } from "@/app/store/features/auth/authSlice";
 import { setCookie } from 'cookies-next';
 
-
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false); // Added isSubmitting state
   const router = useRouter();
   const dispatch = useDispatch();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    setIsSubmitting(true); // Start loading
 
     const loginData = {
       email,
@@ -31,7 +33,7 @@ const Login = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(loginData),
-        },
+        }
       );
 
       if (!response.ok) {
@@ -49,7 +51,7 @@ const Login = () => {
           headers: {
             Authorization: data.token,
           },
-        },
+        }
       );
 
       if (!profileResponse.ok) {
@@ -59,10 +61,9 @@ const Login = () => {
       const userProfile = await profileResponse.json();
       dispatch(setUser(userProfile));
       setCookie('userProfile', JSON.stringify(userProfile), { maxAge: 60 * 60 * 24 * 7 });
-      console.log(data.token,'data.token');
+      console.log(data.token, 'data.token');
       
       setCookie('userToken', JSON.stringify(data.token), { maxAge: 60 * 60 * 24 * 7 });
-
 
       toast.success("Daxil oldunuz!", {
         position: "top-right",
@@ -74,6 +75,8 @@ const Login = () => {
       toast.error(`İstifadəçi adı və ya parol səhvdir.`, {
         position: "top-right",
       });
+    } finally {
+      setIsSubmitting(false); // Stop loading
     }
   };
 
@@ -95,6 +98,7 @@ const Login = () => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setEmail(e.target.value)
               }
+              required
               placeholder="Email Asdresi"
               className="border-[2px] py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
             />
@@ -104,6 +108,7 @@ const Login = () => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setPassword(e.target.value)
               }
+              required
               placeholder="Şifrə"
               className="border-[3px] py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
             />
@@ -119,9 +124,36 @@ const Login = () => {
           <div className="flex flex-col items-center justify-center w-full mt-4">
             <button
               type="submit"
-              className="align-center text-center text-white text-[18px] font-bold transition-all duration-300 hover:opacity-85 bg-indigo-700 w-full rounded-md py-4"
+              className={`align-center text-center text-white text-[18px] font-bold transition-all duration-300 hover:opacity-85 bg-indigo-700 w-full rounded-md py-4 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+              disabled={isSubmitting} // Disable button when submitting
             >
-              Daxil Ol
+              {isSubmitting ? (
+                <span className="flex items-center justify-center">
+                  <svg
+                    className="w-5 h-5 mr-3 animate-spin"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v2a6 6 0 00-6 6h2z"
+                    ></path>
+                  </svg>
+                  Yüklənir...
+                </span>
+              ) : (
+                "Daxil Ol"
+              )}
             </button>
             <span className="text-white mt-6 mb-4">
               Hələ də hesabınız yoxdur?

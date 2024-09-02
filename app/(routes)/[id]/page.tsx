@@ -45,8 +45,14 @@ const ProductDetail = ({ params }: { params: { id: number } }) => {
   }, [params.id]);
 
   if (!product) {
-    return <Loading />;
+    return (
+      <div className="flex justify-center items-center pt-40 w-full bg-[#181818]">
+        <Loading />
+      </div>
+    );
   }
+
+  console.log(product, "product");
 
   const cartProduct = products.find((item: Product) => item.id === product.id);
 
@@ -111,7 +117,11 @@ const ProductDetail = ({ params }: { params: { id: number } }) => {
                   className={`${
                     !pubgId ? "border-[1px] border-red-500" : ""
                   } w-full rounded-md border-[1px] border-[#282828] bg-[#1e1e1e] border-blue- p-2`}
-                  placeholder="Pubg ID *"
+                  placeholder={
+                    product.type == "Pubg Mobile"
+                      ? `Pubg ID *`
+                      : "Mobil nömrə *"
+                  }
                   value={pubgId}
                   onChange={(e) => setPubgId(e.target.value.trim())}
                 />
