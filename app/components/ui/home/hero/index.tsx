@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import BalansImage from "../../../../../public/assets/images/balans.png";
 import SecureImage from "../../../../../public/assets/images/secure-post.png";
-import ElectroImage from "../../../../../public/assets/images/electro-image.png";
+import ElectroImage from "../../../../../public/assets/images/electro-sec.png";
 
 const Hero = () => {
   return (
