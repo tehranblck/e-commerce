@@ -64,7 +64,7 @@ const ForgotPassword = () => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setEmail(e.target.value)
               }
-              placeholder="Email Adresi"
+              placeholder="Email Adresi *"
               required
               className="border-[2px] py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
             />

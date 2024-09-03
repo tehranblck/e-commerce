@@ -99,7 +99,7 @@ const Login = () => {
                 setEmail(e.target.value)
               }
               required
-              placeholder="Email Asdresi"
+              placeholder="Email Addresi *"
               className="border-[2px] py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
             />
             <input
@@ -109,7 +109,7 @@ const Login = () => {
                 setPassword(e.target.value)
               }
               required
-              placeholder="Şifrə"
+              placeholder="Şifrə *"
               className="border-[3px] py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
             />
           </div>

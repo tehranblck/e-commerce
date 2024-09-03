@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import { UserRegister } from "@/app/models/auth/userregister";
+import { UserRegister } from "@/app/models/auth/UserRegister";
 import useSWR from "swr";
 import { ToastContainer, toast } from 'react-toastify';
 import { useRouter } from "next/navigation";
@@ -161,14 +161,14 @@ const SignUp = () => {
               className="border-[3px] py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
             />
           </div>
-          <div className="w-full text-end mt-6">
+          {/* <div className="w-full text-end mt-6">
             <Link
               href={"/forgot"}
               className="text-white text-[14px] underline cursor-pointer"
             >
               Şifrəni Unutmuşam
             </Link>
-          </div>
+          </div> */}
           <div className="flex flex-col items-center justify-center w-full mt-4">
             <button
               type="submit"
