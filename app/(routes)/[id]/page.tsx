@@ -57,19 +57,22 @@ const ProductDetail = ({ params }: { params: { id: number } }) => {
   const cartProduct = products.find((item: Product) => item.id === product.id);
 
   const handleAddProduct = () => {
-    if (pubgId === "") {
+    if (product.type=="Pubg Mobile" && pubgId === "") {
       toast.error("Pubg ID sahəsi boş ola bilməz", {
+        position: "top-left",
+      });
+    }
+    else if(product.type!=="Pubg Mobile" && pubgId === ""){
+      toast.error("Mobil nömrə sahəsi boş ola bilməz", {
         position: "top-left",
       });
     } else {
       if (cartProduct) {
-        // If the product already exists in the cart, increase its quantity
         dispatch(increaseQuantity(product.id));
         toast.success("Product miqdarı artırıldı", {
           position: "top-left",
         });
       } else {
-        // If the product does not exist in the cart, add it
         dispatch(addProduct({ ...product, quantity: 1, pubgId }));
         toast.success("Product səbətə əlavə edildi", {
           position: "top-left",

@@ -29,6 +29,7 @@ type Props = {
 }
 
 export default function BasicPagination({ count, page, onChange }: Props) {
+
   return (
     <Stack spacing={2} className="text-white">
       <ThemeProvider theme={theme}>
