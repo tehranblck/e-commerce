@@ -150,7 +150,7 @@ const BalanceComponent = () => {
                   </div>
                   <div className="flex items-start justify-start flex-col  text-white">
                     <span className="font-600">Kart nomresi</span>
-                    <span className="text-[#646464] text-sm">54454450540</span>
+                    <span className="text-[#646464] text-sm">4169738824267854</span>
                   </div>
                 </div>
               </div>
@@ -173,9 +173,9 @@ const BalanceComponent = () => {
                     <span className="text-[#646464] text-sm">M10</span>
                   </div>
                   <div className="flex items-start justify-start flex-col  text-white">
-                    <span className="font-600">M10 nomresi</span>
+                    <span className="font-600">M10 nömrəsi</span>
                     <span className="text-[#646464] text-sm">
-                      +994505050041
+                     (+994) 50 658 26 16
                     </span>
                   </div>
                 </div>

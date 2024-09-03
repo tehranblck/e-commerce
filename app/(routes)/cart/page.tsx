@@ -3,13 +3,14 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Product } from "@/app/models/ui/Product";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { removeProduct, increaseQuantity,decreaseQuantity } from "@/app/store/features/product/productSlice";
+import { removeProduct } from "@/app/store/features/product/productSlice";
 import { RootState } from "@/app/store/store";
 import Link from "next/link";
 import { getCookie } from "cookies-next";
 import { toast } from "react-toastify";
 import { setUser } from "@/app/store/features/auth/authSlice";
 import FutureCard from "@/app/components/ui/shared/FutureCard";
+import Image from "next/image";
 
 const ShoppingCart = () => {
   const products = useSelector(
@@ -101,8 +102,6 @@ const ShoppingCart = () => {
     }
   };
 
-  
-
   return (
     <section className="bg-[#121212] py-6">
       <div className=" flex items-center justify-center w-full pt-[190px]  lg:pt-[130px]">
@@ -114,9 +113,9 @@ const ShoppingCart = () => {
           products.length > 0 ? "justify-between" : "justify-center"
         } flex flex-col lg:flex-row  max-w-[1280px] mx-auto pt-10 border-none px-2 space-x-0 lg:space-x-1`}
       >
-        <div className="overflow-x-auto w-full xl:w-[800px] rounded-md mb-2 lg:mb-8">
+        <div className="overflow-x-auto w-full xl:w-[800px] rounded-md">
           {products.length > 0 ? (
-            <table className="min-w-full bg-[#1E201E] border-none">
+            <table className="min-w-full bg-[#1E201E] border-none mb-2 lg:mb-10 ">
               <thead className="bg-black text-white">
                 <tr>
                   <th className="w-1/4 py-3 px-6 text-left ">Məhsul</th>
@@ -135,7 +134,7 @@ const ShoppingCart = () => {
                   >
                     <td className="py-4 px-6 ">
                       <div className="flex items-center">
-                        <img
+                        <Image
                           src={product.image}
                           alt={product.title}
                           width={50}
@@ -150,12 +149,7 @@ const ShoppingCart = () => {
                     <td className="py-3 px-6">
                       {product.price.toFixed(2)} AZN
                     </td>
-                    <td className="py-3 px-6 ">
-                    <button className="bg-yellow-500 text-white w-8 rounded-sm font-bold" onClick={()=> (product.quantity ?? 0) <= 1 ? dispatch(removeProduct(product)) : dispatch(decreaseQuantity(product.id))}>-</button>
-                     <span className="px-2">{product.quantity}</span> 
-                     <button  className="bg-yellow-500 text-white w-8 rounded-sm font-bold" onClick={()=>dispatch(increaseQuantity(product.id))}>+</button>
-                      
-                      </td>
+                    <td className="py-3 px-6">{product.quantity}</td>
                     <td className="py-3 px-6">
                       {calculateSingleProductTotalPrice(product).toFixed(2)} Azn
                     </td>

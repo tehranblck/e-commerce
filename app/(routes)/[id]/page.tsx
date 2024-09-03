@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import { Product } from "@/app/models/ui/Product";
 import Link from "next/link";
@@ -13,6 +12,7 @@ import {
 } from "@/app/store/features/product/productSlice";
 import { toast } from "react-toastify";
 import Loading from "@/app/components/ui/shared/Loading";
+import Image from "next/image";
 
 const ProductDetail = ({ params }: { params: { id: number } }) => {
   const [product, setProduct] = useState<Product | null>(null);
@@ -94,9 +94,11 @@ const ProductDetail = ({ params }: { params: { id: number } }) => {
       <div className="flex justify-center items-center text-[#fff] mx-2 px-2">
         <div className="bg-[#181818] py-10 px-6 rounded-md">
           <div className="flex sm:w-[300px] md:w-[400px] lg:w-[500px] xl:w-full flex-col xl:flex-row justify-between xl:space-x-4">
-            <img
+            <Image
+              width={350}
+              height={150}
               src={product.image}
-              className="xl:w-[500px] xl:[350px] rounded-md"
+              className="w-full rounded-md"
               alt=""
             />
 
