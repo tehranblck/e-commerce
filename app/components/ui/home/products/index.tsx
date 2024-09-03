@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+
+import React, { useState, useEffect } from "react";
 import InformationBar from "../../shared/InformationBar";
 import { Product } from "@/app/models/ui/Product";
 import ProductCard from "../../shared/ProductCard";
@@ -12,7 +13,6 @@ const Products = ({ isInforBarVisible }: { isInforBarVisible: boolean }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
 
-  const productsRef = useRef<HTMLDivElement>(null);
   const fetchProducts = async (page: number) => {
     const res = await fetch(
       `https://api.muslimanshop.com/api/products/?page=${page}&page_size=10`,
@@ -32,13 +32,6 @@ const Products = ({ isInforBarVisible }: { isInforBarVisible: boolean }) => {
     fetchProducts(currentPage);
   }, [currentPage]);
 
-  // Scroll to the top of the products container when the page changes
-  useEffect(() => {
-    if (productsRef.current) {
-      productsRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [currentPage]);
-
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
     value: number,
@@ -53,20 +46,16 @@ const Products = ({ isInforBarVisible }: { isInforBarVisible: boolean }) => {
       </div>
     );
   }
-
   return (
     <section className="bg-[#121212] py-6">
       <div className="flex flex-col max-w-[1280px] mx-auto px-2">
         {isInforBarVisible && <InformationBar title="Məhsullar" />}
-        
-     
-        <div ref={productsRef} className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 place-items-center mt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 place-items-center mt-4">
           {products &&
             products.results.map((product: Product) => (
               <ProductCard key={product.id} productData={product} />
             ))}
         </div>
-        
         <div className="flex items-center justify-center pt-8">
           <BasicPagination
             count={totalPages}
