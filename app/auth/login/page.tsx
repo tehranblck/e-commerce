@@ -17,7 +17,7 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setIsSubmitting(true); // Start loading
+    setIsSubmitting(true); 
 
     const loginData = {
       email,

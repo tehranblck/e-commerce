@@ -4,6 +4,7 @@ import { Product } from "@/app/models/ui/Product";
 import ProductCard from "../../shared/ProductCard";
 import BasicPagination from "../../shared/Pagination"; // This is now client-side
 import Loading from "../../shared/Loading";
+import ProductList from "../../shared/ProductList";
 
 const Products = async ({
   searchParams,
@@ -32,6 +33,7 @@ const Products = async ({
   }
 
   const products = await fetchProduct(currentPage);
+
   if (!products) {
     return (
       <div>
@@ -40,16 +42,19 @@ const Products = async ({
     );
   }
 
-  const totalPages = Math.floor(products.count / 10 + 1) || 1;
+  const totalPages = Math.ceil(products.count / 10);
+  console.log(products, "products");
+
   return (
     <section className="bg-[#121212] py-6">
       <div className="flex flex-col max-w-[1280px] mx-auto px-2">
         {isInforBarVisible && <InformationBar title="Məhsullar" />}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 place-items-center mt-4">
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 place-items-center gap- mt-4">
           {products.results.map((product: Product) => (
             <ProductCard key={product.id} productData={product} />
           ))}
-        </div>
+        </div> */}
+        <ProductList products={products.results}/>
         <div className="flex items-center justify-center pt-8">
           <BasicPagination count={totalPages} page={currentPage} />
         </div>
