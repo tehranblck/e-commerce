@@ -12,7 +12,7 @@ export default function Home({
     <main className="pt-[180px] lg:pt-[110px]">
       <Hero/>
       <FilteredProductsComponent/>
-      <Products isInforBarVisible={true} searchParams={searchParams}/>
+      <Products isInforBarVisible={true}/>
       <FutureCard/>
     </main>
   );
