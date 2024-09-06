@@ -24,10 +24,10 @@ const Footer = () => {
             <div className="flex flex-col space-y-2 ml-4">
               <h3 className="text-[#fff] text-lg">Əlaqə</h3>
               <p className="text-[#828282] text-sm">
-                Əlaqə nömrəsi: 055 555 55 55
+                Əlaqə nömrəsi: 051 896 56 54
               </p>
               <p className="text-[#828282] text-sm">
-                Email: Muslimanshop@gmail.com
+                Email: muslimanshop1@gmail.com
               </p>
             </div>
           </div>
