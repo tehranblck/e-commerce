@@ -1,11 +1,12 @@
+// components/ui/shared/BasicPagination.tsx
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const theme = createTheme({
   components: {
@@ -31,11 +32,18 @@ type Props = {
 export default function BasicPagination({ count, page }: Props) {
   const [currentPage, setCurrentPage] = useState<number>(page);
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const handlePageChange = (
-    event: React.ChangeEvent<unknown>,
-    value: number,
-  ) => {
+  useEffect(() => {
+    const pageParam = searchParams.get("page");
+    if (pageParam) {
+      setCurrentPage(parseInt(pageParam, 10));
+    } else {
+      setCurrentPage(1);
+    }
+  }, [searchParams]);
+
+  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
     router.push(`?page=${value}`);
   };

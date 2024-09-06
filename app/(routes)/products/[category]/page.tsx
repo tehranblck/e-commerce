@@ -20,9 +20,6 @@ const CategorizedProductComponent = () => {
           `https://api.muslimanshop.com/api/products?page=${page}&page_size=100`,
         );
         const data = await response.json();
-        console.log(data, "da");
-
-        // Filter products by category
         const filteredProducts = data.results.filter(
           (product: any) => product.type === category,
         );
@@ -48,7 +45,6 @@ const CategorizedProductComponent = () => {
       </div>
     );
   }
-  console.log(products, "a");
 
   return (
     <section className="bg-[#121212] ">
@@ -57,7 +53,7 @@ const CategorizedProductComponent = () => {
           <h1 className="text-[36px] text-white">
             <span className="text-yellow-500 uppercase italic font-bold">
               {category}
-            </span>{" "}
+            </span>
           </h1>
 
           <div className="">
