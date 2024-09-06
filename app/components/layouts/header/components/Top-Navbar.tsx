@@ -10,58 +10,42 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/app/store/store";
 import { setUser, clearUser } from "@/app/store/features/auth/authSlice";
 import { getCookie, deleteCookie } from "cookies-next";
+import { fetchUserProfile } from "@/app/services/auth/loginService";
+import { useLogout } from "@/app/hooks/useLogout";
 
 const TopNavbar = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
   const [balance, setBalance] = useState<number | null>(null);
+  const handleLogout = useLogout();
 
   useEffect(() => {
-    const fetchUserProfile = async (token: string) => {
+    const initializeUser = async () => {
       try {
-        const profileResponse = await fetch(
-          "https://api.muslimanshop.com/api/user/profile/",
-          {
-            method: "GET",
-            headers: {
-              Authorization: token,
-            },
-          },
-        );
+        const storedUser = getCookie("userProfile");
+        const userToken = getCookie("userToken");
 
-        if (!profileResponse.ok) {
-          throw new Error("Failed to fetch user profile");
+        if (storedUser && userToken) {
+          const parsedUser = JSON.parse(storedUser as string);
+          dispatch(setUser(parsedUser));
+          setBalance(parsedUser.balance);
+          const userProfile = await fetchUserProfile(
+            JSON.parse(userToken as string),
+          );
+          dispatch(setUser(userProfile));
+          setBalance(userProfile.balance);
         }
-
-        const userProfile = await profileResponse.json();
-        dispatch(setUser(userProfile));
-        setBalance(userProfile.balance);
       } catch (error) {
-        console.error("Error fetching user profile:", error);
+        console.error("Error initializing user:", error);
       }
     };
 
     if (!user) {
-      const storedUser = getCookie("userProfile");
-      const userToken = getCookie("userToken");
-
-      if (storedUser && userToken) {
-        const parsedUser = JSON.parse(storedUser as string);
-        dispatch(setUser(parsedUser));
-        setBalance(parsedUser.balance);
-        fetchUserProfile(JSON.parse(userToken as string));
-      }
+      initializeUser();
     } else {
       setBalance(parseFloat(user.balance));
     }
   }, [dispatch, user]);
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    dispatch(clearUser());
-    deleteCookie("userProfile");
-    deleteCookie("userToken");
-  };
 
   return (
     <div className="bg-[#1E201E] px-4">

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { sendResetPasswordEmail } from "@/app/services/auth/forgotPasswordService";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -20,21 +21,7 @@ const ForgotPassword = () => {
     };
 
     try {
-      const response = await fetch(
-        "https://api.muslimanshop.com/api/user/send-reset-password-email/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        },
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to send reset email");
-      }
+      await sendResetPasswordEmail(email);
 
       toast.success("Şifrə sıfırlama emaili göndərildi!", {
         position: "top-right",

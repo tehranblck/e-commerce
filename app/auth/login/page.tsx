@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/app/store/features/auth/authSlice";
-import { setCookie } from 'cookies-next';
+import { setCookie } from "cookies-next";
+import { loginUser, fetchUserProfile } from "@/app/services/auth/loginService";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -17,7 +18,7 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setIsSubmitting(true); 
+    setIsSubmitting(true);
 
     const loginData = {
       email,
@@ -25,50 +26,23 @@ const Login = () => {
     };
 
     try {
-      const response = await fetch(
-        "https://api.muslimanshop.com/api/user/login/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(loginData),
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Login failed");
-      }
-
-      const data = await response.json();
+      // Login the user
+      const data = await loginUser(loginData);
       localStorage.setItem("token", data.first_name);
 
-      const profileResponse = await fetch(
-        "https://api.muslimanshop.com/api/user/profile/",
-        {
-          method: "GET",
-          headers: {
-            Authorization: data.token,
-          },
-        }
-      );
-
-      if (!profileResponse.ok) {
-        throw new Error("Failed to fetch user profile");
-      }
-
-      const userProfile = await profileResponse.json();
+      // Fetch user profile
+      const userProfile = await fetchUserProfile(data.token);
       dispatch(setUser(userProfile));
-      setCookie('userProfile', JSON.stringify(userProfile), { maxAge: 60 * 60 * 24 * 7 });
-      console.log(data.token, 'data.token');
-      
-      setCookie('userToken', JSON.stringify(data.token), { maxAge: 60 * 60 * 24 * 7 });
 
-      toast.success("Daxil oldunuz!", {
-        position: "top-right",
+      // Set cookies for user profile and token
+      setCookie("userProfile", JSON.stringify(userProfile), {
+        maxAge: 60 * 60 * 24 * 7,
+      });
+      setCookie("userToken", JSON.stringify(data.token), {
+        maxAge: 60 * 60 * 24 * 7,
       });
 
+      toast.success("Daxil oldunuz!", { position: "top-right" });
       router.push("/");
     } catch (error) {
       console.error("Login error:", error);
@@ -76,7 +50,7 @@ const Login = () => {
         position: "top-right",
       });
     } finally {
-      setIsSubmitting(false); // Stop loading
+      setIsSubmitting(false);
     }
   };
 
@@ -124,7 +98,9 @@ const Login = () => {
           <div className="flex flex-col items-center justify-center w-full mt-4">
             <button
               type="submit"
-              className={`align-center text-center text-white text-[18px] font-bold transition-all duration-300 hover:opacity-85 bg-indigo-700 w-full rounded-md py-4 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`align-center text-center text-white text-[18px] font-bold transition-all duration-300 hover:opacity-85 bg-indigo-700 w-full rounded-md py-4 ${
+                isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+              }`}
               disabled={isSubmitting} // Disable button when submitting
             >
               {isSubmitting ? (

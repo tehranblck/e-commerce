@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import Loading from "@/app/components/ui/shared/Loading";
 import ProductList from "@/app/components/ui/shared/ProductList";
 import FutureCard from "@/app/components/ui/shared/FutureCard";
+import { fetchProductsByCategory } from "@/app/services/modules/categorizedProductsService";
 
 const CategorizedProductComponent = () => {
   const [page, setPage] = useState(1);
@@ -14,15 +15,12 @@ const CategorizedProductComponent = () => {
   const category = searchParams.get("category");
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await fetch(
-          `https://api.muslimanshop.com/api/products?page=${page}&page_size=100`,
-        );
-        const data = await response.json();
-        const filteredProducts = data.results.filter(
-          (product: any) => product.type === category,
+        const filteredProducts = await fetchProductsByCategory(
+          page,
+          category || "",
         );
         setProducts(filteredProducts);
       } catch (error) {
@@ -33,7 +31,7 @@ const CategorizedProductComponent = () => {
     };
 
     if (category) {
-      fetchProducts();
+      fetchData();
     } else {
       setLoading(false);
     }

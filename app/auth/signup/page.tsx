@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { UserRegister } from "@/app/models/auth/UserRegister";
 import useSWR from "swr";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
+import { registerUser } from "@/app/services/auth/signupService";
 
 const SignUp = () => {
   const router = useRouter();
@@ -43,13 +44,22 @@ const SignUp = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!name || !lastName || !phoneNumber || !email || !password.password || !password.password2) {
+    if (
+      !name ||
+      !lastName ||
+      !phoneNumber ||
+      !email ||
+      !password.password ||
+      !password.password2
+    ) {
       toast.error("Bütün sahələr doldurulmalıdır.", { position: "top-right" });
       return;
     }
 
     if (password.password.length < 8) {
-      toast.error("Parolda ən azı 8 simvol olmalıdır.", { position: "top-right" });
+      toast.error("Parolda ən azı 8 simvol olmalıdır.", {
+        position: "top-right",
+      });
       return;
     }
 
@@ -67,23 +77,20 @@ const SignUp = () => {
       password2: password.password2,
     } as UserRegister;
 
-    setIsSubmitting(true); // Start loading
+    setIsSubmitting(true); 
 
     try {
-      const data = await fetcher(
-        "https://api.muslimanshop.com/api/user/register/",
-        formData,
-      );
+      await registerUser(formData);
       toast.success("Qeydiyyat uğurla tamamlandı! Zəhmət olmasa giriş edin.", {
         position: "top-right",
       });
       router.push("/auth/login");
     } catch (error) {
-      toast.error(`İstifadəçi artıq mövcuddur.`, {
+      toast.error("İstifadəçi artıq mövcuddur.", {
         position: "top-right",
       });
     } finally {
-      setIsSubmitting(false); // Stop loading
+      setIsSubmitting(false);
     }
   };
 
@@ -172,7 +179,9 @@ const SignUp = () => {
           <div className="flex flex-col items-center justify-center w-full mt-4">
             <button
               type="submit"
-              className={`align-center text-center text-white text-[18px] font-bold transition-all duration-300 hover:opacity-85 bg-indigo-700 w-full rounded-md py-4 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`align-center text-center text-white text-[18px] font-bold transition-all duration-300 hover:opacity-85 bg-indigo-700 w-full rounded-md py-4 ${
+                isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+              }`}
               disabled={isSubmitting} // Disable button when submitting
             >
               {isSubmitting ? (

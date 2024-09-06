@@ -3,23 +3,9 @@ import Link from "next/link";
 import Loading from "@/app/components/ui/shared/Loading";
 import Image from "next/image";
 import SharedProduct from "@/app/components/ui/product/sharedproduct/SharedProduct";
+import { fetchProduct } from "@/app/services/modules/productdetail";
 
 const ProductDetail = async ({ params }: { params: { id: number } }) => {
-  async function fetchProduct(id: number) {
-    const res = await fetch(
-      `https://api.muslimanshop.com/api/products/${id}/`,
-      {
-        cache: "no-store",
-      },
-    );
-
-    if (!res.ok) {
-      throw new Error("Failed to fetch product");
-    }
-
-    return res.json();
-  }
-
   const product = await fetchProduct(params.id);
 
   if (!product) {

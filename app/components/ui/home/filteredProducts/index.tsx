@@ -17,10 +17,6 @@ import Link from "next/link";
 import CategorizedProductComponent from "@/app/(routes)/products/[category]/page";
 
 const FilteredProductsComponent = () => {
-  // Get category from searchParams
-
-  // const router = useRouter();
-
   const categorytTypes: CategoryType[] = [
     { id: 1, name: "spotify", image: spotify },
     { id: 2, name: "netflix", image: netflix },
