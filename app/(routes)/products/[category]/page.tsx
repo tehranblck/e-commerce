@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Loading from "@/app/components/ui/shared/Loading";
 import ProductList from "@/app/components/ui/shared/ProductList";
+import FutureCard from "@/app/components/ui/shared/FutureCard";
 
 const CategorizedProductComponent = () => {
   const [page, setPage] = useState(1);
@@ -65,6 +66,9 @@ const CategorizedProductComponent = () => {
               </p>
             )}
           </div>
+        </div>
+        <div>
+          <FutureCard />
         </div>
       </div>
     </section>

@@ -19,7 +19,8 @@ const ContactPage = () => {
                       <p className="text-[#fff] text-[26px]">
                         Əgər sualınız varsa, bizimlə əlaqə saxlayın.
                       </p>
-                      <p>Əlaqə nömrəsi: +994 505 5050 </p>
+                      <p>Əlaqə nömrəsi: +994 51 896 56 54</p>
+                      <p>Əlaqə nömrəsi: +994 60 595 15 35</p>
                       <p>Mail: Muslimanshop@gmail.com</p>
                     </div>
                   </div>
@@ -28,7 +29,6 @@ const ContactPage = () => {
             </div>
           </div>
         </div>
-
         <FutureCard />
       </div>
     </section>
