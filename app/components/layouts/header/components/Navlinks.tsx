@@ -16,12 +16,10 @@ const Navlinks: React.FC = () => {
 
   const handleOpenMobileMenu = () => {
     setOpenMobileMenu(true);
-    console.log("open mobile menu");
   };
 
   const handleCloseMobileMenu = () => {
     setOpenMobileMenu(false);
-    console.log("close mobile menu");
   };
 
   const handleClickOutside = (event: MouseEvent) => {

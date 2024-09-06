@@ -51,8 +51,6 @@ const IncreaseBalanceUserForm = () => {
     }
     if (!amount) {
       alert("Məbləğ daxil edin");
-      console.log("ok");
-
       return;
     }
 
