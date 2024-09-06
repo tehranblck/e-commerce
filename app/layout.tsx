@@ -9,6 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 import Footer from "./components/layouts/footer/Footer";
 import ScrollToTop from "./components/ui/shared/ScrollTop";
 import dynamic from "next/dynamic";
+import Script from "next/script";
 export const metadata: Metadata = {
   title: "MuslimanShop",
   description: "E-commerce Platform",
@@ -32,6 +33,23 @@ export default function RootLayout({
         <Providers>
           <DynamicHeader />
           {/* <ScrollToTop /> */}
+          <Script
+          id="tawk-to"
+          strategy="afterInteractive" // Load script after page is interactive
+          dangerouslySetInnerHTML={{
+            __html: `
+              var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+              (function(){
+                var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+                s1.async=true;
+                s1.src='https://embed.tawk.to/66db24d850c10f7a00a4dd1c/1i740frto';
+                s1.charset='UTF-8';
+                s1.setAttribute('crossorigin','*');
+                s0.parentNode.insertBefore(s1,s0);
+              })();
+            `,
+          }}
+        />
           {children}
           <DynamicFooter />
         </Providers>
