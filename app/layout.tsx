@@ -10,9 +10,11 @@ import Footer from "./components/layouts/footer/Footer";
 import ScrollToTop from "./components/ui/shared/ScrollTop";
 import dynamic from "next/dynamic";
 import Script from "next/script";
+
 export const metadata: Metadata = {
   title: "MuslimanShop",
   description: "E-commerce Platform",
+  themeColor: "#121212",
 };
 const DynamicHeader = dynamic(() => import('./components/layouts/header/Header'), {
   loading: () => <p>Loading...</p>,

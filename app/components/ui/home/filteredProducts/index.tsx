@@ -36,7 +36,7 @@ const FilteredProductsComponent = () => {
         <div className="px-2">
           <InformationBar title="Məhsul tipləri" />
         </div>
-        <div className="flex  flex-row md:flex-col md:space-y-2  justify-between mt-4 lg:space-y-2">
+        <div className="flex  flex-row md:flex-col md:space-y-2  justify-between mt-6 lg:space-y-2">
           <div className="flex flex-col md:flex-row space-y-2  space-x-0 md:space-y-0  md:space-x-2 m px-2 whitespace-nowrap">
             {categorytTypes.slice(0, 5).map((category: CategoryType) => {
               return (
