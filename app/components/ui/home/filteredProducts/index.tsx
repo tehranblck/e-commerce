@@ -32,23 +32,23 @@ const FilteredProductsComponent = () => {
 
   return (
     <section className="bg-[#121212] py-6 ">
-      <div className="max-w-[1280px] mx-auto">
+      <div className="max-w-[600px] md:max-w-[1280px] mx-auto">
         <div className="px-2">
           <InformationBar title="Məhsul tipləri" />
         </div>
-        <div className="flex flex-col mt-4 space-y-2">
-          <div className="flex px-2 space-x-2 w-full overflow-x-auto overflow-y-hidden xl:overflow-hidden whitespace-nowrap">
+        <div className="flex  flex-row md:flex-col md:space-y-2  justify-between mt-4 lg:space-y-2">
+          <div className="flex flex-col md:flex-row space-y-2  space-x-0 md:space-y-0  md:space-x-2 m px-2 whitespace-nowrap">
             {categorytTypes.slice(0, 5).map((category: CategoryType) => {
               return (
                 <Link
                   href={`/products/category?category=${category.name}`}
                   key={category.id}
-                  className="bg-[#1f1f1f]  min-w-[220px] w-[260px] lg:hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(75,0,130,0.6)] duration-300 transition-all ease-in-out cursor-pointer   h-[140px] rounded-md flex  items-center justify-center"
+                  className="bg-[#1f1f1f] px-8 w-full  lg:hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(75,0,130,0.6)] duration-300 transition-all ease-in-out cursor-pointer   h-[140px] rounded-md flex  items-center justify-center"
                 >
                   <Image
                     width={170}
                     height={50}
-                    className="px-2 lg:px-0"
+                    className=""
                     src={category.image}
                     alt={category.name}
                   />
@@ -56,18 +56,18 @@ const FilteredProductsComponent = () => {
               );
             })}
           </div>
-          <div className=" flex px-2 space-x-2 overflow-x-auto overflow-y-hidden xl:overflow-hidden whitespace-nowrap">
+          <div className="flex flex-col md:flex-row space-y-2  space-x-0 md:space-y-0  md:space-x-2 m px-2 whitespace-nowrap">
             {categorytTypes.slice(5, 10).map((category: CategoryType) => {
               return (
                 <Link
                   href={`/products/category?category=${category.name}`}
                   key={category.id}
-                  className="bg-[#1f1f1f]  min-w-[220px] w-[260px] lg:hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(75,0,130,0.6)] duration-300 transition-all ease-in-out cursor-pointer   h-[140px] rounded-md flex  items-center justify-center"
+                  className="bg-[#1f1f1f] px-8 w-full  lg:hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(75,0,130,0.6)] duration-300 transition-all ease-in-out cursor-pointer   h-[140px] rounded-md flex  items-center justify-center"
                 >
                   <Image
                     width={170}
                     height={50}
-                    className="px-2 lg:px-0"
+                    className=""
                     src={category.image}
                     alt={category.name}
                   />
