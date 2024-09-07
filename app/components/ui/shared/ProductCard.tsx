@@ -10,13 +10,13 @@ const ProductCard = ({ productData }: { productData: Product }) => {
 
   return (
     <Link href={`/${productData.id}`} className="md:mx-0 my-2 rounded-md">
-      <div className="bg-[#181818] h-full py-4 px-8 rounded-md lg:w-[240px] min-h-[280px]">
+      <div className="bg-[#181818] h-full py-4 px-8 rounded-md lg:w-[] ">
         <div className="overflow-hidden w-full h-full rounded-md transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(255,255,0,0.6)]">
           <Image
             width={350}
             height={150}
             src={productData.image}
-            className="w- h-full object-contain rounded-md  md:w-[200px] md:max-h-[180px] "
+            className="w- h-full object-contain rounded-md  md:w-[200px] max-h-[100px] sm:max-h-[140px] md:max-h-[180px] "
             alt={productData.title}
           />
         </div>

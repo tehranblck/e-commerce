@@ -7,34 +7,38 @@ import ElectroImage from "../../../../../public/assets/images/electro-sec.png";
 const Hero = () => {
   return (
     <section className="bg-black py-6  lg:h-full">
-      <div className="flex flex-col space-y-4 h-full lg:space-y-0 lg:flex-row items-center justify-center lg:justify-between max-w-[1280px] mx-auto text-[#fff] py-2 lg:px-2 lg:space-x-3">
-        <div className="text-[#000] ">
+      <div className="flex   h-full  px-4  flex-row items-center  lg:justify-between max-w-[1280px] mx-auto text-[#fff] py-2 lg:px-2 space-x-1 md:space-x-2">
+        <div className="text-[#000]">
           <Image
             src={ElectroImage}
-            className="w-[300px] h-[160px] md:w-[600px] md:h-[180px]  lg:w-[960px] lg:h-[370px] object-cover rounded-md "
-            width={0}
-            height={0}
+            className=" object-cover w-[900px]  rounded-md "
+            // width={700}
+            height={240}
             alt="ss"
           />
         </div>
-        
-        <div>
-          <div className="flex flex-col lg:justify-between space-y-4 lg:space-y-0 h-[370px] items-stretch">
-            <Image  
-              src={BalansImage}
-              alt="as"
-              width={0}
-              height={0}
-              className="rounded-md w-[300px] h-[160px] md:w-[600px] md:h-[180px] lg:w-[300px] lg:h-[178px] object-cover "
-            />
 
-            <Image
-              src={SecureImage}
-              alt="as"
-              width={0}
-              height={0}
-              className="rounded-md w-[300px] h-[160px] md:w-[600px] md:h-[180px] lg:w-[300px] lg:h-[178px] object-cover"
-            />
+        <div>
+          <div className="flex flex-col justify-between space-y-1 md:space-y-2 h-full">
+            <div>
+              <Image
+                src={BalansImage}
+                alt="as"
+                // width={320}
+                // height={120}
+                className="w-[440px] rounded-md  object-cover "
+              />
+            </div>
+            <div>
+              <Image
+                src={SecureImage}
+                alt="as"
+                // width={320}
+                // height={180}
+                className="w-[440px]  rounded-md object-cover"
+              />
+            </div>
+            {/* w-[300px] h-[160px] md:w-[600px] md:h-[180px] lg:w-[300px] lg:h-[178px] */}
           </div>
         </div>
       </div>
