@@ -14,7 +14,7 @@ import netflix from "../../../../../public/assets/images/categories/netflix.png"
 import exxen from "../../../../../public/assets/images/categories/exxen.png";
 import spotify from "../../../../../public/assets/images/categories/spotify.png";
 import Link from "next/link";
-import CategorizedProductComponent from "@/app/(routes)/products/[category]/page";
+import CategorizedProductComponent from "@/app/(routes)/category/[category]/page";
 
 const FilteredProductsComponent = () => {
   const categorytTypes: CategoryType[] = [
@@ -41,7 +41,7 @@ const FilteredProductsComponent = () => {
             {categorytTypes.slice(0, 5).map((category: CategoryType) => {
               return (
                 <Link
-                  href={`/products/category?category=${category.name}`}
+                  href={`/category/category?category=${category.name}`}
                   key={category.id}
                   className="bg-[#1f1f1f] px-8 w-full  lg:hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(75,0,130,0.6)] duration-300 transition-all ease-in-out cursor-pointer   h-[140px] rounded-md flex  items-center justify-center"
                 >
@@ -60,7 +60,7 @@ const FilteredProductsComponent = () => {
             {categorytTypes.slice(5, 10).map((category: CategoryType) => {
               return (
                 <Link
-                  href={`/products/category?category=${category.name}`}
+                  href={`/category/category?category=${category.name}`}
                   key={category.id}
                   className="bg-[#1f1f1f] px-8 w-full  lg:hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(75,0,130,0.6)] duration-300 transition-all ease-in-out cursor-pointer   h-[140px] rounded-md flex  items-center justify-center"
                 >

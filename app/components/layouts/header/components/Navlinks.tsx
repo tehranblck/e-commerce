@@ -48,24 +48,24 @@ const Navlinks: React.FC = () => {
       title: "Ana səhifə",
       icon: <CottageIcon className="text-[18px] cursor-pointer" />,
     },
-    // {
-    //   id: 2,
-    //   link: "/about",
-    //   title: "Haqqımızda",
-    //   icon: <InfoIcon className="text-[18px] cursor-pointer" />,
-    // },
+    {
+      id: 2,
+      link: "/about",
+      title: "Haqqımızda",
+      icon: <InfoIcon className="text-[18px] cursor-pointer" />,
+    },
     {
       id: 3,
       link: "/products",
       title: "Produktlar",
       icon: <CategoryIcon className="text-[18px] cursor-pointer" />,
     },
-    // {
-    //   id: 4,
-    //   link: "/rules",
-    //   title: "Qaydalar",
-    //   icon: <RuleIcon className="text-[18px] cursor-pointer" />,
-    // },
+    {
+      id: 4,
+      link: "/rules",
+      title: "Qaydalar",
+      icon: <RuleIcon className="text-[18px] cursor-pointer" />,
+    },
     {
       id: 5,
       link: "/contact",

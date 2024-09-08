@@ -12,18 +12,31 @@ import dynamic from "next/dynamic";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "MuslimanShop",
-  description: "E-commerce Platform",
+  title: {
+    default: "Musliman Shop",
+    template: "%s | Musliman Shop",
+  },
+  description: "E-commerce platforma, Digital Məhsulların məhsulların satışı ",
+  alternates: {
+    canonical: "https://muslimanshop.com",
+  },
   themeColor: "#121212",
 };
-const DynamicHeader = dynamic(() => import('./components/layouts/header/Header'), {
-  loading: () => <p>Loading...</p>,
-})
 
-const DynamicFooter = dynamic(() => import('./components/layouts/footer/Footer'), {
-  loading: () => <p>Loading...</p>,
-})
- 
+const DynamicHeader = dynamic(
+  () => import("./components/layouts/header/Header"),
+  {
+    loading: () => <p>Loading...</p>,
+  },
+);
+
+const DynamicFooter = dynamic(
+  () => import("./components/layouts/footer/Footer"),
+  {
+    loading: () => <p>Loading...</p>,
+  },
+);
+
 export default function RootLayout({
   children,
 }: {
@@ -36,10 +49,10 @@ export default function RootLayout({
           <DynamicHeader />
           {/* <ScrollToTop /> */}
           <Script
-          id="tawk-to"
-          strategy="afterInteractive" // Load script after page is interactive
-          dangerouslySetInnerHTML={{
-            __html: `
+            id="tawk-to"
+            strategy="afterInteractive" // Load script after page is interactive
+            dangerouslySetInnerHTML={{
+              __html: `
               var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
               (function(){
                 var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
@@ -50,8 +63,8 @@ export default function RootLayout({
                 s0.parentNode.insertBefore(s1,s0);
               })();
             `,
-          }}
-        />
+            }}
+          />
           {children}
           <DynamicFooter />
         </Providers>

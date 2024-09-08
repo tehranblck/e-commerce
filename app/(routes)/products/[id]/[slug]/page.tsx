@@ -4,8 +4,15 @@ import Loading from "@/app/components/ui/shared/Loading";
 import Image from "next/image";
 import SharedProduct from "@/app/components/ui/product/sharedproduct/SharedProduct";
 import { fetchProduct } from "@/app/services/modules/productdetail";
+import { fetchProducts } from "@/app/services/modules/products";
+import type { Metadata, ResolvingMetadata } from "next";
+import { Product } from "@/app/models/ui/Product";
 
-const ProductDetail = async ({ params }: { params: { id: number } }) => {
+const ProductDetail = async ({
+  params,
+}: {
+  params: { id: number; slug: string };
+}) => {
   const product = await fetchProduct(params.id);
 
   if (!product) {
@@ -26,7 +33,7 @@ const ProductDetail = async ({ params }: { params: { id: number } }) => {
               height={150}
               src={product.image}
               className="w-full rounded-md"
-              alt=""
+              alt={product.title}
             />
 
             <div className="w-full flex flex-col justify-between space-y-8">
@@ -52,5 +59,40 @@ const ProductDetail = async ({ params }: { params: { id: number } }) => {
     </section>
   );
 };
+
+// `generateMetadata` to set metadata for each product page
+export async function generateMetadata(
+  { params }: { params: { id: number; slug: string } },
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const product = await fetchProduct(params.id);
+
+  if (!product) {
+    return {
+      title: "Product Not Found",
+      description: "The product you are looking for does not exist.",
+      alternates: {
+        canonical: `https://muslimanshop.com/products/${product.id}/${product.slug}`,
+      },
+    };
+  }
+
+  return {
+    title: product.title,
+    description: product.description,
+    openGraph: {
+      title: product.title,
+      description: product.description,
+      images: [
+        {
+          url: product.image,
+          width: 800,
+          height: 600,
+          alt: product.title,
+        },
+      ],
+    },
+  };
+}
 
 export default ProductDetail;
