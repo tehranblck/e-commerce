@@ -53,18 +53,19 @@ export default function RootLayout({
             strategy="afterInteractive" // Load script after page is interactive
             dangerouslySetInnerHTML={{
               __html: `
-              var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-              (function(){
-                var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-                s1.async=true;
-                s1.src='https://embed.tawk.to/66db24d850c10f7a00a4dd1c/1i740frto';
-                s1.charset='UTF-8';
-                s1.setAttribute('crossorigin','*');
-                s0.parentNode.insertBefore(s1,s0);
-              })();
-            `,
+            var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+            (function(){
+              var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+              s1.async=true;
+              s1.src='https://embed.tawk.to/66e2c53c50c10f7a00a8aa0d/1i7it4tj0';
+              s1.charset='UTF-8';
+              s1.setAttribute('crossorigin','*');
+              s0.parentNode.insertBefore(s1,s0);
+            })();
+          `,
             }}
           />
+
           {children}
           <DynamicFooter />
         </Providers>
