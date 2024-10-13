@@ -8,7 +8,7 @@ import steam from "../../../../../public/assets/images/categories/steam.png";
 import efootball from "../../../../../public/assets/images/categories/efootball2.png";
 import tiktok from "../../../../../public/assets/images/categories/tiktok.png";
 import instagram from "../../../../../public/assets/images/categories/instagram5.png";
-import freefire from "../../../../../public/assets/images/categories/freefire.png";
+import randomhesab from "../../../../../public/assets/images/categories/randomhesab.png";
 import pubg from "../../../../../public/assets/images/categories/pubgmobile.png";
 import netflix from "../../../../../public/assets/images/categories/netflix.png";
 import exxen from "../../../../../public/assets/images/categories/exxen.png";
@@ -27,7 +27,7 @@ const FilteredProductsComponent = () => {
     { id: 7, name: "efootball", image: efootball },
     { id: 8, name: "steam", image: steam },
     { id: 9, name: "youtube", image: youtube },
-    { id: 10, name: "freefire", image: freefire },
+    { id: 10, name: "random hesab", image: randomhesab },
   ];
 
   return (
