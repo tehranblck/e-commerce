@@ -1,0 +1,55 @@
+name: Deploy Next.js App to DigitalOcean
+
+on:
+  push:
+    branches:
+      - master  # Trigger deployment on push to the master branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Next.js Application
+        run: npm run build
+
+      - name: Deploy to DigitalOcean
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.DO_SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: 134.122.75.21
+        run: |
+          # Ensure the .ssh directory exists
+          mkdir -p ~/.ssh
+          
+          # Write the SSH private key to a file
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa_front
+          chmod 600 ~/.ssh/id_rsa_front
+          
+          # Add the server to known hosts
+          ssh-keyscan 134.122.75.21 >> ~/.ssh/known_hosts
+          
+          # Use the correct SSH key when connecting
+          export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa_front -o StrictHostKeyChecking=no'
+          
+          # Copy built files to server
+          rsync -e "ssh -i ~/.ssh/id_rsa_front" -avz --delete .next/ root@134.122.75.21:/root/front/.next/
+          rsync -e "ssh -i ~/.ssh/id_rsa_front" -avz --delete public/ root@134.122.75.21:/root/front/public/
+          rsync -e "ssh -i ~/.ssh/id_rsa_front" -avz --delete package.json root@134.122.75.21:/root/front/
+          rsync -e "ssh -i ~/.ssh/id_rsa_front" -avz --delete ecosystem.config.js root@134.122.75.21:/root/front/
+
+          # Install dependencies on the server
+          ssh -i ~/.ssh/id_rsa_front root@134.122.75.21 "cd /root/front && npm ci --production"
+
+          # Restart the application using PM2
+          ssh -i ~/.ssh/id_rsa_front root@134.122.75.21 "cd /root/front && pm2 reload ecosystem.config.js --env production"
