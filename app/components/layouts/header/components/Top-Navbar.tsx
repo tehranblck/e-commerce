@@ -74,17 +74,17 @@ const TopNavbar = () => {
               <>
                 <Link
                   href={"/auth/login"}
-                  className="flex text-4 cursor-pointer hover:text-yellow-400 transition-all duration-300"
+                  className="relative transition-all duration-500 ease-in-out px-4 py-2 rounded-md bg-yellow-400 text-black hover:bg-white"
                 >
                   <Person2Icon className="mr-2 hover:bg-yellow-500 hover:text-black rounded-full transition-all duration-500" />
                   Daxil ol
                 </Link>
-                <span className="mx-1"> / </span>
+                <span className="mx-1"> </span>
                 <Link
                   href={"/auth/signup"}
-                  className="flex text-4 cursor-pointer hover:text-yellow-400 transition-all duration-300"
+                  className="relative transition-all duration-500 ease-in-out px-4 py-2 rounded-md bg-yellow-400 text-black hover:bg-white"
                 >
-                  Qeydiyyatdan keç
+                  Qeydiyyat
                 </Link>
               </>
             )}

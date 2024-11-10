@@ -46,7 +46,7 @@ const Navlinks: React.FC = () => {
       id: 1,
       link: "/",
       title: "Ana səhifə",
-      icon: <CottageIcon className="text-[18px] cursor-pointer" />,
+      icon: <CottageIcon className="text-[18px]  cursor-pointer" />,
     },
     {
       id: 2,
@@ -82,7 +82,7 @@ const Navlinks: React.FC = () => {
           <li className="flex items-center text-[#fff]" key={link.id}>
             <Link href={link.link} className="flex items-center">
               <span className={`${link.id === 1 ? "hidden" : "mx-4"}`}>|</span>
-              <div className="hover:bg-yellow-500 px-2 hover:text-black rounded-full transition-all duration-500 whitespace-nowrap">
+              <div className="hover:bg-yellow-500 px-2 py-1 hover:text-black rounded-full transition-all duration-500 whitespace-nowrap">
                 <span className="mr-2">{link.icon}</span>
                 <span className="text-[16px]">{link.title}</span>
               </div>
@@ -99,11 +99,10 @@ const Navlinks: React.FC = () => {
 
         <ul
           ref={menuRef}
-          className={`${
-            openMobileMenu
-              ? "translate-x-0 opacity-100"
-              : "-translate-x-full opacity-0"
-          } transform z-50 transition-transform duration-300 ease-in absolute flex flex-col space-y-4  top-0 h-[500px] w-[300px] md:w-[400px] left-0 border-r-[2px] border-b-[2px] border-[#221f1f] bg-[#181818] text-black pt-10 justify-between rounded-br-lg`}
+          className={`${openMobileMenu
+            ? "translate-x-0 opacity-100"
+            : "-translate-x-full opacity-0"
+            } transform z-50 transition-transform duration-300 ease-in absolute flex flex-col space-y-4  top-0 h-[500px] w-[300px] md:w-[400px] left-0 border-r-[2px] border-b-[2px] border-[#221f1f] bg-[#181818] text-black pt-10 justify-between rounded-br-lg`}
         >
           <div className="text-end">
             <button
