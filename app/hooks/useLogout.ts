@@ -12,6 +12,7 @@ export const useLogout = () => {
     dispatch(clearUser());
     deleteCookie("userProfile");
     deleteCookie("userToken");
+    window.location.reload()
   };
 
   return handleLogout;

@@ -69,7 +69,7 @@ const CategorizedProductComponent = () => {
   }
 
   return (
-    <section className="bg-[#121212]">
+    <section className="dark:bg-[#121212]">
       <div className="mx-auto pt-[210px] text-center lg:pt-[160px] pb-[10px]">
         <div className="flex flex-col justify-center items-center ">
           <h1 className="text-[36px] text-white">
@@ -78,7 +78,7 @@ const CategorizedProductComponent = () => {
             </span>
           </h1>
           <div className=" w-full max-w-[1380px] px-4 pt-2">
-            <InformationBar
+            <InformationBar HasButton={false}
               sideInfo="Ən çox satılan"
               title={category?.toString().toUpperCase() || ""}
             />
@@ -104,7 +104,7 @@ const CategorizedProductComponent = () => {
                 Panel xidmətləri
               </h2>
               <div className=" w-full max-w-[1380px] px-4 pt-2">
-                <InformationBar
+                <InformationBar HasButton={false}
                   sideInfo="Panel xidmətləri"
                   title={category?.toString().toUpperCase() || ""}
                 />

@@ -18,7 +18,7 @@ const Login = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      router.push("/"); // Eğer token varsa ana sayfaya yönlendir
+      router.push("/");
     }
   }, [router]);
 

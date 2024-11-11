@@ -52,7 +52,7 @@ const TopNavbar = () => {
     <div className="dark:bg-[#1E201E] bg-white  px-4">
       <div className="flex items-center justify-between max-w-[1280px] mx-auto">
         <Navlinks />
-        <div className="flex items-center space-x-6 whitespace-nowrap dark:text-[#fff] py-4">
+        <div className="flex items-center  space-x-6 whitespace-nowrap dark:text-[#fff] py-4">
           <Switch />
           <NotificationsNoneIcon className="cursor-pointer hover:bg-yellow-500 hover:text-black rounded-full transition-all duration-500" />
           <div className="flex items-center">

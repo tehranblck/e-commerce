@@ -24,7 +24,7 @@ const ProductDetail = async ({
   }
 
   return (
-    <section className="bg-[#121212] py-6 pt-[220px] lg:pt-[180px]">
+    <section className="dark:bg-[#121212] py-6 pt-[220px] lg:pt-[180px]">
       <div className="flex justify-center items-center text-[#fff] mx-2 px-2">
         <div className="bg-[#181818] py-10 px-6 rounded-md">
           <div className="flex sm:w-[300px] md:w-[400px] lg:w-[500px] xl:w-full flex-col xl:flex-row justify-between xl:space-x-4">
