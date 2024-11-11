@@ -79,7 +79,7 @@ const Navlinks: React.FC = () => {
     <div className="xl:py-4">
       <ul className="hidden xl:flex">
         {links.map((link) => (
-          <li className="flex items-center text-[#fff]" key={link.id}>
+          <li className="flex items-center text-black dark:text-[#fff]" key={link.id}>
             <Link href={link.link} className="flex items-center">
               <span className={`${link.id === 1 ? "hidden" : "mx-4"}`}>|</span>
               <div className="hover:bg-yellow-500 px-2 py-1 hover:text-black rounded-full transition-all duration-500 whitespace-nowrap">

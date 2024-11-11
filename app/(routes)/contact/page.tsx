@@ -3,10 +3,10 @@ import React from "react";
 
 const ContactPage = () => {
   return (
-    <section className="bg-[#121212]">
+    <section className="dark:bg-[#121212]">
       <div className="pt-[220px] lg:pt-[180px]">
         <div className="flex items-center justify-center w-full">
-          <h1 className="text-[42px] text-[#fff]">Bizimlə Əlaqə</h1>
+          <h1 className="text-[42px] dark:text-[#fff]">Bizimlə Əlaqə</h1>
         </div>
 
         <div className="flex flex-col items-center justify-center w-full pb-[90px]">
@@ -15,8 +15,8 @@ const ContactPage = () => {
               <div className="w-full">
                 <div className="flex flex-col items-center justify-center w-full">
                   <div className="w-full">
-                    <div className="flex flex-col text-white items-center justify-center w-full space-y-4 px-2 text-center">
-                      <p className="text-[#fff] text-[26px]">
+                    <div className="flex flex-col dark:text-white items-center justify-center w-full space-y-4 px-2 text-center">
+                      <p className="dark:text-[#fff] text-[26px]">
                         Əgər sualınız varsa, bizimlə əlaqə saxlayın.
                       </p>
                       <p>Əlaqə nömrəsi: +994 51 896 56 54</p>

@@ -49,13 +49,14 @@ export default function BasicPagination({ count, page }: Props) {
   };
 
   return (
-    <Stack spacing={2} className="text-white">
+    <Stack spacing={2} className="dark:bg-[#121212] bg-gray-600 py-2 px-3 rounded-full">
       <ThemeProvider theme={theme}>
         <Pagination
           count={count}
           page={currentPage}
           onChange={handlePageChange}
           color="primary"
+          className="text-green-800"
         />
       </ThemeProvider>
     </Stack>

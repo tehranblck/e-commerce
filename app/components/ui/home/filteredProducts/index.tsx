@@ -13,15 +13,14 @@ const FilteredProductsComponent = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await fetch('https://api.muslimanshop.com/api/products/type/?page_size=20 ');
+        const res = await fetch("https://api.muslimanshop.com/api/products/type/?page_size=20 ");
         const data = await res.json();
 
         if (data.results) {
-          console.log(data.results);
           const categoriesData = data.results.map((item: any) => ({
             id: item.id,
             name: item.name,
-            image: item.image || '/assets/images/categories/default.png',
+            image: item.image || "/assets/images/categories/default.png",
           }));
           setCategories(categoriesData);
         } else {
@@ -44,21 +43,21 @@ const FilteredProductsComponent = () => {
     return <div>No categories available.</div>;
   }
 
-  // Determine the number of categories to display
+  // Gösterilecek kategori sayısını belirler
   const displayedCategories = showAll ? categories : categories.slice(0, 10);
 
   return (
-    <section className="bg-[#121212] py-6">
+    <section className="dark:bg-[#121212] py-6">
       <div className="max-w-[600px] md:max-w-[1280px] mx-auto">
         <div className="px-2">
-          <InformationBar title="Məhsul tipləri" />
+          <InformationBar HasButton={false} title="Məhsul tipləri" />
         </div>
-        <div className="flex flex-wrap gap-2 mt-6 px-2 justify-center">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 px-2 justify-center">
           {displayedCategories.map((category: CategoryType) => (
             <Link
               href={`/category/category?category=${category.name}`}
               key={category.id}
-              className="bg-[#1f1f1f] px-8 w-full md:w-[calc(50%-0.5rem)] lg:w-[calc(20%-0.5rem)] lg:hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(75,0,130,0.6)] duration-300 transition-all ease-in-out cursor-pointer h-[140px] rounded-md flex items-center justify-center"
+              className="dark:bg-[#1f1f1f] dark:border-0 border-2 px-8 w-full hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(75,0,130,0.6)] duration-300 transition-all ease-in-out cursor-pointer h-[140px] rounded-md flex items-center justify-center"
             >
               <Image
                 width={170}
@@ -70,7 +69,7 @@ const FilteredProductsComponent = () => {
             </Link>
           ))}
         </div>
-        {/* Show More / Show Less Button */}
+        {/* Daha çok/daha az göster butonu */}
         {categories.length > 10 && (
           <div className="flex justify-center mt-4">
             <button

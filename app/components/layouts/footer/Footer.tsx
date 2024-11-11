@@ -4,7 +4,7 @@ import Logo from "../../../../public/assets/images/MUSLIMANSHOP-LOGO.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#121212]">
+    <footer className="dark:bg-[#121212]">
       <div className="max-w-[1280px] mx-auto">
         <div className="flex items-start flex-wrap space-y-6 lg:space-y-0 px-4 lg:px-0 py-10 justify-between max-w-[1280px] ">
           <div className="flex flex-col">
@@ -22,7 +22,7 @@ const Footer = () => {
           </div>
           <div>
             <div className="flex flex-col space-y-2 ml-4">
-              <h3 className="text-[#fff] text-lg">Əlaqə</h3>
+              <h3 className="dark:text-[#fff] text-lg">Əlaqə</h3>
               <p className="text-[#828282] text-sm">
                 Əlaqə nömrəsi: 051 896 56 54
               </p>
@@ -33,7 +33,7 @@ const Footer = () => {
           </div>
           <div>
             <div className="flex flex-col space-y-2 ml-4">
-              <h3 className="text-[#fff] text-lg">Məhsullar</h3>
+              <h3 className="dark:text-[#fff] text-lg">Məhsullar</h3>
               <p className="text-[#828282] text-sm">Pubg Mobile UC</p>
               <p className="text-[#828282] text-sm">TikTok</p>
               <p className="text-[#828282] text-sm">Instagram</p>
@@ -43,14 +43,15 @@ const Footer = () => {
           </div>
           <div>
             <div className="flex flex-col space-y-2 ml-4">
-              <h3 className="text-[#fff] text-lg">Xidmətlər</h3>
+              <h3 className="dark:text-[#fff] text-lg">Xidmətlər</h3>
               <p className="text-[#828282] text-sm">Epin</p>
               <p className="text-[#828282] text-sm">Rəqəmsal kodlar</p>
             </div>
           </div>
         </div>
       </div>
-      <div className="text-[#828282] flex justify-center items-center py-4 bg-[#181818]">
+      <div className="w-full h-[1px] dark:bg-black bg-gray-400"></div>
+      <div className="text-[#828282] flex justify-center items-center py-4 dark:bg-[#181818]">
         <span>2024 © Bütün hüquqlar qorunur</span>
       </div>
     </footer>

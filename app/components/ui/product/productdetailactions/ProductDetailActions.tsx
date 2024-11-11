@@ -6,25 +6,34 @@ import {
   addProduct,
   removeProduct,
   increaseQuantity,
-  decreaseQuantity
+  decreaseQuantity,
 } from "@/app/store/features/product/productSlice";
 import { toast } from "react-toastify";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
+type Props = {
+  product: Product;
+  pubgId: string;
+};
 
-type Props ={
-  product:Product;
-  pubgId:string;
-}
-
-const ProductDetailActions = ({ product, pubgId }:  Props ) => {
+const ProductDetailActions = ({ product, pubgId }: Props) => {
   const products = useSelector((state: any) => state.product.products);
   const cartProduct = products.find((item: Product) => item.id === product.id);
+  const auth = localStorage.getItem("token"); // Kontrol için token değeri
 
   const dispatch = useDispatch();
 
   const handleAddProduct = () => {
-    if (product.type == "Pubg Mobile" && pubgId === "") {
+    // Öncelikle auth kontrolü yapılır
+    if (!auth) {
+      toast.error("Səbətə məhsul əlavə etmək üçün öncə giriş edin.", {
+        position: "top-left",
+      });
+      return;
+    }
+
+    // auth doğrulandıktan sonra işlemlere geçilir
+    if (product.type === "Pubg Mobile" && pubgId === "") {
       toast.error("Pubg ID sahəsi boş ola bilməz", {
         position: "top-left",
       });
@@ -49,11 +58,12 @@ const ProductDetailActions = ({ product, pubgId }:  Props ) => {
 
   const handleDecreaseProduct = () => {
     dispatch(
-      cartProduct?.quantity && cartProduct.quantity != 1
+      cartProduct?.quantity && cartProduct.quantity !== 1
         ? decreaseQuantity(product.id)
-        : removeProduct(product),
+        : removeProduct(product)
     );
   };
+
   return (
     <div className="flex space-x-5">
       <div className="flex items-center">

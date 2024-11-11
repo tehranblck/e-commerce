@@ -10,7 +10,7 @@ const ProductCard = ({ productData }: { productData: Product }) => {
 
   return (
     <Link href={`/products/${productData.id}/${productData.slug}`} className="md:mx-0 my-2 rounded-md">
-      <div className="bg-[#181818] h-full py-4 px-8 rounded-md lg:w-[] ">
+      <div className="dark:bg-[#181818] dark:border-0 border-2 h-full py-4 px-8 rounded-md lg:w-[] ">
         <div className="overflow-hidden w-full h-full rounded-md transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(255,255,0,0.6)]">
           <Image
             width={350}
@@ -21,7 +21,7 @@ const ProductCard = ({ productData }: { productData: Product }) => {
           />
         </div>
         <div className="flex flex-col justify-center items-center mt-4">
-          <h2 className="text-[#fff] text-sm">
+          <h2 className="dark:text-[#fff] text-sm">
             {truncateTitle(productData.title, 20)}
           </h2>
           <span className="text-indigo-500 text-sm">

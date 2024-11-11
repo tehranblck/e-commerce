@@ -10,7 +10,7 @@ import { fetchProducts } from '@/app/services/modules/products';
 import { usePagination } from '@/app/hooks/usePaginations';
 
 const Products = ({ isInforBarVisible }: { isInforBarVisible: boolean }) => {
-  const { currentPage, totalPages, setTotalPages } = usePagination(); 
+  const { currentPage, totalPages, setTotalPages } = usePagination();
   const [products, setProducts] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -20,27 +20,27 @@ const Products = ({ isInforBarVisible }: { isInforBarVisible: boolean }) => {
     fetchProducts(currentPage)
       .then((data) => {
         setProducts(data);
-        const total = Math.ceil(data.count / 10); 
-        setTotalPages(total); 
+        const total = Math.ceil(data.count / 10);
+        setTotalPages(total);
         setLoading(false);
       })
       .catch((error) => {
         console.error(error);
         setLoading(false);
       });
-  }, [currentPage, setTotalPages]); 
+  }, [currentPage, setTotalPages]);
 
   if (loading) {
     return <Loading />;
   }
 
   return (
-    <section className="bg-[#121212] py-6">
+    <section className="dark:bg-[#121212]  dark:border-0  py-6">
       <div className="flex flex-col max-w-[1280px] mx-auto px-2">
-        {isInforBarVisible && <InformationBar title="Məhsullar" />}
+        {isInforBarVisible && <InformationBar HasButton={true} title="Məhsullar" />}
         <ProductList products={products.results} />
-        <div className="flex items-center justify-center pt-8">
-          <BasicPagination count={totalPages} page={currentPage} /> 
+        <div className="flex  items-center justify-center pt-8">
+          <BasicPagination count={totalPages} page={currentPage} />
         </div>
       </div>
     </section>

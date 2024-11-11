@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
@@ -11,9 +11,16 @@ import { loginUser, fetchUserProfile } from "@/app/services/auth/loginService";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false); // Added isSubmitting state
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      router.push("/"); // Eğer token varsa ana sayfaya yönlendir
+    }
+  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -28,7 +35,8 @@ const Login = () => {
     try {
       // Login the user
       const data = await loginUser(loginData);
-      localStorage.setItem("token", data.first_name);
+      console.log(data);
+      localStorage.setItem("token", data.token);
 
       // Fetch user profile
       const userProfile = await fetchUserProfile(data.token);
@@ -43,10 +51,10 @@ const Login = () => {
       });
 
       toast.success("Daxil oldunuz!", { position: "top-right" });
-      router.push("/");
+      router.push("/"); // Başarılı girişten sonra ana sayfaya yönlendir
     } catch (error) {
       console.error("Login error:", error);
-      toast.error(`İstifadəçi adı və ya parol səhvdir.`, {
+      toast.error("İstifadəçi adı və ya parol səhvdir.", {
         position: "top-right",
       });
     } finally {
@@ -55,13 +63,13 @@ const Login = () => {
   };
 
   return (
-    <section className="bg-black">
-      <div className="flex justify-center py-8 px-4 pt-[220px] lg:pt-[150px]">
+    <section className="dark:bg-black">
+      <div className="flex justify-center py-8 px-4 pt-[220px] lg:pt-[160px]">
         <form
-          className="w-[500px] bg-[#151515] rounded-lg p-8 mt-4"
+          className="w-[500px] dark:bg-[#151515] bg-[#bbbbbb72] dark:border-0 border-2 rounded-lg p-8 mt-4"
           onSubmit={handleSubmit}
         >
-          <div className="text-white flex flex-col justify-center items-center mb-6">
+          <div className="dark:text-white flex flex-col justify-center items-center mb-6">
             <h1 className="font-bold text-[32px]">Daxil Ol</h1>
             <p>Məlumatları daxil edin</p>
           </div>
@@ -90,7 +98,7 @@ const Login = () => {
           <div className="w-full text-end mt-6">
             <Link
               href={"/auth/forgotpassword"}
-              className="text-white text-[14px] underline cursor-pointer"
+              className="dark:text-white text-[14px] underline cursor-pointer"
             >
               Şifrəni Unutmuşam
             </Link>
@@ -98,10 +106,9 @@ const Login = () => {
           <div className="flex flex-col items-center justify-center w-full mt-4">
             <button
               type="submit"
-              className={`align-center text-center text-white text-[18px] font-bold transition-all duration-300 hover:opacity-85 bg-indigo-700 w-full rounded-md py-4 ${
-                isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-              }`}
-              disabled={isSubmitting} // Disable button when submitting
+              className={`align-center text-center text-white text-[18px] font-bold transition-all duration-300 hover:opacity-85 bg-indigo-700 w-full rounded-md py-4 ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+              disabled={isSubmitting}
             >
               {isSubmitting ? (
                 <span className="flex items-center justify-center">
@@ -131,12 +138,12 @@ const Login = () => {
                 "Daxil Ol"
               )}
             </button>
-            <span className="text-white mt-6 mb-4">
+            <span className="dark:text-white mt-6 mb-4">
               Hələ də hesabınız yoxdur?
             </span>
             <Link
               href={"/auth/signup"}
-              className="align-center text-center text-[18px] font-bold transition-all duration-300 text-[#fff] bg-indigo-700 opacity-45 hover:opacity-100 w-full rounded-md py-4"
+              className="align-center text-center text-[18px] font-bold transition-all duration-300 dark:text-[#fff] bg-indigo-700 opacity-45 hover:opacity-100 w-full rounded-md py-4"
             >
               Qeydiyyatdan Keç
             </Link>

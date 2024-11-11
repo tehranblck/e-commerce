@@ -19,25 +19,25 @@ const Hero = () => {
     arrows: false,
   };
 
-  useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        const response = await fetch("https://api.example.com/slider-images"); // Replace with actual API endpoint
-        const data = await response.json();
+  // useEffect(() => {
+  //   const fetchImages = async () => {
+  //     try {
+  //       const response = await fetch("https://api.example.com/slider-images"); // Replace with actual API endpoint
+  //       const data = await response.json();
 
-        // Assuming the API response is an array of objects with an `imageUrl` field
-        setSliderImages(data);
-      } catch (error) {
-        console.error("Error fetching images:", error);
-      }
-    };
+  //       // Assuming the API response is an array of objects with an `imageUrl` field
+  //       setSliderImages(data);
+  //     } catch (error) {
+  //       console.error("Error fetching images:", error);
+  //     }
+  //   };
 
-    fetchImages();
-  }, []);
+  //   fetchImages();
+  // }, []);
 
   return (
-    <section className="py-6 pt-12 lg:h-full">
-      <div className="flex h-full px-4 bg-[#1f1f1f] flex-row items-center lg:justify-between max-w-[1280px] mx-auto text-[#fff] lg:py-2 lg:px-2 space-x-1 md:space-x-2">
+    <section className="py-6 pt-16 dark:bg-[#121212] lg:h-full">
+      <div className="flex h-full px-4 dark:bg-[#1f1f1f]  bg-[#bdbdbda3] rounded-2xl  flex-row items-center lg:justify-between max-w-[1280px] mx-auto text-[#fff] lg:py-2 lg:px-2 space-x-1 md:space-x-2">
 
         {/* Slider Section with Fixed Dimensions */}
         <div className="w-[900px] h-full text-[#000] overflow-hidden rounded-md">
@@ -45,7 +45,7 @@ const Hero = () => {
             {sliderImages.map((image, index) => (
               <div key={index}>
                 <Image
-                  src={image.imageUrl} // Assuming each object has `imageUrl`
+                  src={image} // Assuming each object has `imageUrl`
                   alt={`Slide ${index + 1}`}
                   width={900}
                   height={240}

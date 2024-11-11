@@ -36,17 +36,17 @@ const FutureCard = () => {
     },
   ];
   return (
-    <section className="bg-[#181818]">
+    <section className="dark:bg-[#181818]">
       <div className="max-w-[1280px] mx-auto flex flex-col lg:flex-row  justify-between items-center space-y-2 lg:space-y-0 lg:space-x-1 py-10 px-2">
         {cardItems.map((item) => {
           return (
             <div
-              className="flex flex-col items-center justify-center bg-[#1f1f1f] rounded-md  w-full   lg:w-[300px] h-[200px] lg:space-y-2 p-1"
+              className="flex flex-col items-center justify-center dark:bg-[#1f1f1f] bg-gray-600 rounded-md  w-full   lg:w-[300px] h-[200px] lg:space-y-2 p-1"
               key={item.id}
             >
               <div>{item.icon}</div>
-              <span className="text-md text-white">{item.title}</span>
-              <p className="text-center text-[#828282] text-sm">
+              <span className="text-md text-white dark:text-white">{item.title}</span>
+              <p className="text-center text-gray-300 dark:text-[#828282] text-sm">
                 {item.description}
               </p>
             </div>

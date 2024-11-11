@@ -12,6 +12,7 @@ import { setUser, clearUser } from "@/app/store/features/auth/authSlice";
 import { getCookie, deleteCookie } from "cookies-next";
 import { fetchUserProfile } from "@/app/services/auth/loginService";
 import { useLogout } from "@/app/hooks/useLogout";
+import Switch from "@/app/components/ThemeToggler";
 
 const TopNavbar = () => {
   const dispatch = useDispatch();
@@ -48,10 +49,11 @@ const TopNavbar = () => {
   }, [dispatch, user]);
 
   return (
-    <div className="bg-[#1E201E] px-4">
+    <div className="dark:bg-[#1E201E] bg-white  px-4">
       <div className="flex items-center justify-between max-w-[1280px] mx-auto">
         <Navlinks />
-        <div className="flex items-center space-x-6 whitespace-nowrap text-[#fff] py-4">
+        <div className="flex items-center space-x-6 whitespace-nowrap dark:text-[#fff] py-4">
+          <Switch />
           <NotificationsNoneIcon className="cursor-pointer hover:bg-yellow-500 hover:text-black rounded-full transition-all duration-500" />
           <div className="flex items-center">
             {user ? (

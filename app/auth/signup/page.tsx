@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { UserRegister } from "@/app/models/auth/UserRegister";
+import { UserRegister } from "@/app/models/auth/userregister";
 import useSWR from "swr";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
@@ -9,7 +9,16 @@ import "react-toastify/dist/ReactToastify.css";
 import { registerUser } from "@/app/services/auth/signupService";
 
 const SignUp = () => {
-  const router = useRouter();
+  const router = useRouter()
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      router.push("/");
+    }
+  }, [router]);
+
+
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -77,7 +86,7 @@ const SignUp = () => {
       password2: password.password2,
     } as UserRegister;
 
-    setIsSubmitting(true); 
+    setIsSubmitting(true);
 
     try {
       await registerUser(formData);
@@ -95,16 +104,16 @@ const SignUp = () => {
   };
 
   return (
-    <section className="bg-black">
+    <section className="dark:bg-black">
       <div className="flex justify-center py-8 px-4 pt-[220px] lg:pt-[150px]">
         <form
           action=""
-          className="w-[500px] bg-[#151515] rounded-lg p-8 mt-4"
+          className="w-[500px] dark:bg-[#151515] dark:border-0 border-2 bg-[#bbbbbb72] rounded-lg p-8 mt-4"
           onSubmit={handleSubmit}
         >
           <div className="text-white flex flex-col justify-center items-center mb-6">
-            <h1 className="font-bold text-[32px]">Daxil Ol</h1>
-            <p>Məlumatları daxil edin</p>
+            <h1 className="font-bold text-[32px] dark:text-white text-black">Daxil Ol</h1>
+            <p className="dark:text-white text-black">Məlumatları daxil edin</p>
           </div>
           <div className="flex justify-center flex-col w-full space-y-4">
             <input
@@ -179,9 +188,8 @@ const SignUp = () => {
           <div className="flex flex-col items-center justify-center w-full mt-4">
             <button
               type="submit"
-              className={`align-center text-center text-white text-[18px] font-bold transition-all duration-300 hover:opacity-85 bg-indigo-700 w-full rounded-md py-4 ${
-                isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-              }`}
+              className={`align-center text-center text-white text-[18px] font-bold transition-all duration-300 hover:opacity-85 bg-indigo-700 w-full rounded-md py-4 ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+                }`}
               disabled={isSubmitting} // Disable button when submitting
             >
               {isSubmitting ? (
@@ -212,7 +220,7 @@ const SignUp = () => {
                 "Qeydiyyatdan keç"
               )}
             </button>
-            <span className="text-white mt-6 mb-4">Artıq hesabınız var?</span>
+            <span className="dark:text-white mt-6 mb-4">Artıq hesabınız var?</span>
             <Link
               href={"/auth/login"}
               className="align-center text-center text-[18px] font-bold transition-all duration-300 text-[#fff] bg-indigo-700 opacity-45 hover:opacity-100 w-full rounded-md py-4"
