@@ -94,7 +94,7 @@ const Navlinks: React.FC = () => {
       {/* Mobile */}
       <div className="xl:hidden ">
         <button type="button" onClick={handleOpenMobileMenu}>
-          <MenuIcon className="text-[#fff]" />
+          <MenuIcon className="dark:text-[#fff]" />
         </button>
 
         <ul
@@ -102,7 +102,7 @@ const Navlinks: React.FC = () => {
           className={`${openMobileMenu
             ? "translate-x-0 opacity-100"
             : "-translate-x-full opacity-0"
-            } transform z-50 transition-transform duration-300 ease-in absolute flex flex-col space-y-4  top-0 h-[500px] w-[300px] md:w-[400px] left-0 border-r-[2px] border-b-[2px] border-[#221f1f] bg-[#181818] text-black pt-10 justify-between rounded-br-lg`}
+            } transform z-50 transition-transform  bg-white duration-300 ease-in absolute flex flex-col space-y-4  top-0 h-[500px] w-[300px] md:w-[400px] left-0 border-r-[2px] border-b-[2px] border-[#221f1f] dark:bg-[#181818] text-black pt-10 justify-between rounded-br-lg`}
         >
           <div className="text-end">
             <button
@@ -116,7 +116,7 @@ const Navlinks: React.FC = () => {
 
           {links.map((link) => (
             <div key={link.id}>
-              <li className="flex items-center text-[#fff]">
+              <li className="flex items-center dark:text-[#fff]">
                 <Link
                   href={link.link}
                   className="flex items-center pb-4 pl-2"
@@ -131,7 +131,7 @@ const Navlinks: React.FC = () => {
               <hr className="border-[1px] border-[#221f1f] w-full" />
             </div>
           ))}
-          <div className="py-4 flex space-x-6 w-full text-[#fff] items-center justify-center">
+          <div className="py-4 flex space-x-6 w-full dark:text-[#fff] text-black items-center justify-center">
             <InstagramIcon className="text-[25px]  cursor-pointer text-end" />
             <span>
               <PhoneIcon className="text-[25px]  cursor-pointer" />

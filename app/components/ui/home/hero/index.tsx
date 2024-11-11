@@ -7,7 +7,7 @@ import BalansImage from "../../../../../public/assets/images/balans.png";
 import SecureImage from "../../../../../public/assets/images/secure-post.png";
 
 const Hero = () => {
-  const [sliderImages, setSliderImages] = useState([]);
+  const [sliderImages, setSliderImages] = useState(['/bg.png', '/bg.jpg']);
   const sliderSettings = {
     dots: false,
     infinite: true,

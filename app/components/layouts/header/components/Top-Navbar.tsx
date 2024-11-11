@@ -1,18 +1,17 @@
-"use client";
-
+'use client'
 import React, { useState, useEffect } from "react";
 import Navlinks from "./Navlinks";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import Person2Icon from "@mui/icons-material/Person2";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/app/store/store";
-import { setUser, clearUser } from "@/app/store/features/auth/authSlice";
-import { getCookie, deleteCookie } from "cookies-next";
+import { setUser } from "@/app/store/features/auth/authSlice";
+import { getCookie } from "cookies-next";
 import { fetchUserProfile } from "@/app/services/auth/loginService";
 import { useLogout } from "@/app/hooks/useLogout";
 import Switch from "@/app/components/ThemeToggler";
+import NotificationsDropdown from "@/app/components/Notifications";
 
 const TopNavbar = () => {
   const dispatch = useDispatch();
@@ -49,12 +48,12 @@ const TopNavbar = () => {
   }, [dispatch, user]);
 
   return (
-    <div className="dark:bg-[#1E201E] bg-white  px-4">
+    <div className="dark:bg-[#1E201E] bg-white px-4 relative">
       <div className="flex items-center justify-between max-w-[1280px] mx-auto">
         <Navlinks />
-        <div className="flex items-center  space-x-6 whitespace-nowrap dark:text-[#fff] py-4">
+        <div className="flex items-center space-x-6 whitespace-nowrap dark:text-[#fff] py-4">
           <Switch />
-          <NotificationsNoneIcon className="cursor-pointer hover:bg-yellow-500 hover:text-black rounded-full transition-all duration-500" />
+          <NotificationsDropdown /> {/* Bildirim bileşeni */}
           <div className="flex items-center">
             {user ? (
               <>
@@ -69,7 +68,7 @@ const TopNavbar = () => {
                   className="flex text-4 cursor-pointer hover:text-yellow-400 transition-all duration-300"
                 >
                   <LogoutIcon className="mr-2" />
-                  <span className="hidden xl:visible"> Hesabdan çıx </span>
+                  <span className="hidden xl:visible"> Hesabdan çık </span>
                 </Link>
               </>
             ) : (

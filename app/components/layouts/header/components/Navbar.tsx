@@ -27,6 +27,10 @@ const Navbar = () => {
   const buttonRef = useRef<HTMLButtonElement>(null); // Balance button referansı
 
   useEffect(() => {
+
+  }, [userData]);
+
+  const toggleBalancePopup = (event: React.MouseEvent) => {
     if (typeof window !== "undefined") {
       const token = localStorage.getItem("token");
       setAuth(token);
@@ -51,9 +55,6 @@ const Navbar = () => {
         setLoading(false);
       }
     }
-  }, []);
-
-  const toggleBalancePopup = (event: React.MouseEvent) => {
     event.stopPropagation(); // Butona tıklanıldığında kapanmayı engelle
     setBalancePopupOpen((prev) => !prev);
   };

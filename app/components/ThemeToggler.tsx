@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Switch = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // Sayfa yüklendiğinde localStorage'dan tema durumunu kontrol et
+  // Check theme status from localStorage on page load
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "dark") {
@@ -16,7 +16,7 @@ const Switch = () => {
     }
   }, []);
 
-  // Tema durumunu değiştiren fonksiyon
+  // Function to toggle the theme
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
     if (!isDarkMode) {
@@ -37,7 +37,7 @@ const Switch = () => {
           checked={isDarkMode}
           onChange={toggleTheme}
         />
-        <svg viewBox="0 0 69.667 44" xmlns="http://www.w3.org/2000/svg">
+        <svg className='mb-4' viewBox="0 0 69.667 44" xmlns="http://www.w3.org/2000/svg">
           <g transform="translate(3.5 3.5)" data-name="Component 15 – 1" id="Component_15_1">
             <g filter="url(#container)" transform="matrix(1, 0, 0, 1, -3.5, -3.5)">
               <rect fill="#83cbd8" transform="translate(3.5 3.5)" rx="17.5" height={35} width="60.667" data-name="container" id="container" />
@@ -72,7 +72,7 @@ const Switch = () => {
             <g fill="#def8ff" transform="translate(3.585 1.325)" id="stars" style={{ opacity: isDarkMode ? 1 : 0 }}>
               <path transform="matrix(-1, 0.017, -0.017, -1, 24.231, 3.055)" d="M.774,0,.566.559,0,.539.458.933.25,1.492l.485-.361.458.394L1.024.953,1.509.592.943.572Z" />
               <path transform="matrix(-0.777, 0.629, -0.629, -0.777, 23.185, 12.358)" d="M1.341.529.836.472.736,0,.505.46,0,.4.4.729l-.231.46L.605.932l.4.326L.9.786Z" data-name="star" />
-              {/* Add more stars as needed */}
+              {/* Additional stars can be added here */}
             </g>
           </g>
         </svg>
@@ -82,13 +82,18 @@ const Switch = () => {
 }
 
 const StyledWrapper = styled.div`
-  /* The switch - the box around the slider */
+  margin: 0;
+  padding: 0;
+
+  /* Switch container styles */
   #theme-toggle-button {
     font-size: 6px;
     position: relative;
     display: inline-block;
     width: 2rem;
     cursor: pointer;
+    margin: 0; /* Ensure no extra spacing above the switch */
+    padding: 0;
   }
 
   /* Hide default HTML checkbox */
@@ -110,17 +115,17 @@ const StyledWrapper = styled.div`
     transition-duration: 0.25s;
   }
 
-  /* night sky background */
+  /* Night sky background */
   #toggle:checked + svg #container {
     fill: #2b4360;
   }
 
-  /* move button to right when checked */
+  /* Move button to right when checked */
   #toggle:checked + svg #button {
     transform: translate(28px, 2.333px);
   }
 
-  /* show/hide sun and moon based on checkbox state */
+  /* Show/hide sun and moon based on checkbox state */
   #sun {
     opacity: 1;
   }
@@ -137,7 +142,7 @@ const StyledWrapper = styled.div`
     opacity: 1;
   }
 
-  /* show or hide background items on checkbox state */
+  /* Show or hide background items based on checkbox state */
   #cloud {
     opacity: 1;
   }
@@ -152,6 +157,12 @@ const StyledWrapper = styled.div`
 
   #toggle:checked + svg #stars {
     opacity: 1;
-  }`;
+  }
+
+  /* Ensure SVG does not add extra space */
+  #theme-toggle-button svg {
+    display: block;
+  }
+`;
 
 export default Switch;

@@ -1,8 +1,8 @@
 'use client'
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Link from "next/link";
+import OrderDetailsModal from "./orderDetails";
 
 type Order = {
     id: number;
@@ -10,21 +10,74 @@ type Order = {
     price: number;
     purchaseDate: string;
     status: string;
+    details: string;
+    quantity: number;
+    shippingAddress: string;
+    estimatedDelivery: string;
+    paymentMethod: string;
 };
 
 const OrdersPage: React.FC = () => {
-    const [orders, setOrders] = useState<Order[]>([]); // Set as empty array for now
+    const [orders, setOrders] = useState<Order[]>([
+        {
+            id: 1,
+            productName: "Product A",
+            price: 49.99,
+            purchaseDate: "2023-10-01",
+            status: "Tamamlanıb",
+            details: "This order includes 2 items with free shipping and a 1-year warranty.",
+            quantity: 2,
+            shippingAddress: "123 Elm St, Baku, Azerbaijan",
+            estimatedDelivery: "2023-10-15",
+            paymentMethod: "Credit Card"
+        },
+        {
+            id: 2,
+            productName: "Product B",
+            price: 29.99,
+            purchaseDate: "2023-10-05",
+            status: "Tamamlanıb",
+            details: "This order is currently being shipped and is expected to arrive within 5 days.",
+            quantity: 1,
+            shippingAddress: "456 Oak St, Ganja, Azerbaijan",
+            estimatedDelivery: "2023-10-12",
+            paymentMethod: "PayPal"
+        },
+        {
+            id: 3,
+            productName: "Product C",
+            price: 99.99,
+            purchaseDate: "2023-10-10",
+            status: "Tamamlanıb",
+            details: "This order is currently being processed and will ship within the next 2 days.",
+            quantity: 3,
+            shippingAddress: "789 Pine St, Sumgait, Azerbaijan",
+            estimatedDelivery: "2023-10-20",
+            paymentMethod: "Debit Card"
+        },
+    ]);
     const [loading, setLoading] = useState(true);
+    const [open, setOpen] = useState(false);
+    const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
     useEffect(() => {
-        // Simulating data loading delay
         setTimeout(() => {
-            setLoading(false); // Stop loading after delay
+            setLoading(false);
         }, 1000);
     }, []);
 
+    const handleOpen = (order: Order) => {
+        setSelectedOrder(order);
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+        setSelectedOrder(null);
+    };
+
     return (
-        <div className="min-h-screen bg-gray-100 dark:bg-[#151515] text-gray-800 dark:text-gray-200">
+        <div className="min-h-screen dark:bg-[#151515] text-gray-800 dark:text-white bg-white py-6 pt-[200px] lg:pt-[150px]">
             <div className="max-w-4xl mx-auto px-4 py-8">
                 <h1 className="text-2xl font-semibold mb-6">Sifarişlərim</h1>
 
@@ -48,6 +101,12 @@ const OrdersPage: React.FC = () => {
                                         Alinma tarixi: {new Date(order.purchaseDate).toLocaleDateString()}
                                     </p>
                                 </div>
+                                <button
+                                    onClick={() => handleOpen(order)}
+                                    className="mt-4 bg-blue-500 text-white py-1 px-4 rounded-md hover:bg-blue-600 transition"
+                                >
+                                    Detallar
+                                </button>
                             </div>
                         ))}
                     </div>
@@ -63,6 +122,8 @@ const OrdersPage: React.FC = () => {
                     </div>
                 )}
             </div>
+
+            <OrderDetailsModal open={open} onClose={handleClose} order={selectedOrder} />
         </div>
     );
 };
