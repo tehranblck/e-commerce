@@ -12,8 +12,9 @@ const FilteredProductsComponent = () => {
 
   useEffect(() => {
     const fetchCategories = async () => {
+      setLoading(true);
       try {
-        const res = await fetch("https://api.muslimanshop.com/api/products/type/?page_size=20 ");
+        const res = await fetch("https://api.muslimanshop.com/api/products/type/?page_size=20");
         const data = await res.json();
 
         if (data.results) {
@@ -21,6 +22,7 @@ const FilteredProductsComponent = () => {
             id: item.id,
             name: item.name,
             image: item.image || "/assets/images/categories/default.png",
+            hasSubTypes: item.sub_types && item.sub_types.length > 0, // Alt kategori kontrolü
           }));
           setCategories(categoriesData);
         } else {
@@ -32,15 +34,16 @@ const FilteredProductsComponent = () => {
         setLoading(false);
       }
     };
+
     fetchCategories();
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Yüklənir...</div>;
   }
 
   if (!categories.length) {
-    return <div>No categories available.</div>;
+    return <div>Kateqoriyalar yüklənmədi...</div>;
   }
 
   // Gösterilecek kategori sayısını belirler
@@ -53,9 +56,13 @@ const FilteredProductsComponent = () => {
           <InformationBar HasButton={false} title="Məhsul tipləri" />
         </div>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-6 px-2 justify-center">
-          {displayedCategories.map((category: CategoryType) => (
+          {displayedCategories.map((category) => (
             <Link
-              href={`/category/category?category=${category.name}`}
+              href={
+                category.hasSubTypes
+                  ? `/categories/${category.name}/sub`
+                  : `/categories/${category.name}`
+              }
               key={category.id}
               className="dark:bg-[#1f1f1f] overflow-hidden dark:border-0 border-2 px-8 w-full hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(75,0,130,0.6)] duration-300 transition-all ease-in-out cursor-pointer h-[140px] rounded-md flex items-center justify-center"
             >
@@ -69,6 +76,7 @@ const FilteredProductsComponent = () => {
             </Link>
           ))}
         </div>
+
         {/* Daha çok/daha az göster butonu */}
         {categories.length > 10 && (
           <div className="flex justify-center mt-4">

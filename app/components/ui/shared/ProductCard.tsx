@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const ProductCard = ({ productData }: { productData: Product }) => {
   const truncateTitle = (title: string, length: number) => {
-    return title.length > length ? `${title.substring(0, length)}...` : title;
+    return title?.length > length ? `${title.substring(0, length)}...` : title;
   };
 
   return (
@@ -25,7 +25,7 @@ const ProductCard = ({ productData }: { productData: Product }) => {
             {truncateTitle(productData.title, 20)}
           </h2>
           <span className="text-indigo-500 text-sm">
-            {productData.price.toFixed(2)} Azn
+            {productData.price?.toFixed(2)} Azn
           </span>
         </div>
       </div>

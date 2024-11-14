@@ -107,7 +107,7 @@ const Navbar = () => {
             alt="logo"
           />
         </Link>
-        <InputSearch onSearch={handleSearch} />
+        {/* <InputSearch onSearch={handleSearch} /> */}
         <div className="sm:space-x-4 flex flex-col space-y-2 sm:space-y-0 sm:flex-row relative">
           <button
             ref={buttonRef}
