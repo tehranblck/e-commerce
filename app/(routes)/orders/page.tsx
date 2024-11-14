@@ -1,70 +1,66 @@
-'use client'
+'use client';
 import React, { useEffect, useState } from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Link from "next/link";
 import OrderDetailsModal from "./orderDetails";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/store/store";
+
+type Item = {
+    product: number;
+    quantity: number;
+    product_token: string;
+    key: string;
+};
 
 type Order = {
     id: number;
-    productName: string;
-    price: number;
-    purchaseDate: string;
-    status: string;
-    details: string;
-    quantity: number;
-    shippingAddress: string;
-    estimatedDelivery: string;
-    paymentMethod: string;
+    is_payed: boolean;
+    is_done: boolean;
+    created_at: string;
+    items: Item[];
 };
 
 const OrdersPage: React.FC = () => {
-    const [orders, setOrders] = useState<Order[]>([
-        {
-            id: 1,
-            productName: "Product A",
-            price: 49.99,
-            purchaseDate: "2023-10-01",
-            status: "Tamamlanıb",
-            details: "This order includes 2 items with free shipping and a 1-year warranty.",
-            quantity: 2,
-            shippingAddress: "123 Elm St, Baku, Azerbaijan",
-            estimatedDelivery: "2023-10-15",
-            paymentMethod: "Credit Card"
-        },
-        {
-            id: 2,
-            productName: "Product B",
-            price: 29.99,
-            purchaseDate: "2023-10-05",
-            status: "Tamamlanıb",
-            details: "This order is currently being shipped and is expected to arrive within 5 days.",
-            quantity: 1,
-            shippingAddress: "456 Oak St, Ganja, Azerbaijan",
-            estimatedDelivery: "2023-10-12",
-            paymentMethod: "PayPal"
-        },
-        {
-            id: 3,
-            productName: "Product C",
-            price: 99.99,
-            purchaseDate: "2023-10-10",
-            status: "Tamamlanıb",
-            details: "This order is currently being processed and will ship within the next 2 days.",
-            quantity: 3,
-            shippingAddress: "789 Pine St, Sumgait, Azerbaijan",
-            estimatedDelivery: "2023-10-20",
-            paymentMethod: "Debit Card"
-        },
-    ]);
+    const user = useSelector((state: RootState) => state.auth.user);
+    const token = localStorage.getItem('token');
+    const [orders, setOrders] = useState<Order[]>([]);
     const [loading, setLoading] = useState(true);
     const [open, setOpen] = useState(false);
     const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
     useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 1000);
-    }, []);
+        const fetchOrders = async () => {
+            if (!user || !token) {
+                setLoading(false);
+                return;
+            }
+
+            try {
+                const response = await fetch(`https://api.muslimanshop.com/api/user/baskets/`, {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `${token}`,
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to fetch orders");
+                }
+
+                const data = await response.json();
+                setOrders(data.results);
+                console.log(orders)
+            } catch (error) {
+                console.error("Failed to fetch orders:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchOrders();
+    }, [user, token]);
 
     const handleOpen = (order: Order) => {
         setSelectedOrder(order);
@@ -91,16 +87,30 @@ const OrdersPage: React.FC = () => {
                                 className="bg-white dark:bg-[#1E201E] p-6 rounded-lg shadow-md transition-transform transform hover:scale-105"
                             >
                                 <div className="flex justify-between items-center">
-                                    <h2 className="text-lg font-semibold">{order.productName}</h2>
-                                    <span className="text-sm text-green-500 font-medium">{order.status}</span>
+                                    <h2 className="text-lg font-semibold">Sifariş ID: {order.id}</h2>
+                                    <span className={`text-sm font-medium ${order.is_done ? "text-green-500" : "text-red-500"}`}>
+                                        {order.is_done ? 'Tamamlandı' : 'Gözləmədə'}
+                                    </span>
                                 </div>
                                 <div className="text-sm mt-2">
-                                    <p className="dark:text-gray-400">Sifariş ID: {order.id}</p>
-                                    <p className="dark:text-gray-400">Qiymət: {order.price} ₼</p>
-                                    <p className="dark:text-gray-400">
-                                        Alinma tarixi: {new Date(order.purchaseDate).toLocaleDateString()}
-                                    </p>
+                                    <p>Ödəniş Statusu: {order.is_payed ? 'Ödənilib' : 'Ödənilməyib'}</p>
+                                    <p>Yaradılma Tarixi: {new Date(order.created_at).toLocaleDateString()}</p>
                                 </div>
+                                {/* <div className="mt-4 space-y-2">
+                                    <h3 className="font-medium">Məhsullar:</h3>
+                                    {order.items.length > 0 ? (
+                                        order.items.map((item, index) => (
+                                            <div key={index} className="pl-4 text-sm border-l-2 border-gray-300">
+                                                <p>Məhsul ID: {item.product}</p>
+                                                <p>Miqdarı: {item.quantity}</p>
+                                                <p>Token: {item.product_token}</p>
+                                                <p>Açar: {item.key}</p>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <p className="text-sm text-gray-500">Məhsul yoxdur.</p>
+                                    )}
+                                </div> */}
                                 <button
                                     onClick={() => handleOpen(order)}
                                     className="mt-4 bg-blue-500 text-white py-1 px-4 rounded-md hover:bg-blue-600 transition"
@@ -122,7 +132,6 @@ const OrdersPage: React.FC = () => {
                     </div>
                 )}
             </div>
-
             <OrderDetailsModal open={open} onClose={handleClose} order={selectedOrder} />
         </div>
     );

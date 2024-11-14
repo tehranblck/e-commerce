@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import { fetchUserProfile } from "@/app/services/auth/loginService";
 import { useRouter } from "next/navigation";
 import { useLogout } from "@/app/hooks/useLogout";
+import InputSearch from "./İnput";
 
 const Navbar = () => {
   const [balancePopupOpen, setBalancePopupOpen] = useState(false);
@@ -25,7 +26,9 @@ const Navbar = () => {
   const logout = useLogout();
   const popupRef = useRef<HTMLDivElement>(null); // Popup div referansı
   const buttonRef = useRef<HTMLButtonElement>(null); // Balance button referansı
-
+  const handleSearch: any = (query: any) => {
+    console.log("Search Query:", query); // Perform search or API call with query
+  };
   useEffect(() => {
 
   }, [userData]);
@@ -104,6 +107,7 @@ const Navbar = () => {
             alt="logo"
           />
         </Link>
+        <InputSearch onSearch={handleSearch} />
         <div className="sm:space-x-4 flex flex-col space-y-2 sm:space-y-0 sm:flex-row relative">
           <button
             ref={buttonRef}
@@ -122,7 +126,7 @@ const Navbar = () => {
               className="transform scale-100 dark:border-[#121212] dark:border-[1px] border-[1px] border-gray-300 opacity-100 transition-transform duration-300 ease-out absolute top-[50px] right-12 sm:right-24 sm:left-[-80%] z-50 w-[250px] bg-white dark:bg-[#1E201E] p-6 rounded-lg shadow-lg"
             >
               {loading ? (
-                <p className="text-center text-md dark:text-gray-200 mb-2">
+                <p className="text-center text-md  dark:text-black mb-2">
                   Yükleniyor...
                 </p>
               ) : userData ? (
@@ -148,6 +152,13 @@ const Navbar = () => {
                     <AssignmentIcon />
                     <span>Sifarişlərim</span>
                   </Link>
+                  <Link href={'/balance'}
+
+                    className="flex items-center justify-center space-x-2 mt-2 w-full bg-green-500 text-white py-2 rounded-md hover:bg-red-600 transition duration-300"
+                  >
+                    <ExitToAppIcon />
+                    <span>Balans Artırma</span>
+                  </Link>
                   <button
                     onClick={handleLogout}
                     className="flex items-center justify-center space-x-2 mt-2 w-full bg-red-500 text-white py-2 rounded-md hover:bg-red-600 transition duration-300"
@@ -155,17 +166,18 @@ const Navbar = () => {
                     <ExitToAppIcon />
                     <span>Hesabdan Çıx</span>
                   </button>
+
                 </div>
               ) : (
-                <p className="text-center text-md dark:text-gray-200 mb-2">
-                  Kullanıcı bilgisi alınamadı.
+                <p className="text-center text-md dark:text-gray-200 text-black mb-2">
+                  Məlumat tapıla bilmədi.
                 </p>
               )}
               <button
                 onClick={() => setBalancePopupOpen(false)}
                 className="mt-4 w-full bg-yellow-400 text-black py-2 rounded-md hover:bg-yellow-500 transition duration-300"
               >
-                Kapat
+                Bağla
               </button>
             </div>
           )}

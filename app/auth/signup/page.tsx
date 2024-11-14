@@ -123,7 +123,7 @@ const SignUp = () => {
               }
               type="text"
               placeholder="Ad"
-              className="border-[2px] py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
+              className="border-[2px] py-2 rounded-md text-black outline-none pl-2 focus:border-yellow-500"
             />
             <input
               value={lastName}
@@ -132,7 +132,7 @@ const SignUp = () => {
               }
               type="text"
               placeholder="Soyad"
-              className="border-[2px] py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
+              className="border-[2px] text-black py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
             />
             <input
               value={email}
@@ -141,7 +141,7 @@ const SignUp = () => {
               }
               type="email"
               placeholder="Email Asdresi"
-              className="border-[2px] py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
+              className="border-[2px] text-black py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
             />
             <input
               value={phoneNumber}
@@ -150,7 +150,7 @@ const SignUp = () => {
               }
               type="text"
               placeholder="Telefon Nömrəsi"
-              className="border-[3px] py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
+              className="border-[3px] text-black py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
             />
             <input
               value={password.password}
@@ -162,7 +162,7 @@ const SignUp = () => {
               }
               type="password"
               placeholder="Şifrə"
-              className="border-[3px] py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
+              className="border-[3px] text-black py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
             />
             <input
               value={password.password2}
@@ -174,7 +174,7 @@ const SignUp = () => {
               }
               type="password"
               placeholder="Təkrar Şifrə"
-              className="border-[3px] py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
+              className="border-[3px] text-black py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
             />
           </div>
           {/* <div className="w-full text-end mt-6">

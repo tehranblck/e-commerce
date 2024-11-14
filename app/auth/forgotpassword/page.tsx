@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { sendResetPasswordEmail } from "@/app/services/auth/forgotPasswordService";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -43,15 +43,15 @@ const ForgotPassword = () => {
   };
 
   return (
-    <section className="bg-black">
+    <section className="dark:bg-black">
       <div className="flex justify-center py-8 px-4 pt-[200px] lg:pt-[140px]">
         <form
-          className="w-[500px] bg-[#151515] rounded-lg p-8 mt-4"
+          className="w-[500px] dark:bg-[#151515] rounded-lg p-8 mt-4"
           onSubmit={handleSubmit}
         >
           <div className="text-white flex flex-col justify-center items-center mb-6">
-            <h1 className="font-bold text-[32px]">Şifrəni Unutmusunuz?</h1>
-            <p>Şifrəni yeniləmək üçün emailinizi daxil edin</p>
+            <h1 className="font-bold dark:text-white text-black text-[32px]">Şifrəni Unutmusunuz?</h1>
+            <p className="text-black dark:text-white">Şifrəni yeniləmək üçün emailinizi daxil edin</p>
           </div>
           <div className="flex justify-center flex-col w-full space-y-4">
             <input
@@ -62,7 +62,7 @@ const ForgotPassword = () => {
               }
               placeholder="Email Adresi *"
               required
-              className="border-[2px] py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
+              className="border-[2px] text-black py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
             />
 
             <button

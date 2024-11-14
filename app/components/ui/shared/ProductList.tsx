@@ -12,7 +12,7 @@ const ProductList = ({ products, styleCss }: Props) => {
     <div
       className={`${styleCss} grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 place-items-center gap-2 mt-4`}
     >
-      {products.map((product) => (
+      {products?.map((product) => (
         <ProductCard key={product.id} productData={product} />
       ))}
     </div>

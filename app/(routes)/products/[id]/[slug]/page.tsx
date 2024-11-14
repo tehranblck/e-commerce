@@ -26,19 +26,19 @@ const ProductDetail = async ({
   return (
     <section className="dark:bg-[#121212] py-6 pt-[220px] lg:pt-[180px]">
       <div className="flex justify-center items-center text-[#fff] mx-2 px-2">
-        <div className="bg-[#181818] py-10 px-6 rounded-md">
+        <div className="dark:bg-[#181818] py-10 px-6 rounded-md">
           <div className="flex sm:w-[300px] md:w-[400px] lg:w-[500px] xl:w-full flex-col xl:flex-row justify-between xl:space-x-4">
             <Image
               width={350}
               height={150}
               src={product.image}
-              className="w-full rounded-md"
+              className="w-full rounded-md "
               alt={product.title}
             />
 
             <div className="w-full flex flex-col justify-between space-y-8">
               <div className="flex flex-col space-y-3 mt-4 xl:mt-0">
-                <h2 className="sm:text-[16px] md:text-[28px] xl:text-[32px] font-bold">
+                <h2 className="sm:text-[16px] md:text-[28px] dark:text-white text-black xl:text-[32px] font-bold">
                   {product.title}
                 </h2>
                 <p className="text-[#5d5d5d]">{product.description}</p>
@@ -47,7 +47,7 @@ const ProductDetail = async ({
                 </Link>
               </div>
               <div className="space-y-2 w-full">
-                <button className="bg-[#1e1e1e] text-lg w-full rounded-md border-[1px] border-[#282828] text-indigo-600">
+                <button className="dark:bg-[#1e1e1e] text-lg w-full rounded-md border-[1px] border-[#282828] text-indigo-600">
                   {product.price.toFixed(2)} Azn
                 </button>
                 <SharedProduct product={product} />
