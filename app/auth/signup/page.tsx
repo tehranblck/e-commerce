@@ -1,12 +1,22 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import { UserRegister } from "./../../models/auth/userregister";
 import useSWR from "swr";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import "react-toastify/dist/ReactToastify.css";
 import { registerUser } from "@/app/services/auth/signupService";
+import Link from "next/link";
+
+
+interface UserRegister {
+  first_name: string;
+  last_name: string;
+  phone_number: string;
+  email: string;
+  password: string;
+  password2: string;
+}
+
 
 const SignUp = () => {
   const router = useRouter()
