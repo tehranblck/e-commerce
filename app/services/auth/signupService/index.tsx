@@ -1,4 +1,4 @@
-import { UserRegister } from "@/app/models/auth/userregister";
+import UserRegister from "@/app/models/auth/userregister";
 
 export const registerUser = async (formData: UserRegister) => {
   const response = await fetch(

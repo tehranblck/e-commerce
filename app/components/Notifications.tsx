@@ -21,7 +21,7 @@ const NotificationsDropdown = () => {
             const response = await fetch(`https://api.muslimanshop.com/api/user/notifications/`, {
                 method: 'GET',
                 headers: {
-                    'Authorization': `${token}`,
+                    'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
             });
@@ -42,15 +42,17 @@ const NotificationsDropdown = () => {
     };
 
     useEffect(() => {
-        // Bildirimleri hemen çek
-        fetchNotifications();
-
-        // Her 10 saniyede bir bildirimleri çek
-        const interval = setInterval(() => {
+        // Eğer token varsa bildirimleri çekmeye başla
+        if (token) {
             fetchNotifications();
-        }, 10000);
 
-        return () => clearInterval(interval); // Temizlik
+            // Her 10 saniyede bir bildirimleri çek
+            const interval = setInterval(() => {
+                fetchNotifications();
+            }, 10000);
+
+            return () => clearInterval(interval); // Temizlik
+        }
     }, [token]);
 
     const markAllAsRead = () => {
@@ -106,7 +108,7 @@ const NotificationsDropdown = () => {
                             </Menu.Item>
                         ))
                     ) : (
-                        <div className="px-4 py-3 text-gray-500 text-center">Yeni bildirim yoxdur</div>
+                        <div className="px-4 outline-none py-3 text-gray-500 text-center">Yeni bildirim yoxdur</div>
                     )}
                 </div>
             </Menu.Items>

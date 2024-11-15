@@ -2,20 +2,13 @@
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import { ToastContainer, toast } from "react-toastify";
+import UserRegister from "@/app/models/auth/userregister";
 import { useRouter } from "next/navigation";
 import "react-toastify/dist/ReactToastify.css";
 import { registerUser } from "@/app/services/auth/signupService";
 import Link from "next/link";
 
 
-interface UserRegister {
-  first_name: string;
-  last_name: string;
-  phone_number: string;
-  email: string;
-  password: string;
-  password2: string;
-}
 
 
 const SignUp = () => {
