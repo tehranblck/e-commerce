@@ -48,7 +48,7 @@ export default function RootLayout({
         <Providers>
           <DynamicHeader />
           {/* <ScrollToTop /> */}
-          <Script
+          {/* <Script
             id="tawk-to"
             strategy="afterInteractive" // Load script after page is interactive
             dangerouslySetInnerHTML={{
@@ -64,7 +64,7 @@ export default function RootLayout({
             })();
           `,
             }}
-          />
+          /> */}
 
           {children}
           <DynamicFooter />
