@@ -7,7 +7,27 @@ import BalansImage from "../../../../../public/assets/images/balans.png";
 import SecureImage from "../../../../../public/assets/images/secure-post.png";
 
 const Hero = () => {
-  const [sliderImages, setSliderImages] = useState(['/bg.png', '/bg.jpg']);
+  const [sliderImages, setSliderImages] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchSliderImages = async () => {
+      try {
+        const res = await fetch(
+          "https://api.muslimanshop.com/api/products/slider/?page_size=20"
+        );
+        const dataSlider = await res.json();
+
+        // Assuming API response is an array of objects with `imageUrl` or similar field
+        const images = dataSlider.results.map((item: any) => item.image);
+        setSliderImages(images);
+      } catch (error) {
+        console.error("Error fetching slider images:", error);
+      }
+    };
+
+    fetchSliderImages();
+  }, []);
+
   const sliderSettings = {
     dots: false,
     infinite: true,
@@ -19,41 +39,28 @@ const Hero = () => {
     arrows: false,
   };
 
-  // useEffect(() => {
-  //   const fetchImages = async () => {
-  //     try {
-  //       const response = await fetch("https://api.example.com/slider-images"); // Replace with actual API endpoint
-  //       const data = await response.json();
-
-  //       // Assuming the API response is an array of objects with an `imageUrl` field
-  //       setSliderImages(data);
-  //     } catch (error) {
-  //       console.error("Error fetching images:", error);
-  //     }
-  //   };
-
-  //   fetchImages();
-  // }, []);
-
   return (
     <section className="py-6 pt-16 dark:bg-[#121212] lg:h-full">
       <div className="flex h-full px-4 dark:bg-[#1f1f1f]  bg-[#bdbdbda3] rounded-2xl  flex-row items-center lg:justify-between max-w-[1280px] mx-auto text-[#fff] lg:py-2 lg:px-2 space-x-1 md:space-x-2">
 
-        {/* Slider Section with Fixed Dimensions */}
         <div className="w-[900px] h-full text-[#000] overflow-hidden rounded-md">
-          <Slider {...sliderSettings}>
-            {sliderImages.map((image, index) => (
-              <div key={index}>
-                <Image
-                  src={image} // Assuming each object has `imageUrl`
-                  alt={`Slide ${index + 1}`}
-                  width={900}
-                  height={240}
-                  className="object-cover w-[900px] h-full"
-                />
-              </div>
-            ))}
-          </Slider>
+          {sliderImages.length > 0 ? (
+            <Slider {...sliderSettings}>
+              {sliderImages.map((image, index) => (
+                <div key={index}>
+                  <Image
+                    src={image} // Assuming each object has `imageUrl`
+                    alt={`Slide ${index + 1}`}
+                    width={900}
+                    height={240}
+                    className="object-cover w-[900px] h-full"
+                  />
+                </div>
+              ))}
+            </Slider>
+          ) : (
+            <p className="text-center text-gray-400">Görseller yükleniyor...</p>
+          )}
         </div>
 
         {/* Right Section with Balans and Secure Images */}
