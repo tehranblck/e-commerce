@@ -22,6 +22,8 @@ const ProductDetail = async ({
       </div>
     );
   }
+  console.log(await product)
+
 
   return (
     <section className="dark:bg-[#121212] py-6 pt-[220px] lg:pt-[180px]">

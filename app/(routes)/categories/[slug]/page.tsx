@@ -111,6 +111,7 @@ const CategorizedProductComponent = ({ params }: any) => {
                             </h2>
                             <div className="w-full max-w-[1380px] px-4 pt-2">
                                 <InformationBar
+
                                     HasButton={false}
                                     sideInfo="Panel xidmətləri"
                                     title={categoryName?.toUpperCase() || ""}

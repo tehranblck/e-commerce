@@ -23,7 +23,7 @@ type Order = {
 
 const OrdersPage: React.FC = () => {
     const user = useSelector((state: RootState) => state.auth.user);
-    const token = localStorage.getItem('token');
+    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
     const [orders, setOrders] = useState<Order[]>([]);
     const [loading, setLoading] = useState(true);
     const [open, setOpen] = useState(false);

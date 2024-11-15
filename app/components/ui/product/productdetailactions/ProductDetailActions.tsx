@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Product } from "@/app/models/ui/Product";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -19,12 +19,10 @@ type Props = {
 const ProductDetailActions = ({ product, pubgId }: Props) => {
   const products = useSelector((state: any) => state.product.products);
   const cartProduct = products.find((item: Product) => item.id === product.id);
-  const auth = localStorage.getItem("token"); // Kontrol için token değeri
-
+  const auth = typeof window !== "undefined" ? localStorage.getItem("token") : null;
   const dispatch = useDispatch();
 
   const handleAddProduct = () => {
-    // Öncelikle auth kontrolü yapılır
     if (!auth) {
       toast.error("Səbətə məhsul əlavə etmək üçün öncə giriş edin.", {
         position: "top-left",
@@ -32,8 +30,24 @@ const ProductDetailActions = ({ product, pubgId }: Props) => {
       return;
     }
 
-    // auth doğrulandıktan sonra işlemlere geçilir
-    if (product.type === "Pubg Mobile" && pubgId === "") {
+    // `token_placeholder` kontrolü: null ise direkt ekleme yap
+    if (product.token_placeholder === null) {
+      if (cartProduct) {
+        dispatch(increaseQuantity(product.id));
+        toast.success("Product miqdarı artırıldı", {
+          position: "top-left",
+        });
+      } else {
+        dispatch(addProduct({ ...product, quantity: 1, pubgId }));
+        toast.success("Product səbətə əlavə edildi", {
+          position: "top-left",
+        });
+      }
+      return; // Geri dönerek diğer kontrolleri atla
+    }
+
+    // `token_placeholder` null değilse kontroller çalışır
+    if (product.type === "Pubg" && pubgId === "") {
       toast.error("Pubg ID sahəsi boş ola bilməz", {
         position: "top-left",
       });

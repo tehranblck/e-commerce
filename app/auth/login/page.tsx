@@ -16,7 +16,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
     if (token) {
       router.push("/");
     }

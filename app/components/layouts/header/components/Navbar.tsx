@@ -35,7 +35,7 @@ const Navbar = () => {
 
   const toggleBalancePopup = (event: React.MouseEvent) => {
     if (typeof window !== "undefined") {
-      const token = localStorage.getItem("token");
+      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
       setAuth(token);
 
       if (token) {

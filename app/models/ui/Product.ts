@@ -6,10 +6,11 @@ export interface Product {
   image: string;
   type: string;
   slug: string;
-  pubgId?:string;
+  pubgId?: string;
   quantity?: number;
   created_at?: string;
   updated_at?: string;
+  token_placeholder: null | string;
 }
 
 export interface ProductResponse {

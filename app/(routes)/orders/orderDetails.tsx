@@ -7,7 +7,7 @@ type Item = {
     product: number;
     quantity: number;
     product_token: string;
-    key: string;
+    key?: string; // Epin değeri opsiyonel olabilir
 };
 
 type Order = {
@@ -26,6 +26,12 @@ type OrderDetailsModalProps = {
 
 const OrderDetailsModal: React.FC<OrderDetailsModalProps> = ({ open, onClose, order }) => {
     if (!order) return null;
+
+    const copyToClipboard = (text: string) => {
+        navigator.clipboard.writeText(text)
+            .then(() => alert("Epin kopyalandı!"))
+            .catch(() => alert("Kopyalama işlemi başarısız oldu."));
+    };
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -53,7 +59,7 @@ const OrderDetailsModal: React.FC<OrderDetailsModalProps> = ({ open, onClose, or
                             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
-                            <Dialog.Panel className="relative bg-white dark:bg-[#1E201E] rounded-lg text-left overflow-hidden shadow-xl transform transition-all w-full max-w-md p-6">
+                            <Dialog.Panel className="relative bg-white dark:bg-[#1E201E] rounded-lg text-left overflow-hidden shadow-xl transform transition-all w-full max-w-md p-6 mt-52">
                                 <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">
                                     Sifariş Detalları - ID: {order.id}
                                 </Dialog.Title>
@@ -70,7 +76,19 @@ const OrderDetailsModal: React.FC<OrderDetailsModalProps> = ({ open, onClose, or
                                                 <p>Məhsul ID: {item.product}</p>
                                                 <p>Miqdarı: {item.quantity}</p>
                                                 <p>Token: {item.product_token}</p>
-                                                <p>Açar: {item.key}</p>
+                                                {item.key ? ( // Eğer item.key varsa, kopyala butonunu göster
+                                                    <div className="flex items-center">
+                                                        <p>Epin: {item.key}</p>
+                                                        <button
+                                                            onClick={() => copyToClipboard(item.key!)}
+                                                            className="ml-2 bg-gray-200 hover:bg-gray-300 text-sm px-2 py-1 rounded-md transition"
+                                                        >
+                                                            Kopyala
+                                                        </button>
+                                                    </div>
+                                                ) : (
+                                                    <p className="text-gray-500">Epin mövcud deyil.</p>
+                                                )}
                                             </div>
                                         ))
                                     ) : (
@@ -78,9 +96,17 @@ const OrderDetailsModal: React.FC<OrderDetailsModalProps> = ({ open, onClose, or
                                     )}
                                 </div>
                                 <div className="mt-6 flex justify-end">
+                                    {/* Masaüstü görünümü için kapatma butonu */}
                                     <button
                                         onClick={onClose}
-                                        className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
+                                        className="hidden sm:block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
+                                    >
+                                        Bağla
+                                    </button>
+                                    {/* Mobil görünümü için kapatma butonu */}
+                                    <button
+                                        onClick={onClose}
+                                        className="block sm:hidden bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition"
                                     >
                                         Bağla
                                     </button>

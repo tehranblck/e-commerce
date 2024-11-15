@@ -53,7 +53,7 @@ const FilteredProductsComponent = () => {
     <section className="dark:bg-[#121212] py-6">
       <div className="max-w-[600px] md:max-w-[1280px] mx-auto">
         <div className="px-2">
-          <InformationBar HasButton={false} title="Məhsul tipləri" />
+          <InformationBar link="/categories" HasButton={true} title="Məhsul tipləri" />
         </div>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-6 px-2 justify-center">
           {displayedCategories.map((category) => (

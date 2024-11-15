@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Menu } from "@headlessui/react";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import Badge from "@mui/material/Badge";
 
 type Notification = {
     id: number;
@@ -15,33 +16,41 @@ const NotificationsDropdown = () => {
     const [hasNewNotification, setHasNewNotification] = useState<boolean>(false);
     const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
-    useEffect(() => {
-        const fetchNotifications = async () => {
-            try {
-                const response = await fetch(`https://api.muslimanshop.com/api/user/notifications/`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `${token}`,
-                        'Content-Type': 'application/json',
-                    },
-                });
+    const fetchNotifications = async () => {
+        try {
+            const response = await fetch(`https://api.muslimanshop.com/api/user/notifications/`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
 
-                if (!response.ok) {
-                    throw new Error('Bildirimlər alınbilmədi');
-                }
-
-                const data = await response.json();
-                setNotifications(data.results || []);
-
-                // Okunmamış bildirimi kontrol et
-                const hasUnread = data.results?.some((notification: Notification) => !notification.is_read);
-                setHasNewNotification(hasUnread);
-            } catch (error) {
-                console.error("Bildirimləri çəkərkən xəta baş verdi:", error);
+            if (!response.ok) {
+                throw new Error('Bildirimlər alınbilmədi');
             }
-        };
 
+            const data = await response.json();
+            setNotifications(data.results || []);
+
+            // Yeni bir bildirim olup olmadığını kontrol et
+            const hasUnread = data.results?.some((notification: Notification) => !notification.is_read);
+            setHasNewNotification(hasUnread);
+        } catch (error) {
+            console.error("Bildirimləri çəkərkən xəta baş verdi:", error);
+        }
+    };
+
+    useEffect(() => {
+        // Bildirimleri hemen çek
         fetchNotifications();
+
+        // Her 10 saniyede bir bildirimleri çek
+        const interval = setInterval(() => {
+            fetchNotifications();
+        }, 10000);
+
+        return () => clearInterval(interval); // Temizlik
     }, [token]);
 
     const markAllAsRead = () => {
@@ -57,12 +66,14 @@ const NotificationsDropdown = () => {
         <Menu as="div" className="relative inline-block text-left">
             <div className="relative">
                 <Menu.Button className="cursor-pointer flex items-center hover:bg-yellow-500 hover:text-black rounded-full transition-all duration-500 p-2">
-                    <NotificationsNoneIcon />
-                    {(unreadCount > 0 || hasNewNotification) && (
-                        <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">
-                            {unreadCount > 0 ? unreadCount : "!"}
-                        </span>
-                    )}
+                    <Badge
+                        badgeContent={unreadCount > 0 ? unreadCount : null}
+                        color="error"
+                        overlap="circular"
+                        invisible={!hasNewNotification && unreadCount === 0}
+                    >
+                        <NotificationsNoneIcon />
+                    </Badge>
                 </Menu.Button>
             </div>
 

@@ -37,7 +37,7 @@ const Products = ({ isInforBarVisible }: { isInforBarVisible: boolean }) => {
   return (
     <section className="dark:bg-[#121212]  dark:border-0  py-6">
       <div className="flex flex-col max-w-[1280px] mx-auto px-2">
-        {isInforBarVisible && <InformationBar HasButton={true} title="Məhsullar" />}
+        {isInforBarVisible && <InformationBar HasButton={true} link='/products' title="Məhsullar" />}
         <ProductList products={products?.results} />
         <div className="flex  items-center justify-center pt-8">
           <BasicPagination count={totalPages} page={currentPage} />

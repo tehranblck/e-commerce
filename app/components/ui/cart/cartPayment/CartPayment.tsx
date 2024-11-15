@@ -7,8 +7,10 @@ import { RootState } from "@/app/store/store";
 import { toast } from "react-toastify";
 import { setUser } from "@/app/store/features/auth/authSlice";
 import { getCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 
 const CartPayment = () => {
+  const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false);
   const user = useSelector((state: RootState) => state.auth.user);
   const userToken = getCookie("userToken")?.replace(/"/g, "");
@@ -79,6 +81,7 @@ const CartPayment = () => {
       toast.success("Ödəniş uğurla başa çatdı", {
         position: "top-left",
       });
+      router.push('/orders')
     } catch (error) {
       console.error("Payment error:", error);
       toast.error("Ödəniş uğursuz oldu", {
