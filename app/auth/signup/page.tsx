@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import { ToastContainer, toast } from "react-toastify";
-import UserRegister from "@/app/models/auth/userregister";
+import UserRegister from "@/app/models/auth/UserRegister";
 import { useRouter } from "next/navigation";
 import "react-toastify/dist/ReactToastify.css";
 import { registerUser } from "@/app/services/auth/signupService";
