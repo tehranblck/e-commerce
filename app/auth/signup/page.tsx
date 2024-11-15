@@ -108,7 +108,7 @@ const SignUp = () => {
 
   return (
     <section className="dark:bg-black">
-      <div className="flex justify-center py-8 px-4 pt-[220px] lg:pt-[150px]">
+      <div className="flex justify-center outline-none py-8 px-4 pt-[220px] lg:pt-[150px]">
         <form
           action=""
           className="w-[500px] dark:bg-[#151515] dark:border-0 border-2 bg-[#bbbbbb72] rounded-lg p-8 mt-4"
