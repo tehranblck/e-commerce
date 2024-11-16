@@ -50,7 +50,7 @@ const FilteredProductsComponent = () => {
   const displayedCategories = showAll ? categories : categories.slice(0, 10);
 
   return (
-    <section className="dark:bg-[#121212] py-6">
+    <section className="dark:bg-[#121212] py-3">
       <div className="max-w-[600px] md:max-w-[1280px] mx-auto">
         <div className="px-2">
           <InformationBar link="/categories" HasButton={true} title="Məhsul tipləri" />

@@ -39,7 +39,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="py-6 pt-16 dark:bg-[#121212] lg:h-full">
+    <section className="py-0 pt-8 dark:bg-[#121212] lg:h-full">
       <div className="flex h-full px-4 dark:bg-[#1f1f1f]  bg-[#bdbdbda3] rounded-2xl  flex-row items-center lg:justify-between max-w-[1280px] mx-auto text-[#fff] lg:py-2 lg:px-2 space-x-1 md:space-x-2">
 
         <div className="w-[900px] h-full text-[#000] overflow-hidden rounded-md">

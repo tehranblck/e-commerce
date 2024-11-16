@@ -81,7 +81,7 @@ const Login = () => {
               }
               required
               placeholder="Email Addresi *"
-              className="border-[2px] py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
+              className="border-[2px] py-2 text-black rounded-md outline-none pl-2 focus:border-yellow-500"
             />
             <input
               type="password"
@@ -91,7 +91,7 @@ const Login = () => {
               }
               required
               placeholder="Şifrə *"
-              className="border-[3px] py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
+              className="border-[3px] text-black py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
             />
           </div>
           <div className="w-full text-end mt-6">
