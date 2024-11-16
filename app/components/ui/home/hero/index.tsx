@@ -68,6 +68,9 @@ const Hero = () => {
             <Link href={"/balance"} className="hover">
               <Image
                 src={BalansImage}
+                width={500}
+                height={500}
+                quality={86}
                 alt="Balance"
                 className="w-[440px] h-auto rounded-md object-cover"
               />
