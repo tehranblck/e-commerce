@@ -4,7 +4,6 @@ import Image from "next/image";
 import Slider from "react-slick";
 import Link from "next/link";
 import BalansImage from "../../../../../public/assets/images/balans.png";
-import SecureImage from "../../../../../public/assets/images/secure-post.png";
 
 const Hero = () => {
   const [sliderImages, setSliderImages] = useState<string[]>([]);
@@ -74,11 +73,16 @@ const Hero = () => {
               />
             </Link>
             <div>
-              <Image
-                src={SecureImage}
-                alt="Secure"
-                className="w-[440px] h-auto rounded-md object-cover"
-              />
+              <Link href={'https://t.me/muslimanshop_com'}>
+                <Image
+                  src={'/assets/images/tg.png'}
+                  width={500}
+                  height={500}
+                  quality={86}
+                  alt="Secure"
+                  className="w-[440px] h-auto rounded-md object-cover"
+                /></Link>
+
             </div>
           </div>
         </div>

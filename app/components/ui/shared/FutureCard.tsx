@@ -41,11 +41,11 @@ const FutureCard = () => {
         {cardItems.map((item) => {
           return (
             <div
-              className="flex flex-col items-center justify-center dark:bg-[#1f1f1f] bg-gray-600 rounded-md  w-full   lg:w-[300px] h-[200px] lg:space-y-2 p-1"
+              className="flex flex-col items-center justify-center dark:bg-[#1f1f1f] bg-white border-2 border-gray-500 border-opacity-10 rounded-md  w-full   lg:w-[300px] h-[200px] lg:space-y-2 p-1"
               key={item.id}
             >
               <div>{item.icon}</div>
-              <span className="text-md text-white dark:text-white">{item.title}</span>
+              <span className="text-md  dark:text-white  text-black">{item.title}</span>
               <p className="text-center text-gray-300 dark:text-[#828282] text-sm">
                 {item.description}
               </p>

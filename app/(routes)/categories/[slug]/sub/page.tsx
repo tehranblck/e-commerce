@@ -62,9 +62,9 @@ const Page = ({ params }: any) => {
                                     <Link
                                         key={subType.id}
                                         href={`/categories/${product.name}/sub/${subType.id}`}
-                                        className="dark:bg-[#1f1f1f] overflow-hidden dark:border-0 border-2 px-0 sm:px-6 w-full hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(75,0,130,0.6)] duration-300 transition-all ease-in-out cursor-pointer h-[140px] rounded-md flex flex-col items-center justify-center"
+                                        className="dark:bg-[#1f1f1f] overflow-hidden dark:border-0 border-2 px-0  w-full hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(75,0,130,0.6)] duration-300 transition-all ease-in-out cursor-pointer h-[140px] rounded-md flex flex-col items-center justify-center"
                                     >
-                                        <Image width={300} height={300} quality={86} src={subType.image} alt={subType.name} className="w-full h-auto object-cover rounded-md mb-2" />
+                                        <Image width={300} height={300} quality={86} src={subType.image} alt={subType.name} className="w-full h-full object-cover rounded-md" />
 
                                     </Link>
                                     <h3 className="text-lg text-center font-bold">{subType.name}</h3>
