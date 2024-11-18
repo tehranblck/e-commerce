@@ -4,7 +4,6 @@ import Loading from "@/app/components/ui/shared/Loading";
 import Image from "next/image";
 import SharedProduct from "@/app/components/ui/product/sharedproduct/SharedProduct";
 import { fetchProduct } from "@/app/services/modules/productdetail";
-import { fetchProducts } from "@/app/services/modules/products";
 import type { Metadata, ResolvingMetadata } from "next";
 import { Product } from "@/app/models/ui/Product";
 

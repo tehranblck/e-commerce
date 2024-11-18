@@ -1,8 +1,9 @@
 // services/productService.ts
 
-export const fetchCategoryData = async (typeId: number) => {
+export const fetchCategoryData = async (subtypeId: number, typeId: number) => {
     try {
-        const response = await fetch(`https://api.muslimanshop.com/api/products/?page_size=20&sub_type=${typeId}`);
+        const response = await fetch(`https://api.muslimanshop.com/api/products/?page_size=20&sub_type=${subtypeId}&type=${typeId}`);
+
 
         if (!response.ok) {
             throw new Error("Failed to fetch category data");

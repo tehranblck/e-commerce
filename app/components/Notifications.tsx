@@ -49,7 +49,7 @@ const NotificationsDropdown = () => {
             // Her 10 saniyede bir bildirimleri çek
             const interval = setInterval(() => {
                 fetchNotifications();
-            }, 10000);
+            }, 1000000);
 
             return () => clearInterval(interval); // Temizlik
         }

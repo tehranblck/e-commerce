@@ -48,6 +48,7 @@ const FilteredProductsComponent = () => {
 
   // Gösterilecek kategori sayısını belirler
   const displayedCategories = showAll ? categories : categories.slice(0, 10);
+  console.log(categories)
 
   return (
     <section className="dark:bg-[#121212] py-3">
