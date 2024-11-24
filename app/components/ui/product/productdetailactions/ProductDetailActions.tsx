@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { Product } from "@/app/models/ui/Product";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -48,13 +48,19 @@ const ProductDetailActions = ({ product, pubgId }: Props) => {
 
     // `token_placeholder` null değilse kontroller çalışır
     if (product.type === "Pubg" && pubgId === "") {
-      toast.error("Pubg ID sahəsi boş ola bilməz", {
-        position: "top-left",
-      });
+      toast.error(
+        `${product.token_placeholder || "Pubg ID"} sahəsi boş ola bilməz`,
+        {
+          position: "top-left",
+        }
+      );
     } else if (product.type !== "Pubg Mobile" && pubgId === "") {
-      toast.error("Mobil nömrə sahəsi boş ola bilməz", {
-        position: "top-left",
-      });
+      toast.error(
+        `${product.token_placeholder || "Mobil nömrə"} sahəsi boş ola bilməz`,
+        {
+          position: "top-left",
+        }
+      );
     } else {
       if (cartProduct) {
         dispatch(increaseQuantity(product.id));
@@ -87,7 +93,7 @@ const ProductDetailActions = ({ product, pubgId }: Props) => {
         >
           -
         </button>
-        <span className="mx-2">{cartProduct?.quantity || "0"}</span>
+        <span className="mx-2">{cartProduct?.quantity || "1"}</span>
         <button
           onClick={handleAddProduct}
           className="bg-yellow-500 hover:bg-white transition-all duration-300 text-lg w-[30px] rounded-md border-[1px] border-[#000] py-[7px] text-black font-bold"

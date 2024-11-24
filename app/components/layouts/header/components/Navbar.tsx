@@ -20,22 +20,32 @@ const Navbar = () => {
   const [balancePopupOpen, setBalancePopupOpen] = useState(false);
   const [userData, setUserData] = useState<{ name: string; email: string; balance: string } | null>(null);
   const [loading, setLoading] = useState(true);
+  const [categories, setCategories] = useState<string[]>([]); // Kategoriler
   const products = useSelector((state: any) => state.product.products);
   const [auth, setAuth] = useState<string | null>(null); // Token durumu
   const router = useRouter();
   const logout = useLogout();
   const popupRef = useRef<HTMLDivElement>(null); // Popup div referansı
   const buttonRef = useRef<HTMLButtonElement>(null); // Balance button referansı
-  const handleSearch: any = (query: any) => {
-    console.log("Search Query:", query); // Perform search or API call with query
-  };
-  useEffect(() => {
 
-  }, [userData]);
+  // Arama işlevi
+  const handleSearch = (query: string) => {
+    router.push(`/search?query=${encodeURIComponent(query)}`);
+  };
+
+  // Kategorileri LocalStorage'dan al
+  useEffect(() => {
+    const savedCategories = localStorage.getItem("categories");
+    if (savedCategories) {
+      const parsedCategories = JSON.parse(savedCategories);
+      const categoryNames = parsedCategories.map((category: { name: string }) => category.name);
+      setCategories(categoryNames);
+    }
+  }, []);
 
   const toggleBalancePopup = (event: React.MouseEvent) => {
     if (typeof window !== "undefined") {
-      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+      const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
       setAuth(token);
 
       if (token) {
@@ -62,7 +72,7 @@ const Navbar = () => {
     setBalancePopupOpen((prev) => !prev);
   };
 
-  // Dışarıya tıklanınca veya bir link tıklanınca popup'ı kapatma
+  // Dışarıya tıklanınca popup'ı kapatma
   const handleClickOutside = (event: MouseEvent) => {
     if (
       popupRef.current &&
@@ -98,6 +108,7 @@ const Navbar = () => {
   return (
     <nav className="dark:bg-[#151515] bg-white px-4 xl:px-0">
       <div className="flex items-center justify-between max-w-[1280px] lg:h-[70px] mx-auto text-[#fff] py-2">
+        {/* Logo */}
         <Link href={"/"}>
           <Image
             src={Logo}
@@ -107,7 +118,10 @@ const Navbar = () => {
             alt="logo"
           />
         </Link>
-        {/* <InputSearch onSearch={handleSearch} /> */}
+
+        {/* Arama Kutusu */}
+        <InputSearch dataset={categories} onSearch={handleSearch} />
+
         <div className="sm:space-x-4 flex flex-col space-y-2 sm:space-y-0 sm:flex-row relative">
           <button
             ref={buttonRef}
@@ -152,10 +166,7 @@ const Navbar = () => {
                     <AssignmentIcon />
                     <span>Sifarişlərim</span>
                   </Link>
-                  <Link href={'/balance'}
-
-                    className="flex items-center justify-center space-x-2 mt-2 w-full bg-green-500 text-white py-2 rounded-md hover:bg-red-600 transition duration-300"
-                  >
+                  <Link href={"/balance"} className="flex items-center justify-center space-x-2 mt-2 w-full bg-green-500 text-white py-2 rounded-md hover:bg-red-600 transition duration-300">
                     <ExitToAppIcon />
                     <span>Balans Artırma</span>
                   </Link>
@@ -166,7 +177,6 @@ const Navbar = () => {
                     <ExitToAppIcon />
                     <span>Hesabdan Çıx</span>
                   </button>
-
                 </div>
               ) : (
                 <p className="text-center text-md dark:text-gray-200 text-black mb-2">

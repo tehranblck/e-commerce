@@ -1,71 +1,110 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, useEffect, ChangeEvent, FormEvent, useRef } from "react";
+
+// Fuzzy Match İşlevi
+const fuzzySearch = (query: string, dataset: string[]): string[] => {
+  const lowerQuery = query.toLowerCase();
+  return dataset.filter((item) =>
+    item.toLowerCase().includes(lowerQuery) // Kullanıcının girdiği değere göre eşleşme
+  );
+};
 
 interface InputSearchProps {
-  onSearch: (query: string) => void;
+  dataset: string[]; // Arama yapılacak veri kümesi
+  onSearch: (query: string) => void; // Arama işlevi
 }
 
-const InputSearch: React.FC<InputSearchProps> = ({ onSearch }) => {
-  const [searchValue, setSearchValue] = useState<string>('');
+const InputSearch: React.FC<InputSearchProps> = ({ dataset, onSearch }) => {
+  const [searchValue, setSearchValue] = useState<string>(""); // Kullanıcının yazdığı değer
+  const [suggestions, setSuggestions] = useState<string[]>([]); // Öneriler
+  const wrapperRef = useRef<HTMLDivElement>(null); // Arama kutusunu saran div referansı
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setSearchValue(value);
+
+    // Önerileri filtrele
+    if (value.trim() !== "") {
+      const matches = fuzzySearch(value, dataset); // En yakın eşleşmeleri bul
+      setSuggestions(matches.slice(0, 5)); // Maksimum 5 öneri göster
+    } else {
+      setSuggestions([]);
+    }
   };
 
   const handleSearch = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSearch(searchValue);
+    if (searchValue.trim() !== "") {
+      onSearch(searchValue.trim());
+      setSuggestions([]); // Önerileri temizle
+    }
   };
 
+  const handleSuggestionClick = (suggestion: string) => {
+    setSearchValue(suggestion); // Seçilen öneriyi input alanına yaz
+    setSuggestions([]); // Öneri listesini temizle
+    onSearch(suggestion); // Arama yap
+  };
+
+  // Arama kutusu dışında bir yere tıklanırsa önerileri kapatma
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+        setSuggestions([]); // Önerileri temizle
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="flex animate-pulseBorder items-center justify-center w-full p-4">
-      <form onSubmit={handleSearch} className="flex glow flex-col items-center">
-        <div className="grid" />
-        <div id="poda" className="relative flex items-center">
-          <div className="absolute inset-0 bg-gray-800 opacity-25 blur-md animate-pulse" />
-          <div className="absolute inset-0 border border-gray-600" />
-          <div className="absolute inset-0 border border-gray-600" />
-          <div className="absolute inset-0 border border-gray-600" />
-          <div className="absolute inset-0 bg-white opacity-25" />
-          <div className="absolute inset-0 border border-gray-300" />
-          <div
-            id="main"
-            className="relative flex items-center bg-gray-900 rounded-md p-3 transform transition-shadow duration-300 focus-within:shadow-lg focus-within:shadow-pink-500/50"
+    <div ref={wrapperRef} className="flex flex-col items-center w-full p-4 relative">
+      <form onSubmit={handleSearch} className="relative w-full max-w-md">
+        <input
+          placeholder="Axtarın..."
+          type="text"
+          name="text"
+          className="z-50 text-gray-700 dark:text-gray-200 bg-transparent outline-none placeholder-gray-400 w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-pink-500"
+          value={searchValue}
+          onChange={handleInputChange}
+        />
+        <button
+          type="submit"
+          className="absolute right-2 text-gray-500 dark:text-gray-300 hover:text-pink-500 transition-transform duration-300"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={20}
+            height={20}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="feather feather-search"
           >
-            <input
-              placeholder="Axtarın..."
-              type="text"
-              name="text"
-              className="input z-50 text-gray-200 bg-transparent outline-none placeholder-gray-400 w-full focus:ring-0 focus:outline-none focus:animate-pulse"
-              value={searchValue}
-              onChange={handleInputChange}
-            />
-            <div id="input-mask" className="absolute inset-0" />
-            <div id="pink-mask" className="absolute inset-0 bg-pink-500 opacity-10" />
-            <div className="absolute inset-0 border border-pink-500" />
-            <div id="filter-icon" className="flex items-center justify-center ml-2 transition-transform duration-200 hover:scale-110">
-              <svg preserveAspectRatio="none" height={27} width={27} viewBox="4.8 4.56 14.832 15.408" fill="none">
-                <path d="M8.16 6.65002H15.83C16.47 6.65002 16.99 7.17002 16.99 7.81002V9.09002C16.99 9.56002 16.7 10.14 16.41 10.43L13.91 12.64C13.56 12.93 13.33 13.51 13.33 13.98V16.48C13.33 16.83 13.1 17.29 12.81 17.47L12 17.98C11.24 18.45 10.2 17.92 10.2 16.99V13.91C10.2 13.5 9.97 12.98 9.73 12.69L7.52 10.36C7.23 10.08 7 9.55002 7 9.20002V7.87002C7 7.17002 7.52 6.65002 8.16 6.65002Z" stroke="#d6d6e6" strokeWidth={1} strokeMiterlimit={10} strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </div>
-            <div id="search-icon" className="flex items-center justify-center ml-2 transition-transform duration-200 hover:scale-110">
-              <svg xmlns="http://www.w3.org/2000/svg" width={24} viewBox="0 0 24 24" strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" height={24} fill="none" className="feather feather-search">
-                <circle stroke="url(#search)" r={8} cy={11} cx={11} />
-                <line stroke="url(#searchl)" y2="16.65" y1={22} x2="16.65" x1={22} />
-                <defs>
-                  <linearGradient gradientTransform="rotate(50)" id="search">
-                    <stop stopColor="#f8e7f8" offset="0%" />
-                    <stop stopColor="#b6a9b7" offset="50%" />
-                  </linearGradient>
-                  <linearGradient id="searchl">
-                    <stop stopColor="#b6a9b7" offset="0%" />
-                    <stop stopColor="#837484" offset="50%" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
-          </div>
-        </div>
+            <circle cx={11} cy={11} r={8} />
+            <line x1={21} y1={21} x2="16.65" y2="16.65" />
+          </svg>
+        </button>
+
+        {/* Öneriler Listesi */}
+        {suggestions.length > 0 && (
+          <ul className="absolute bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md mt-2 w-full z-50 shadow-lg">
+            {suggestions.map((suggestion, index) => (
+              <li
+                key={index}
+                onClick={() => handleSuggestionClick(suggestion)}
+                className="px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer"
+              >
+                {suggestion}
+              </li>
+            ))}
+          </ul>
+        )}
       </form>
     </div>
   );
