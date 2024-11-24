@@ -5,14 +5,19 @@ import ProductDetailActions from "../productdetailactions/ProductDetailActions";
 import { Product } from "@/app/models/ui/Product";
 
 const SharedProduct = ({ product }: { product: Product }) => {
-  const [isInputVisible, setIsInputVisible] = useState<boolean>(true);
-  const [pubgId, setPubgId] = useState<string>("");
-
+  const [isInputVisible, setIsInputVisible] = useState<boolean>(false); // Başlangıçta false
+  const [pubgId, setPubgId] = useState<string>(""); // Kullanıcının girdiği değer
+  const [placeholder, setPlaceholder] = useState<string>(""); // Placeholder değeri
 
   useEffect(() => {
-    console.log(product)
-    setIsInputVisible(product.token_placeholder !== null);
-  }, [product.token_placeholder]); // Burada yalnızca `product.token_placeholder`'a bağımlılık eklenir
+    // Backend'den gelen need_token bilgisine göre görünürlük ve placeholder'ı ayarla
+    if (product.need_token) {
+      setIsInputVisible(true);
+      setPlaceholder(product.token_placeholder || ""); // Eğer token_placeholder yoksa boş string kullan
+    } else {
+      setIsInputVisible(false);
+    }
+  }, [product.need_token, product.token_placeholder]);
 
   const handleChangeEvent = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPubgId(e.target.value.trim());
@@ -22,8 +27,10 @@ const SharedProduct = ({ product }: { product: Product }) => {
     <>
       {isInputVisible && (
         <ProductTokenInput
+          need_token={product.need_token}
           pubgId={pubgId}
           productType={product.type}
+          placeholder={placeholder} // Placeholder prop'u
           onchange={handleChangeEvent}
         />
       )}

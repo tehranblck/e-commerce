@@ -11,6 +11,7 @@ export interface Product {
   created_at?: string;
   updated_at?: string;
   token_placeholder: null | string;
+  need_token: boolean
 }
 
 export interface ProductResponse {

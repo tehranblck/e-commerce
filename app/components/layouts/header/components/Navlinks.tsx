@@ -4,6 +4,7 @@ import CallIcon from "@mui/icons-material/Call";
 import RuleIcon from "@mui/icons-material/Rule";
 import CategoryIcon from "@mui/icons-material/Category";
 import CottageIcon from "@mui/icons-material/Cottage";
+import ExtensionIcon from '@mui/icons-material/Extension';
 import Link from "next/link";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
@@ -58,16 +59,22 @@ const Navlinks: React.FC = () => {
       id: 3,
       link: "/products",
       title: "Produktlar",
-      icon: <CategoryIcon className="text-[18px] cursor-pointer" />,
+      icon: <ExtensionIcon className="text-[18px] cursor-pointer" />,
     },
     {
       id: 4,
+      link: "/categories",
+      title: "Kateqoriyalar",
+      icon: <CategoryIcon className="text-[18px] cursor-pointer" />,
+    },
+    {
+      id: 5,
       link: "/rules",
       title: "Qaydalar",
       icon: <RuleIcon className="text-[18px] cursor-pointer" />,
     },
     {
-      id: 5,
+      id: 6,
       link: "/contact",
       title: "Əlaqə",
       icon: <CallIcon className="text-[18px] cursor-pointer" />,

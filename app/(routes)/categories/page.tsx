@@ -4,6 +4,7 @@ import FutureCard from "@/app/components/ui/shared/FutureCard";
 import React from "react";
 
 const ProductPage = () => {
+
     return (
         <section className="dark:bg-[#121212]  lg:pt-[4px]">
             <div className="pt-[200px] lg:pt-[150px]">

@@ -4,11 +4,13 @@ import InformationBar from "../../shared/InformationBar";
 import { CategoryType } from "@/app/models/ui/categoryType";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const FilteredProductsComponent = () => {
+  const pathname = usePathname(); // Mevcut yolu alır
   const [categories, setCategories] = useState<CategoryType[]>([]);
   const [loading, setLoading] = useState(true);
-  const [showAll, setShowAll] = useState(false);
+  const [showAll, setShowAll] = useState(false); // Başlangıçta 10 kategori gösterilecek
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -46,9 +48,15 @@ const FilteredProductsComponent = () => {
     return <div>Kateqoriyalar yüklənmədi...</div>;
   }
 
+  // Eğer category sayfasındaysak, tüm kategorileri göster
+  const isCategoriesPage = pathname === "/categories";
+
   // Gösterilecek kategori sayısını belirler
-  const displayedCategories = showAll ? categories : categories.slice(0, 10);
-  console.log(categories)
+  const displayedCategories = isCategoriesPage
+    ? categories // Tüm kategoriler
+    : showAll
+      ? categories
+      : categories.slice(0, 10); // İlk 10 kategori
 
   return (
     <section className="dark:bg-[#121212] py-3">
@@ -78,8 +86,8 @@ const FilteredProductsComponent = () => {
           ))}
         </div>
 
-        {/* Daha çok/daha az göster butonu */}
-        {categories.length > 10 && (
+        {/* Daha çox/Daha az göster butonu */}
+        {!isCategoriesPage && categories.length > 10 && (
           <div className="flex justify-center mt-4">
             <button
               onClick={() => setShowAll(!showAll)}

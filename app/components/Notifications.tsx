@@ -14,26 +14,33 @@ type Notification = {
 const NotificationsDropdown = () => {
     const [notifications, setNotifications] = useState<Notification[]>([]);
     const [hasNewNotification, setHasNewNotification] = useState<boolean>(false);
-    const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    const token = typeof window !== "undefined" && localStorage.getItem("token");
 
     const fetchNotifications = async () => {
+        console.log(token)
+        if (!token) {
+            console.error("Token bulunamadı. Kullanıcı giriş yapmamış.");
+            return;
+        }
+
         try {
             const response = await fetch(`https://api.muslimanshop.com/api/user/notifications/`, {
                 method: 'GET',
                 headers: {
-                    'Authorization': `Bearer ${token}`,
+                    'Authorization': `${token}`, // Bearer eklenmeli
                     'Content-Type': 'application/json',
                 },
             });
 
             if (!response.ok) {
-                throw new Error('Bildirimlər alınbilmədi');
+                const errorMessage = await response.text();
+                console.error("Bildirimlər alınırken hata:", errorMessage);
+                throw new Error(errorMessage);
             }
 
             const data = await response.json();
             setNotifications(data.results || []);
 
-            // Yeni bir bildirim olup olmadığını kontrol et
             const hasUnread = data.results?.some((notification: Notification) => !notification.is_read);
             setHasNewNotification(hasUnread);
         } catch (error) {
@@ -42,17 +49,19 @@ const NotificationsDropdown = () => {
     };
 
     useEffect(() => {
-        // Eğer token varsa bildirimleri çekmeye başla
-        if (token) {
+        const fetchData = async () => {
+            if (token) {
+                await fetchNotifications();
+            }
+        };
+
+        fetchData();
+
+        const interval = setInterval(() => {
             fetchNotifications();
+        }, 60000);
 
-            // Her 10 saniyede bir bildirimleri çek
-            const interval = setInterval(() => {
-                fetchNotifications();
-            }, 1000000);
-
-            return () => clearInterval(interval); // Temizlik
-        }
+        return () => clearInterval(interval); // Temizlik
     }, [token]);
 
     const markAllAsRead = () => {
