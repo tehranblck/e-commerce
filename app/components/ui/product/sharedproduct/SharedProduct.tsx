@@ -30,7 +30,7 @@ const SharedProduct = ({ product }: { product: Product }) => {
           need_token={product.need_token}
           pubgId={pubgId}
           productType={product.type}
-          placeholder={placeholder} // Placeholder prop'u
+          placeholder={placeholder}
           onchange={handleChangeEvent}
         />
       )}

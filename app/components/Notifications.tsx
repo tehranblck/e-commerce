@@ -17,7 +17,6 @@ const NotificationsDropdown = () => {
     const token = typeof window !== "undefined" && localStorage.getItem("token");
 
     const fetchNotifications = async () => {
-        console.log(token)
         if (!token) {
             console.error("Token bulunamadı. Kullanıcı giriş yapmamış.");
             return;

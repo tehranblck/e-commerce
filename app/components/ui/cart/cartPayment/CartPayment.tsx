@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { setUser } from "@/app/store/features/auth/authSlice";
 import { getCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
+import { clearBasket } from "@/app/store/features/product/productSlice";
 
 const CartPayment = () => {
   const router = useRouter()
@@ -77,6 +78,7 @@ const CartPayment = () => {
             .toString(),
         }),
       );
+      dispatch(clearBasket());
 
       toast.success("Ödəniş uğurla başa çatdı", {
         position: "top-left",

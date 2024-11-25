@@ -1,6 +1,6 @@
 //counterSlice.jsx
 
-"use client"; 
+"use client";
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Product } from "@/app/models/ui/Product";
@@ -29,27 +29,29 @@ export const productSlice = createSlice({
       }
     },
     increaseQuantity: (state, action: PayloadAction<number>) => {
-     const existingProduct = state.products.find(product => product.id === action.payload);
-     if (existingProduct) {
-       existingProduct.quantity = (existingProduct.quantity || 0) + 1;
-     }    
+      const existingProduct = state.products.find(product => product.id === action.payload);
+      if (existingProduct) {
+        existingProduct.quantity = (existingProduct.quantity || 0) + 1;
+      }
 
-      
+
     },
     decreaseQuantity: (state, action: PayloadAction<number>) => {
       const existingProduct = state.products.find(product => product.id === action.payload);
       if (existingProduct && existingProduct.quantity !== undefined && existingProduct.quantity >= 1) {
         existingProduct.quantity = (existingProduct.quantity || 0) - 1;
       }
-    },    
+    },
     removeProduct: (state, action: PayloadAction<Product>) => {
       state.products = state.products.filter(
         (product) => product.id !== action.payload.id,
       );
+    }, clearBasket: (state) => {
+      state.products = []; // Səbəti sıfırla
     },
   },
 });
 
-export const { addProduct, removeProduct,increaseQuantity,decreaseQuantity } = productSlice.actions;
+export const { addProduct, removeProduct, increaseQuantity, decreaseQuantity, clearBasket } = productSlice.actions;
 
 export default productSlice.reducer;

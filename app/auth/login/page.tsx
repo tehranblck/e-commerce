@@ -3,10 +3,11 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "@/app/store/features/auth/authSlice";
 import { setCookie } from "cookies-next";
 import { loginUser, fetchUserProfile } from "@/app/services/auth/loginService";
+import { RootState } from "@/app/store/store";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -16,8 +17,9 @@ const Login = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
-    if (token) {
+    const user = useSelector((state: RootState) => state.auth.user);
+    console.log(user)
+    if (user) {
       router.push("/");
     }
   }, [router]);

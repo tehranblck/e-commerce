@@ -17,7 +17,7 @@ import { useLogout } from "@/app/hooks/useLogout";
 import InputSearch from "./İnput";
 
 const Navbar = () => {
-  const [balancePopupOpen, setBalancePopupOpen] = useState(false);
+  // const [balancePopupOpen, setBalancePopupOpen] = useState(false);
   const [userData, setUserData] = useState<{ name: string; email: string; balance: string } | null>(null);
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState<string[]>([]); // Kategoriler
@@ -43,67 +43,67 @@ const Navbar = () => {
     }
   }, []);
 
-  const toggleBalancePopup = (event: React.MouseEvent) => {
-    if (typeof window !== "undefined") {
-      const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
-      setAuth(token);
+  // const toggleBalancePopup = (event: React.MouseEvent) => {
+  //   if (typeof window !== "undefined") {
+  //     const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  //     setAuth(token);
 
-      if (token) {
-        const getUserData = async () => {
-          try {
-            const profile = await fetchUserProfile(token);
-            setUserData({
-              name: profile.first_name,
-              email: profile.email,
-              balance: profile.balance,
-            });
-          } catch (error) {
-            console.error("Error loading user data:", error);
-          } finally {
-            setLoading(false);
-          }
-        };
-        getUserData();
-      } else {
-        setLoading(false);
-      }
-    }
-    event.stopPropagation(); // Butona tıklanıldığında kapanmayı engelle
-    setBalancePopupOpen((prev) => !prev);
-  };
+  //     if (token) {
+  //       const getUserData = async () => {
+  //         try {
+  //           const profile = await fetchUserProfile(token);
+  //           setUserData({
+  //             name: profile.first_name,
+  //             email: profile.email,
+  //             balance: profile.balance,
+  //           });
+  //         } catch (error) {
+  //           console.error("Error loading user data:", error);
+  //         } finally {
+  //           setLoading(false);
+  //         }
+  //       };
+  //       getUserData();
+  //     } else {
+  //       setLoading(false);
+  //     }
+  //   }
+  //   event.stopPropagation(); // Butona tıklanıldığında kapanmayı engelle
+  //   setBalancePopupOpen((prev) => !prev);
+  // };
 
   // Dışarıya tıklanınca popup'ı kapatma
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      popupRef.current &&
-      !popupRef.current.contains(event.target as Node) &&
-      buttonRef.current &&
-      !buttonRef.current.contains(event.target as Node)
-    ) {
-      setBalancePopupOpen(false);
-    }
-  };
+  // const handleClickOutside = (event: MouseEvent) => {
+  //   if (
+  //     popupRef.current &&
+  //     !popupRef.current.contains(event.target as Node) &&
+  //     buttonRef.current &&
+  //     !buttonRef.current.contains(event.target as Node)
+  //   ) {
+  //     setBalancePopupOpen(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    if (balancePopupOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [balancePopupOpen]);
+  // useEffect(() => {
+  //   if (balancePopupOpen) {
+  //     document.addEventListener("mousedown", handleClickOutside);
+  //   } else {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   }
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, [balancePopupOpen]);
 
-  const handleLogout = () => {
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("token");
-    }
-    setUserData(null);
-    setBalancePopupOpen(false);
-    logout();
-    router.push("/auth/login");
-  };
+  // const handleLogout = () => {
+  //   if (typeof window !== "undefined") {
+  //     localStorage.removeItem("token");
+  //   }
+  //   setUserData(null);
+  //   setBalancePopupOpen(false);
+  //   logout();
+  //   router.push("/auth/login");
+  // };
 
   return (
     <nav className="dark:bg-[#151515] bg-white px-4 xl:px-0">
@@ -123,17 +123,17 @@ const Navbar = () => {
         <InputSearch dataset={categories} onSearch={handleSearch} />
 
         <div className="sm:space-x-4 flex flex-col space-y-2 sm:space-y-0 sm:flex-row relative">
-          <button
-            ref={buttonRef}
-            onClick={toggleBalancePopup}
+          <Link href={'/balance'}
+
+
             className="transition-all duration-500 ease-in-out px-4 py-2 rounded-md bg-yellow-400 text-black hover:bg-white relative"
           >
             <span>
               <AccountBalanceWalletIcon className="mr-2" />
               Balans
             </span>
-          </button>
-
+          </Link>
+          {/* 
           {balancePopupOpen && (
             <div
               ref={popupRef}
@@ -190,7 +190,7 @@ const Navbar = () => {
                 Bağla
               </button>
             </div>
-          )}
+          )} */}
 
           <Link
             href={"/cart"}

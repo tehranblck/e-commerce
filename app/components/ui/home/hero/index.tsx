@@ -42,23 +42,24 @@ const Hero = () => {
     <section className="py-0 pt-8 dark:bg-[#121212] lg:h-full">
       <div className="flex h-full px-4 dark:bg-[#1f1f1f]  bg-[#bdbdbda3] rounded-2xl  flex-row items-center lg:justify-between max-w-[1280px] mx-auto text-[#fff] lg:py-2 lg:px-2 space-x-1 md:space-x-2">
 
-        <div className="w-[900px] h-full text-[#000] overflow-hidden rounded-md">
+        <div className="w-[900px] h-full text-[#000]  rounded-md">
           {sliderImages.length > 0 ? (
             <Slider {...sliderSettings}>
               {sliderImages.map((image, index) => (
                 <div key={index}>
                   <Image
-                    src={image} // Assuming each object has `imageUrl`
+                    src={image}
                     alt={`Slide ${index + 1}`}
-                    width={900}
-                    height={240}
-                    className="object-cover w-[900px] h-full"
+                    width={500}
+                    height={500}
+
+                    className="object-fit w-[900px] h-full"
                   />
                 </div>
               ))}
             </Slider>
           ) : (
-            <p className="text-center text-gray-400">Görseller yükleniyor...</p>
+            <p className="text-center text-gray-400">Şəkillər yüklənir...</p>
           )}
         </div>
 
