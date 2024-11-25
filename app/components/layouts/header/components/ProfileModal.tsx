@@ -46,7 +46,7 @@ const ProfileModal = ({ onClose }: { onClose: () => void }) => {
     const handleLogout = useLogout();
 
     return (
-        <div className="transform scale-100 dark:border-[#121212] dark:border-[1px] border-[1px] border-gray-300 opacity-100 transition-transform duration-300 ease-out absolute top-[50px] right-4 z-50 w-[300px] bg-white dark:bg-[#1E201E] p-6 rounded-lg shadow-lg">
+        <div className="transform scale-100 dark:border-[#121212] dark:border-[1px] border-[1px] border-gray-300 opacity-100 transition-transform duration-300 ease-out absolute top-[50px] right-4 z-50 w-fit min-w-[300px] bg-white dark:bg-[#1E201E] p-6 rounded-lg shadow-lg">
             {loading ? (
                 <p className="text-center text-md dark:text-gray-200 text-black mb-2">Yüklənir...</p>
             ) : userData ? (

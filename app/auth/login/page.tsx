@@ -15,9 +15,9 @@ const Login = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
-
+  const user = useSelector((state: RootState) => state.auth.user);
   useEffect(() => {
-    const user = useSelector((state: RootState) => state.auth.user);
+
     console.log(user)
     if (user) {
       router.push("/");

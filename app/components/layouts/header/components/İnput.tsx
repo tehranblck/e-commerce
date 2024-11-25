@@ -60,7 +60,7 @@ const InputSearch: React.FC<InputSearchProps> = ({ dataset, onSearch }) => {
   }, []);
 
   return (
-    <div ref={wrapperRef} className="flex flex-col items-center w-full p-4 relative">
+    <div ref={wrapperRef} className="flex flex-col items-center w-full p-2 md:p-4 relative">
       <form onSubmit={handleSearch} className="relative  w-full max-w-md">
         <input
           placeholder="Axtarın..."

@@ -16,7 +16,6 @@ const Hero = () => {
         );
         const dataSlider = await res.json();
 
-        // Assuming API response is an array of objects with `imageUrl` or similar field
         const images = dataSlider.results.map((item: any) => item.image);
         setSliderImages(images);
       } catch (error) {
@@ -39,21 +38,21 @@ const Hero = () => {
   };
 
   return (
-    <section className="py-0 pt-8 dark:bg-[#121212] lg:h-full">
-      <div className="flex h-full px-4 dark:bg-[#1f1f1f]  bg-[#bdbdbda3] rounded-2xl  flex-row items-center lg:justify-between max-w-[1280px] mx-auto text-[#fff] lg:py-2 lg:px-2 space-x-1 md:space-x-2">
+    <section className="py-0 mt-12 pt-8 dark:bg-[#121212] lg:h-full">
+      <div className="flex h-full px-0 sm:px-4 md:px-4 dark:bg-[#1f1f1f] bg-[#bdbdbda3] rounded-2xl flex-col lg:flex-row items-center lg:justify-between max-w-[1280px] mx-auto text-[#fff] lg:py-2 lg:px-2 space-y-2 lg:space-y-0 lg:space-x-4">
 
-        <div className="w-[900px] h-full text-[#000]  rounded-md">
+        {/* Slider Section */}
+        <div className="w-full lg:w-2/3 text-[#000] rounded-md">
           {sliderImages.length > 0 ? (
             <Slider {...sliderSettings}>
               {sliderImages.map((image, index) => (
-                <div key={index}>
+                <div key={index} className="relative w-full h-52 sm:h-64 md:h-80 lg:h-[450px]">
                   <Image
                     src={image}
                     alt={`Slide ${index + 1}`}
-                    width={500}
-                    height={500}
-
-                    className="object-fit w-[900px] h-full"
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded-md"
                   />
                 </div>
               ))}
@@ -64,31 +63,34 @@ const Hero = () => {
         </div>
 
         {/* Right Section with Balans and Secure Images */}
-        <div>
-          <div className="flex flex-col justify-between space-y-1 md:space-y-2 h-full">
-            <Link href={"/balance"} className="hover">
+        <div className="w-full lg:w-1/3 flex flex-row flex-wrap lg:flex-col lg:space-y-4 lg:space-x-0 sm:space-x-0">
+          {/* Balance Image */}
+          <Link href={"/balance"} className="w-1/2 lg:w-full">
+            <div className="relative h-[200px] sm:h-[240px] md:h-[300px] lg:h-[225px]">
               <Image
                 src={BalansImage}
-                width={500}
-                height={500}
+                layout="fill"
+                objectFit="cover"
                 quality={86}
                 alt="Balance"
-                className="w-[440px] h-auto rounded-md object-cover"
+                className="rounded-md"
               />
-            </Link>
-            <div>
-              <Link href={'https://t.me/muslimanshop_com'}>
-                <Image
-                  src={'/assets/images/tg.png'}
-                  width={500}
-                  height={500}
-                  quality={86}
-                  alt="Secure"
-                  className="w-[440px] h-auto rounded-md object-cover"
-                /></Link>
-
             </div>
-          </div>
+          </Link>
+
+          {/* Telegram Image */}
+          <Link href={"https://t.me/muslimanshop_com"} className="w-1/2 lg:w-full">
+            <div className="relative h-[200px] sm:h-[240px] md:h-[300px] lg:h-[225px]">
+              <Image
+                src={'/assets/images/tg.png'}
+                layout="fill"
+                objectFit="cover"
+                quality={86}
+                alt="Telegram Link"
+                className="rounded-md"
+              />
+            </div>
+          </Link>
         </div>
       </div>
     </section>
