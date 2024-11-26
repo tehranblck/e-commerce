@@ -8,10 +8,7 @@ import Link from "next/link";
 import { fetchUserProfile } from "@/app/services/auth/loginService";
 import { useLogout } from "@/app/hooks/useLogout";
 
-
-
 const ProfileModal = ({ onClose }: { onClose: () => void }) => {
-
     const [userData, setUserData] = useState<{
         name: string;
         email: string;
@@ -73,11 +70,19 @@ const ProfileModal = ({ onClose }: { onClose: () => void }) => {
                         <span>Sifarişlərim</span>
                     </Link>
                     <Link
-                        href={"/balance"}
-                        className="flex items-center justify-center space-x-2 mt-2 w-full bg-green-500 text-white py-2 rounded-md hover:bg-red-600 transition duration-300"
+                        href="/balance"
+                        className="flex items-center justify-center space-x-2 mt-2 w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition duration-300"
                     >
                         <ExitToAppIcon />
                         <span>Balans Artırma</span>
+                    </Link>
+                    <Link
+                        href="/payments"
+                        onClick={onClose}
+                        className="flex items-center justify-center space-x-2 mt-2 w-full bg-purple-500 text-white py-2 rounded-md hover:bg-purple-600 transition duration-300"
+                    >
+                        <MonetizationOnIcon />
+                        <span>Ödənişlərim</span>
                     </Link>
                     <button
                         onClick={handleLogout}
