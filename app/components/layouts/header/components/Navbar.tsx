@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -11,15 +12,18 @@ import InputSearch from "./İnput";
 
 const Navbar = () => {
   const [categories, setCategories] = useState<string[]>([]); // Kategoriler
-  const products = useSelector((state: any) => state.product.products);
+  const products = useSelector((state: any) => state.product.products); // Redux'dan ürünleri al
   const router = useRouter();
+
+  // Tam eşleşme arama fonksiyonu
   const handleExactMatchSearch = (query: string) => {
-    console.log("Tam eşleşme veya kısa kısaltma araması:", query);
-    // Backend'den içerik çekmek için API çağrısı yapılabilir
+    console.log("Tam eşleşme araması:", query);
+    // Backend'den içerik çekmek için bir API çağrısı yapılabilir
   };
 
-  // Arama işlevi
+  // Genel arama fonksiyonu
   const handleSearch = (query: string) => {
+    console.log("Arama yapılıyor:", query);
     router.push(`/search?query=${encodeURIComponent(query)}`);
   };
 
@@ -28,7 +32,9 @@ const Navbar = () => {
     const savedCategories = localStorage.getItem("categories");
     if (savedCategories) {
       const parsedCategories = JSON.parse(savedCategories);
-      const categoryNames = parsedCategories.map((category: { name: string }) => category.name);
+      const categoryNames = parsedCategories.map(
+        (category: { name: string }) => category.name
+      );
       setCategories(categoryNames);
     }
   }, []);
@@ -51,11 +57,14 @@ const Navbar = () => {
 
         {/* Arama Kutusu */}
         <div className="w-full md:w-1/2 lg:w-1/3">
-          <InputSearch onExactMatchSearch={handleExactMatchSearch} dataset={categories} onSearch={handleSearch} />
+          <InputSearch
+            dataset={categories}
+            onSearch={handleSearch}
+          />
         </div>
 
         {/* Actions */}
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 mt-4 md:mt-0">
           {/* Balance Link */}
           <Link
             href={"/balance"}
@@ -74,7 +83,7 @@ const Navbar = () => {
           >
             <p className="w-full">
               <span className="text-[#fff] bg-indigo-500 rounded-full px-2 absolute top-[-10px] right-[-10px] text-xs">
-                {products.length !== 0 ? products.length : 0}
+                {products?.length || 0}
               </span>
               <ShoppingCartIcon className="mr-2" />
               Səbət

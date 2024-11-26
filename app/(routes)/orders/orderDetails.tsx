@@ -30,7 +30,7 @@ const OrderDetailsModal: React.FC<OrderDetailsModalProps> = ({ open, onClose, or
     const copyToClipboard = (text: string) => {
         navigator.clipboard.writeText(text)
             .then(() => alert("Epin kopyalandı!"))
-            .catch(() => alert("Kopyalama işlemi başarısız oldu."));
+            .catch(() => alert("Kopyalama alınmadı"));
     };
 
     return (

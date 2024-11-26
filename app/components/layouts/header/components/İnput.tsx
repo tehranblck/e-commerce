@@ -1,11 +1,12 @@
 "use client";
+
 import React, { useState, useEffect, ChangeEvent, FormEvent, useRef } from "react";
 import { usePathname } from "next/navigation";
 
 const fuzzySearch = (query: string, dataset: string[]): string[] => {
   const lowerQuery = query.toLowerCase();
   return dataset.filter((item) =>
-    item.toLowerCase().includes(lowerQuery) // Kullanıcının girdiği değere göre eşleşme
+    item.toLowerCase().includes(lowerQuery)
   );
 };
 
@@ -24,10 +25,9 @@ const InputSearch: React.FC<InputSearchProps> = ({ dataset, onSearch }) => {
     const value = event.target.value;
     setSearchValue(value);
 
-    // Önerileri filtrele
     if (value.trim() !== "") {
-      const matches = fuzzySearch(value, dataset); // En yakın eşleşmeleri bul
-      setSuggestions(matches.slice(0, 5)); // Maksimum 5 öneri göster
+      const matches = fuzzySearch(value, dataset);
+      setSuggestions(matches.slice(0, 5)); // Maksimum 5 öneri
     } else {
       setSuggestions([]);
     }
@@ -38,42 +38,43 @@ const InputSearch: React.FC<InputSearchProps> = ({ dataset, onSearch }) => {
     const trimmedValue = searchValue.trim();
 
     if (trimmedValue !== "") {
-      // Kullanıcının girdisini API'ye gönder
       onSearch(trimmedValue);
-      setSuggestions([]); // Önerileri temizle
+      setSuggestions([]);
     }
   };
 
   const handleSuggestionClick = (suggestion: string) => {
-    setSearchValue(suggestion); // Seçilen öneriyi input alanına yaz
-    setSuggestions([]); // Öneri listesini temizle
-    onSearch(suggestion); // Öneriyi API'ye gönder
+    setSearchValue(suggestion);
+    setSuggestions([]);
+    onSearch(suggestion);
   };
 
-  // Arama kutusu dışında bir yere tıklanırsa önerileri kapatma
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
-        setSuggestions([]); // Önerileri temizle
+        setSuggestions([]);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    if (suggestions.length > 0) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [suggestions]);
 
-  // Rota değişimini izleyerek input sıfırlama
   useEffect(() => {
-    setSearchValue(""); // Yol değiştiğinde input sıfırlanır
-    setSuggestions([]); // Öneriler temizlenir
-  }, [pathname]); // `pathname` değişimini izler
+    setSearchValue("");
+    setSuggestions([]);
+  }, [pathname]);
 
   return (
     <div ref={wrapperRef} className="flex flex-col items-center w-full p-2 md:p-4 relative">
       <form onSubmit={handleSearch} className="relative w-full max-w-md">
         <input
+          aria-label="Axtarın"
           placeholder="Axtarın..."
           type="text"
           name="text"
@@ -85,7 +86,6 @@ const InputSearch: React.FC<InputSearchProps> = ({ dataset, onSearch }) => {
           type="submit"
           className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-300 hover:text-pink-500 transition-transform duration-300"
         >
-          {/* Arama ikonu */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -102,9 +102,11 @@ const InputSearch: React.FC<InputSearchProps> = ({ dataset, onSearch }) => {
           </svg>
         </button>
 
-        {/* Öneriler Listesi */}
         {suggestions.length > 0 && (
-          <ul className="absolute bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md mt-2 w-full z-50 shadow-lg">
+          <ul
+            role="listbox"
+            className="absolute bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md mt-2 w-full z-50 shadow-lg"
+          >
             {suggestions.map((suggestion, index) => (
               <li
                 key={index}
