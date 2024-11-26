@@ -53,7 +53,7 @@ const Page = ({ params }: any) => {
     }, [slug]);
 
     return (
-        <section className="mx-auto pt-[200px] text-center lg:pt-[200px] pb-[20px] dark:bg-[#121212]">
+        <section className="mx-auto text-center  pb-[20px] dark:bg-[#121212]">
             <div className="flex flex-col max-w-[1280px] mx-auto px-4">
                 <div className="flex items-center justify-center w-full mb-6">
                     <h1 className="text-[36px] lg:text-[42px] font-semibold dark:text-[#fff]">

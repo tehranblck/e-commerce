@@ -6,7 +6,7 @@ import CartPayment from "@/app/components/ui/cart/cartPayment/CartPayment";
 const ShoppingCart = () => {
   return (
     <section className="dark:bg-[#121212] py-6">
-      <div className=" flex items-center justify-center w-full pt-[190px]  lg:pt-[130px]">
+      <div className=" flex items-center justify-center w-full">
         <h1 className="text-[42px] dark:text-[#fff]">Səbət</h1>
       </div>
       <div

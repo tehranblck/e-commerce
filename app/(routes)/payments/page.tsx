@@ -52,7 +52,7 @@ const PaymentsPage: React.FC = () => {
     };
 
     return (
-        <div className=" bg-gray-100 dark:bg-[#151515] text-gray-800 dark:text-white sm:py-46 md:40 py-56">
+        <div className=" bg-gray-100 dark:bg-[#151515] text-gray-800 dark:text-white ">
             <div className="max-w-4xl mx-auto px-4 py-8">
                 <h1 className="text-2xl font-semibold mb-6">Ödənişlərim</h1>
 

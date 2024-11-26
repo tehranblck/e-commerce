@@ -81,9 +81,8 @@ const ProductDetail = ({ params }: { params: { id: number } }) => {
                 <input
                   required
                   type="text"
-                  className={`${
-                    !pubgId ? "border-[1px] border-red-500" : ""
-                  } w-full rounded-md border-[1px] border-[#282828] bg-[#1e1e1e] border-blue- p-2`}
+                  className={`${!pubgId ? "border-[1px] border-red-500" : ""
+                    } w-full rounded-md border-[1px] border-[#282828] bg-[#1e1e1e] border-blue- p-2`}
                   placeholder="Pubg ID *"
                   value={pubgId}
                   onChange={(e) => setPubgId(e.target.value.trim())}

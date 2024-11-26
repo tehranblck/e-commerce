@@ -5,10 +5,10 @@ import IncreaseBalanceUserForm from "@/app/components/ui/balance/increasebalance
 
 const BalanceComponent = () => {
   return (
-    <section className="bg-[#121212] py-6 pt-[200px] lg:pt-[150px]">
+    <section className="dark:bg-[#121212] py-6 ">
       <div className="max-w-[1280px] mx-auto">
         <div className=" flex items-center justify-center w-full mb-4">
-          <h1 className="text-[42px] text-[#fff]">Balans</h1>
+          <h1 className="text-[42px] dark:text-[#fff] ">Balans</h1>
         </div>
         <div className="flex bg-[#f5c2c7] flex-col items-center justify-center px-4 mx-2 rounded-md lg:max-w-[1280px] py-4">
           <div className="flex flex-col items-center ">
@@ -26,7 +26,7 @@ const BalanceComponent = () => {
           </div>
         </div>
 
-        <div className="bg-[#1E201E] mt-4 flex flex-col items-center  rounded-md py-4 mx-2">
+        <div className="dark:xbg-[#1E201E] mt-4 flex flex-col items-center  rounded-md py-4 mx-2">
           <h3 className="text-[#646464] font-bold text-xl px-2 text-center ">
             Card To Card və ya Nömrəyə Artır(M10)
           </h3>

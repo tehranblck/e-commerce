@@ -12,7 +12,7 @@ export default function Home({
 }) {
   return (
     <ThemeProvider>
-      <main className="pt-[180px] lg:pt-[110px]">
+      <main >
         <Hero />
         <FilteredProductsComponent />
         <Products isInforBarVisible={true} />

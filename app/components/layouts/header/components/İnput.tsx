@@ -1,6 +1,7 @@
+"use client";
 import React, { useState, useEffect, ChangeEvent, FormEvent, useRef } from "react";
+import { usePathname } from "next/navigation";
 
-// Fuzzy Match İşlevi
 const fuzzySearch = (query: string, dataset: string[]): string[] => {
   const lowerQuery = query.toLowerCase();
   return dataset.filter((item) =>
@@ -14,6 +15,7 @@ interface InputSearchProps {
 }
 
 const InputSearch: React.FC<InputSearchProps> = ({ dataset, onSearch }) => {
+  const pathname = usePathname(); // Mevcut yol
   const [searchValue, setSearchValue] = useState<string>(""); // Kullanıcının yazdığı değer
   const [suggestions, setSuggestions] = useState<string[]>([]); // Öneriler
   const wrapperRef = useRef<HTMLDivElement>(null); // Arama kutusunu saran div referansı
@@ -33,8 +35,11 @@ const InputSearch: React.FC<InputSearchProps> = ({ dataset, onSearch }) => {
 
   const handleSearch = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (searchValue.trim() !== "") {
-      onSearch(searchValue.trim());
+    const trimmedValue = searchValue.trim();
+
+    if (trimmedValue !== "") {
+      // Kullanıcının girdisini API'ye gönder
+      onSearch(trimmedValue);
       setSuggestions([]); // Önerileri temizle
     }
   };
@@ -42,7 +47,7 @@ const InputSearch: React.FC<InputSearchProps> = ({ dataset, onSearch }) => {
   const handleSuggestionClick = (suggestion: string) => {
     setSearchValue(suggestion); // Seçilen öneriyi input alanına yaz
     setSuggestions([]); // Öneri listesini temizle
-    onSearch(suggestion); // Arama yap
+    onSearch(suggestion); // Öneriyi API'ye gönder
   };
 
   // Arama kutusu dışında bir yere tıklanırsa önerileri kapatma
@@ -59,9 +64,15 @@ const InputSearch: React.FC<InputSearchProps> = ({ dataset, onSearch }) => {
     };
   }, []);
 
+  // Rota değişimini izleyerek input sıfırlama
+  useEffect(() => {
+    setSearchValue(""); // Yol değiştiğinde input sıfırlanır
+    setSuggestions([]); // Öneriler temizlenir
+  }, [pathname]); // `pathname` değişimini izler
+
   return (
     <div ref={wrapperRef} className="flex flex-col items-center w-full p-2 md:p-4 relative">
-      <form onSubmit={handleSearch} className="relative  w-full max-w-md">
+      <form onSubmit={handleSearch} className="relative w-full max-w-md">
         <input
           placeholder="Axtarın..."
           type="text"
@@ -72,9 +83,23 @@ const InputSearch: React.FC<InputSearchProps> = ({ dataset, onSearch }) => {
         />
         <button
           type="submit"
-          className="absolute right-2 text-gray-500 dark:text-gray-300 hover:text-pink-500 transition-transform duration-300"
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-300 hover:text-pink-500 transition-transform duration-300"
         >
-
+          {/* Arama ikonu */}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M21 21l-4.35-4.35m0 0a7.5 7.5 0 10-10.6-10.6 7.5 7.5 0 0010.6 10.6z"
+            />
+          </svg>
         </button>
 
         {/* Öneriler Listesi */}
@@ -84,7 +109,7 @@ const InputSearch: React.FC<InputSearchProps> = ({ dataset, onSearch }) => {
               <li
                 key={index}
                 onClick={() => handleSuggestionClick(suggestion)}
-                className="px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer"
+                className="px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 dark:text-white text-black cursor-pointer"
               >
                 {suggestion}
               </li>

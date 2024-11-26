@@ -65,7 +65,7 @@ const Login = () => {
 
   return (
     <section  >
-      <div className="flex justify-center py-8 px-4 pt-[220px] lg:pt-[160px]">
+      <div className="flex justify-center py-8 px-4 ">
         <form
           className="w-[500px] dark:bg-[#151515] bg-[#bbbbbb72] dark:border-0 border-2 rounded-lg p-8 mt-4"
           onSubmit={handleSubmit}

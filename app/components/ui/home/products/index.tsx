@@ -1,19 +1,20 @@
-'use client'
+"use client";
 import React, { useEffect, useState, useRef } from "react";
 import ProductList from "../../shared/ProductList";
 import BasicPagination from "../../shared/Pagination";
 import Loading from "../../shared/Loading";
 import { fetchProducts } from "@/app/services/modules/products";
-import { usePagination } from "@/app/hooks/usePaginations";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Font Awesome ikonları
 
 const Products = ({ isInforBarVisible }: { isInforBarVisible: boolean }) => {
-  const { currentPage, totalPages, setTotalPages } = usePagination();
-  const [products, setProducts] = useState<any>(null);
-  const [categories, setCategories] = useState<any[]>([]); // Kategorileri tutar
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null); // Seçili kategori ID
-  const [loading, setLoading] = useState<boolean>(true);
-  const scrollRef = useRef<HTMLDivElement>(null); // Slider için referans
+  const [currentPage, setCurrentPage] = useState<number>(1); // Aktif sayfa
+  const [totalPages, setTotalPages] = useState<number>(0); // Toplam sayfa sayısı
+  const [products, setProducts] = useState<any>(null); // Ürünler
+  const [categories, setCategories] = useState<any[]>([]); // Kategoriler
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null); // Seçili kategori
+  const [loading, setLoading] = useState<boolean>(true); // Yüklenme durumu
+  const scrollRef = useRef<HTMLDivElement>(null); // Kategori slider için referans
+  const itemsPerPage = 10; // Sayfa başına ürün sayısı
 
   // Kategorileri Fetch Etme ve LocalStorage'a Kaydetme
   useEffect(() => {
@@ -58,16 +59,20 @@ const Products = ({ isInforBarVisible }: { isInforBarVisible: boolean }) => {
           if (!category) throw new Error("Category not found");
 
           const res = await fetch(
-            `https://api.muslimanshop.com/api/products?type=${category.id}&page=${currentPage}`
+            `https://api.muslimanshop.com/api/products?type=${category.id}&page=${currentPage}&page_size=${itemsPerPage}`
           );
           if (!res.ok) throw new Error("Failed to fetch products");
           data = await res.json();
         } else {
-          data = await fetchProducts(currentPage);
+          const res = await fetch(
+            `https://api.muslimanshop.com/api/products?page=${currentPage}&page_size=${itemsPerPage}`
+          );
+          if (!res.ok) throw new Error("Failed to fetch products");
+          data = await res.json();
         }
 
         setProducts(data);
-        const total = data.count;
+        const total = Math.ceil(data.count / itemsPerPage); // Toplam sayfa sayısını hesapla
         setTotalPages(total);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -77,14 +82,16 @@ const Products = ({ isInforBarVisible }: { isInforBarVisible: boolean }) => {
     };
 
     fetchData();
-  }, [selectedCategory, currentPage, setTotalPages]);
+  }, [selectedCategory, currentPage]);
 
+  // Kategori Slider Sola Kaydır
   const handleScrollLeft = () => {
     if (scrollRef.current) {
       scrollRef.current.scrollBy({ left: -200, behavior: "smooth" });
     }
   };
 
+  // Kategori Slider Sağa Kaydır
   const handleScrollRight = () => {
     if (scrollRef.current) {
       scrollRef.current.scrollBy({ left: 200, behavior: "smooth" });
@@ -99,7 +106,7 @@ const Products = ({ isInforBarVisible }: { isInforBarVisible: boolean }) => {
     <section className="dark:bg-[#121212] dark:border-0 py-6">
       <div className="flex flex-col max-w-[1280px] mx-auto px-2">
         {/* Slider Bar */}
-        <div style={{ overflowX: 'hidden' }} className="relative flex items-center px-12">
+        <div style={{ overflowX: "hidden" }} className="relative flex items-center px-12">
           <button
             onClick={handleScrollLeft}
             className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black text-white rounded-full p-3 z-10 hover:bg-gray-800 transition-all flex items-center justify-center"
@@ -142,8 +149,13 @@ const Products = ({ isInforBarVisible }: { isInforBarVisible: boolean }) => {
         {/* Product List */}
         <ProductList products={products?.results || []} />
 
+        {/* Pagination */}
         <div className="flex items-center justify-center pt-8">
-          <BasicPagination count={totalPages} page={currentPage} />
+          <BasicPagination
+            count={totalPages}
+            page={currentPage}
+            onChange={(event, page) => setCurrentPage(page)}
+          />
         </div>
       </div>
     </section>

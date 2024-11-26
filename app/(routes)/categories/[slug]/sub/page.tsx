@@ -67,7 +67,7 @@ const Page = ({ params }: any) => {
     }
 
     return (
-        <div className="pt-[250px] lg:pt-[200px] min-h-screen">
+        <div className=" min-h-screen">
             <div className="flex flex-col max-w-[1280px] mx-auto px-2">
                 <div className="px-2">
                     <InformationBar HasButton={false} title="Alt Kateqoriyalar" />
@@ -78,7 +78,7 @@ const Page = ({ params }: any) => {
                         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-6">
                             {product.sub_types.map((subType: any) => (
                                 <div key={subType.id} className="flex flex-col items-center justify-center">
-                                    <Link
+                                    <Link prefetch={false}
                                         href={`/categories/${product.name}/sub/${subType.id}`}
                                         className="dark:bg-[#1f1f1f] overflow-hidden dark:border-0 border-2 px-0 w-full hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(75,0,130,0.6)] duration-300 transition-all ease-in-out cursor-pointer h-[140px] rounded-md flex flex-col items-center justify-center"
                                     >

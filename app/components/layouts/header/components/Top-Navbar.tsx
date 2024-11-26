@@ -105,7 +105,7 @@ const TopNavbar = () => {
                   className="flex items-center cursor-pointer hover:text-yellow-400 transition-all duration-300"
                 >
                   <Person2Icon className="mr-2 rounded-full transition-all duration-500" />
-                  {user?.first_name} ({balance} ₼)
+                  <span className="hidden sm:block">  {user?.first_name} ({balance} ₼)</span>
                 </button>
                 <span className="mx-1"> / </span>
                 <Link

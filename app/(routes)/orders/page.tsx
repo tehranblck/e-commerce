@@ -73,7 +73,7 @@ const OrdersPage: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen dark:bg-[#151515] text-gray-800 dark:text-white bg-white py-6 pt-[200px] lg:pt-[150px]">
+        <div className="min-h-screen dark:bg-[#151515] text-gray-800 dark:text-white bg-white py-6 ">
             <div className="max-w-4xl mx-auto px-4 py-8">
                 <h1 className="text-2xl font-semibold mb-6">Sifarişlərim</h1>
 

@@ -20,6 +20,7 @@ const SearchPage = () => {
                     );
                     const data = await res.json();
                     setProducts(data.results);
+                    console.log(await data.results)
                 } catch (error) {
                     console.error("Error fetching search results:", error);
                 } finally {
@@ -36,8 +37,8 @@ const SearchPage = () => {
     }
 
     return (
-        <div className="max-w-[1280px] mx-auto py-6 pt-[200px] lg:pt-[150px]">
-            <h1 className="text-2xl font-semibold mb-4">Axtarış Nəticələri:</h1>
+        <div className="max-w-[1280px] mx-auto py-6 ">
+            <h1 className="text-2xl font-semibold mb-4 mt-8">Axtarış Nəticələri: {query}</h1>
             {products.length > 0 ? (
                 <ProductList products={products} />
             ) : (

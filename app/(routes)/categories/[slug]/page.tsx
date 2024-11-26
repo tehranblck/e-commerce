@@ -75,7 +75,7 @@ const CategorizedProductComponent = ({ params }: any) => {
 
     return (
         <section className="dark:bg-[#121212]">
-            <div className="mx-auto pt-[210px] text-center lg:pt-[160px] pb-[10px]">
+            <div className="mx-auto  text-center  pb-[10px]">
                 <div className="flex flex-col justify-center items-center">
                     <h1 className="text-[36px] text-white">
                         <span className="text-yellow-500 uppercase italic font-bold">

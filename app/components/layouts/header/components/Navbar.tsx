@@ -13,6 +13,10 @@ const Navbar = () => {
   const [categories, setCategories] = useState<string[]>([]); // Kategoriler
   const products = useSelector((state: any) => state.product.products);
   const router = useRouter();
+  const handleExactMatchSearch = (query: string) => {
+    console.log("Tam eşleşme veya kısa kısaltma araması:", query);
+    // Backend'den içerik çekmek için API çağrısı yapılabilir
+  };
 
   // Arama işlevi
   const handleSearch = (query: string) => {
@@ -47,7 +51,7 @@ const Navbar = () => {
 
         {/* Arama Kutusu */}
         <div className="w-full md:w-1/2 lg:w-1/3">
-          <InputSearch dataset={categories} onSearch={handleSearch} />
+          <InputSearch onExactMatchSearch={handleExactMatchSearch} dataset={categories} onSearch={handleSearch} />
         </div>
 
         {/* Actions */}

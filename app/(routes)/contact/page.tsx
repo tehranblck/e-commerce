@@ -4,7 +4,7 @@ import React from "react";
 const ContactPage = () => {
   return (
     <section className="dark:bg-[#121212]">
-      <div className="pt-[220px] lg:pt-[180px]">
+      <div className="">
         <div className="flex items-center justify-center w-full">
           <h1 className="text-[42px] dark:text-[#fff]">Bizimlə Əlaqə</h1>
         </div>

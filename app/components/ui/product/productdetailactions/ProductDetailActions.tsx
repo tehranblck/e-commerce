@@ -93,7 +93,7 @@ const ProductDetailActions = ({ product, pubgId }: Props) => {
         >
           -
         </button>
-        <span className="mx-2">{cartProduct?.quantity || "1"}</span>
+        <span className="mx-2 text-black dark:text-white">{cartProduct?.quantity || "1"}</span>
         <button
           onClick={handleAddProduct}
           className="bg-yellow-500 hover:bg-white transition-all duration-300 text-lg w-[30px] rounded-md border-[1px] border-[#000] py-[7px] text-black font-bold"

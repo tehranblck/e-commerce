@@ -22,7 +22,7 @@ const ProductTokenInput = ({
       required
       type="text"
       className={`${!pubgId ? "border-[1px] border-red-500" : ""
-        } w-full rounded-md border-[1px] border-[#282828] dark:text-white text-black dark:bg-[#1e1e1e] p-2`}
+        } w-full rounded-md border-[1px] border-[#282828] dark:text-white text-black dark:bg-[#1e1e1e] p-2 placeholder-black dark:placeholder-white`}
       placeholder={need_token ? placeholder : ""}
       value={pubgId}
       onChange={onchange}
