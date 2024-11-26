@@ -154,7 +154,7 @@ const Products = ({ isInforBarVisible }: { isInforBarVisible: boolean }) => {
           <BasicPagination
             count={totalPages}
             page={currentPage}
-            onChange={(event, page) => setCurrentPage(page)}
+            onChange={(page) => setCurrentPage(page)}
           />
         </div>
       </div>

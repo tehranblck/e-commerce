@@ -1,4 +1,3 @@
-// components/ui/shared/BasicPagination.tsx
 "use client";
 
 import * as React from "react";
@@ -6,7 +5,7 @@ import { useEffect, useState } from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const theme = createTheme({
   components: {
@@ -15,7 +14,7 @@ const theme = createTheme({
         root: {
           color: "white",
           "&.Mui-selected": {
-            backgroundColor: "primary",
+            backgroundColor: "#1976d2", // MUI primary rengi
             color: "white",
           },
         },
@@ -27,24 +26,22 @@ const theme = createTheme({
 type Props = {
   count: number;
   page: number;
+  onChange?: (value: number) => void;
 };
 
-export default function BasicPagination({ count, page }: Props) {
+export default function BasicPagination({ count, page, onChange }: Props) {
   const [currentPage, setCurrentPage] = useState<number>(page);
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
-    const pageParam = searchParams.get("page");
-    if (pageParam) {
-      setCurrentPage(parseInt(pageParam, 10));
-    } else {
-      setCurrentPage(1);
-    }
-  }, [searchParams]);
+    setCurrentPage(page);
+  }, [page]);
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
+    if (onChange) {
+      onChange(value);
+    }
     router.push(`?page=${value}`);
   };
 
