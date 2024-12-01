@@ -35,6 +35,7 @@ const Hero = () => {
     autoplay: true,
     autoplaySpeed: 4000,
     arrows: false,
+    adaptiveHeight: true,
   };
 
   return (
@@ -45,13 +46,13 @@ const Hero = () => {
           {sliderImages.length > 0 ? (
             <Slider {...sliderSettings}>
               {sliderImages.map((image, index) => (
-                <div key={index} className="relative w-full h-52 sm:h-64 md:h-80 lg:h-[450px]">
+                <div key={index} className="slider-wrapper">
                   <Image
                     src={image}
                     alt={`Slide ${index + 1}`}
                     layout="fill"
                     objectFit="cover"
-                    className="rounded-md"
+                    className="slider-image"
                   />
                 </div>
               ))}
@@ -92,8 +93,22 @@ const Hero = () => {
           </Link>
         </div>
       </div>
-    </section>
 
+      <style jsx>{`
+        .slider-wrapper {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 16 / 9; /* İstediğiniz oran */
+          overflow: hidden;
+        }
+
+        .slider-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      `}</style>
+    </section>
   );
 };
 
