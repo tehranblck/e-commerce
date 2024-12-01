@@ -1,4 +1,3 @@
-// OrderDetailsModal.tsx
 import React from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
@@ -7,7 +6,7 @@ type Item = {
     product: number;
     quantity: number;
     product_token: string;
-    key?: string; // Epin değeri opsiyonel olabilir
+    key?: string; // Epin değeri virgülle ayrılmış bir string olabilir
 };
 
 type Order = {
@@ -76,16 +75,18 @@ const OrderDetailsModal: React.FC<OrderDetailsModalProps> = ({ open, onClose, or
                                                 <p>Məhsul ID: {item.product}</p>
                                                 <p>Miqdarı: {item.quantity}</p>
                                                 <p>Token: {item.product_token}</p>
-                                                {item.key ? ( // Eğer item.key varsa, kopyala butonunu göster
-                                                    <div className="flex items-center">
-                                                        <p>Epin: {item.key}</p>
-                                                        <button
-                                                            onClick={() => copyToClipboard(item.key!)}
-                                                            className="ml-2 bg-gray-200 hover:bg-gray-300 text-sm px-2 py-1 rounded-md transition"
-                                                        >
-                                                            Kopyala
-                                                        </button>
-                                                    </div>
+                                                {item.key ? (
+                                                    item.key.split(',').map((keyValue, keyIndex) => (
+                                                        <div key={keyIndex} className="flex items-center mb-2">
+                                                            <p>Epin: {keyValue.trim()}</p>
+                                                            <button
+                                                                onClick={() => copyToClipboard(keyValue.trim())}
+                                                                className="ml-2 dark:bg-gray-600 bg-gray-800 dark:text-white text-white hover:bg-gray-300 text-sm px-2 py-1 rounded-md transition"
+                                                            >
+                                                                Kopyala
+                                                            </button>
+                                                        </div>
+                                                    ))
                                                 ) : (
                                                     <p className="text-gray-500">Epin mövcud deyil.</p>
                                                 )}
@@ -96,14 +97,12 @@ const OrderDetailsModal: React.FC<OrderDetailsModalProps> = ({ open, onClose, or
                                     )}
                                 </div>
                                 <div className="mt-6 flex justify-end">
-                                    {/* Masaüstü görünümü için kapatma butonu */}
                                     <button
                                         onClick={onClose}
                                         className="hidden sm:block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
                                     >
                                         Bağla
                                     </button>
-                                    {/* Mobil görünümü için kapatma butonu */}
                                     <button
                                         onClick={onClose}
                                         className="block sm:hidden bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition"
