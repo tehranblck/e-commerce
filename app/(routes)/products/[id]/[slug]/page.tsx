@@ -51,7 +51,7 @@ const ProductDetail = async ({
                 <button className="dark:bg-[#1e1e1e] text-lg w-full rounded-md border-[1px] border-[#282828] text-indigo-600">
                   {product.price.toFixed(2)} Azn
                 </button>
-                <SharedPrxoduct product={product} />
+                <SharedProduct product={product} />
               </div>
             </div>
           </div>
