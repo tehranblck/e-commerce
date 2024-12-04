@@ -13,7 +13,6 @@ const ProductDetail = ({ params }: { params: { id: number } }) => {
   const [pubgId, setPubgId] = useState<any>("");
 
   const products = useSelector((state: any) => state.product.products);
-  console.log(products, "products");
   const dispatch = useDispatch();
 
   useEffect(() => {

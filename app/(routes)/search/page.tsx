@@ -20,7 +20,6 @@ const SearchPage = () => {
                     );
                     const data = await res.json();
                     setProducts(data.results);
-                    console.log(await data.results)
                 } catch (error) {
                     console.error("Error fetching search results:", error);
                 } finally {

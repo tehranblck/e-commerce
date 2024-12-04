@@ -15,7 +15,6 @@ const ProductTokenInput = ({
   placeholder,
   need_token,
 }: Props) => {
-  console.log(productType);
 
   return (
     <input

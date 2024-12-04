@@ -35,7 +35,6 @@ const Page = ({ params }: any) => {
 
                 // Bulunan ID ile ürünleri çek
                 const categoryData = await fetchCategoryData(id, categoryId);
-                console.log("await categoryData")
                 const data = categoryData.results || [];
 
                 setProducts(data);

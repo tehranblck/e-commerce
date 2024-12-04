@@ -21,7 +21,6 @@ const ProductDetail = async ({
       </div>
     );
   }
-  console.log(await product)
 
 
   return (

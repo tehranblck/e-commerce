@@ -18,7 +18,6 @@ const Login = () => {
   const user = useSelector((state: RootState) => state.auth.user);
   useEffect(() => {
 
-    console.log(user)
     if (user) {
       router.push("/");
     }

@@ -61,7 +61,6 @@ const IncreaseBalanceUserForm = () => {
       claimed_amount: amount,
     };
 
-    console.log(formData, "formdata");
 
     try {
       const formData = new FormData();
@@ -130,9 +129,8 @@ const IncreaseBalanceUserForm = () => {
       />
       <button
         type="submit"
-        className={`mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-all duration-200 ${
-          isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-        }`}
+        className={`mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-all duration-200 ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+          }`}
         disabled={isSubmitting} // Disable button when submitting
       >
         {isSubmitting ? (

@@ -10,10 +10,23 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import PhoneIcon from "@mui/icons-material/Phone";
+import NumberFetcher from "./NumberFetcher";
 
 const Navlinks: React.FC = () => {
+  const [number, setNumber] = useState<string | null>(null);
   const [openMobileMenu, setOpenMobileMenu] = useState<boolean>(false);
   const menuRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    // Fetch the phone number on mount
+    const fetchNumber = async () => {
+      const fetchedNumber = await NumberFetcher();
+      if (fetchedNumber && fetchedNumber.results[0].number) {
+        setNumber(fetchedNumber.results[0].number); // Assume response contains `number`
+      }
+    };
+    fetchNumber();
+  }, []);
 
   const handleOpenMobileMenu = () => {
     setOpenMobileMenu(true);
@@ -142,7 +155,7 @@ const Navlinks: React.FC = () => {
             <InstagramIcon className="text-[25px]  cursor-pointer text-end" />
             <span>
               <PhoneIcon className="text-[25px]  cursor-pointer" />
-              +994 50 658 26 16
+              {number} {/* Show fetched number or fallback */}
             </span>
           </div>
         </ul>

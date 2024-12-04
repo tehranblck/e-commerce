@@ -17,13 +17,11 @@ const Navbar = () => {
 
   // Tam eşleşme arama fonksiyonu
   const handleExactMatchSearch = (query: string) => {
-    console.log("Tam eşleşme araması:", query);
     // Backend'den içerik çekmek için bir API çağrısı yapılabilir
   };
 
   // Genel arama fonksiyonu
   const handleSearch = (query: string) => {
-    console.log("Arama yapılıyor:", query);
     router.push(`/search?query=${encodeURIComponent(query)}`);
   };
 

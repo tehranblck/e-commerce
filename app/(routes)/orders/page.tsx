@@ -51,7 +51,6 @@ const OrdersPage: React.FC = () => {
 
                 const data = await response.json();
                 setOrders(data.results);
-                console.log(orders)
             } catch (error) {
                 console.error("Failed to fetch orders:", error);
             } finally {
