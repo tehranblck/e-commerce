@@ -31,7 +31,7 @@ const Switch = () => {
     <div className="flex items-center justify-center">
       <button
         onClick={toggleTheme}
-        className={`relative w-12 h-6 flex items-center rounded-full p-1 transition ${isDarkMode ? "bg-gray-700" : "bg-blue-300"
+        className={`relative w-10 sm:12 h-6 flex items-center rounded-full p-1 transition ${isDarkMode ? "bg-gray-700" : "bg-blue-300"
           }`}
       >
         <div

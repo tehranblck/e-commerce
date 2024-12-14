@@ -66,11 +66,11 @@ const Hero = () => {
         <div className="w-full lg:w-1/3 flex flex-row flex-wrap lg:flex-col lg:space-y-4 lg:space-x-0 sm:space-x-0">
           {/* Balance Image */}
           <Link href={"/balance"} className="w-1/2 lg:w-full">
-            <div className="relative h-[200px] sm:h-[240px] md:h-[300px] lg:h-[225px]">
+            <div className="relative h-[100px] sm:h-[240px] md:h-[300px] lg:h-[225px]">
               <Image
                 src={BalansImage}
                 layout="fill"
-                objectFit="cover"
+                objectFit="contain"
                 quality={86}
                 alt="Balance"
                 className="rounded-md"
@@ -80,11 +80,11 @@ const Hero = () => {
 
           {/* Telegram Image */}
           <Link href={"https://t.me/muslimanshop_com"} className="w-1/2 lg:w-full">
-            <div className="relative h-[200px] sm:h-[240px] md:h-[300px] lg:h-[225px]">
+            <div className="relative h-[100px] sm:h-[240px] md:h-[300px] lg:h-[225px]">
               <Image
                 src={'/assets/images/tg.png'}
                 layout="fill"
-                objectFit="cover"
+                objectFit="contain"
                 quality={86}
                 alt="Telegram Link"
                 className="rounded-md"

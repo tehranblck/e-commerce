@@ -75,7 +75,7 @@ const NotificationsDropdown = () => {
     return (
         <Menu as="div" className="relative inline-block text-left">
             <div className="relative">
-                <Menu.Button className="cursor-pointer flex items-center hover:bg-yellow-500 hover:text-black rounded-full transition-all duration-500 p-2">
+                <Menu.Button className="cursor-pointer flex items-center hover:bg-yellow-500 hover:text-black rounded-full transition-all duration-500 sm:p-2">
                     <Badge
                         badgeContent={unreadCount > 0 ? unreadCount : null}
                         color="error"

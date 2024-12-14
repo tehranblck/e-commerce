@@ -121,7 +121,7 @@ const TopNavbar = () => {
               <>
                 <Link
                   href={"/auth/login"}
-                  className="relative transition-all duration-500 ease-in-out px-4 py-2 rounded-md bg-yellow-400 text-black hover:bg-white"
+                  className="relative transition-all duration-500 ease-in-out px-1 py-1 sm:px-4 sm:py-2 rounded-md bg-yellow-400 text-black hover:bg-white"
                 >
                   <Person2Icon className="mr-2 hover:bg-yellow-500 hover:text-black rounded-full transition-all duration-500" />
                   Daxil ol
@@ -129,7 +129,7 @@ const TopNavbar = () => {
                 <span className="mx-1"> </span>
                 <Link
                   href={"/auth/signup"}
-                  className="relative transition-all duration-500 ease-in-out px-4 py-2 rounded-md bg-yellow-400 text-black hover:bg-white"
+                  className="relative transition-all duration-500 ease-in-out sm:px-4 sm:py-2  px-1 py-1  rounded-md bg-yellow-400 text-black hover:bg-white"
                 >
                   Qeydiyyat
                 </Link>

@@ -1,9 +1,14 @@
 // services/productService.ts
 
-export const fetchCategoryData = async (subtypeId: number, typeId: number) => {
+export const fetchCategoryData = async (
+    subtypeId: number,
+    typeId: number,
+    page: number = 1
+) => {
     try {
-        const response = await fetch(`https://api.muslimanshop.com/api/products/?page_size=20&sub_type=${subtypeId}&type=${typeId}`);
-
+        const response = await fetch(
+            `https://api.muslimanshop.com/api/products/?page_size=10&page=${page}&sub_type=${subtypeId}&type=${typeId}`
+        );
 
         if (!response.ok) {
             throw new Error("Failed to fetch category data");
@@ -14,6 +19,7 @@ export const fetchCategoryData = async (subtypeId: number, typeId: number) => {
         throw error;
     }
 };
+
 
 // export const fetchProductsByCategory = async (typeId: number) => {
 //     try {
