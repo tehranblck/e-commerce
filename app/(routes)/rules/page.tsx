@@ -20,7 +20,7 @@ const Rules = () => {
           <div>
             <p>
               Azyaşlıların valideyndən icazəsiz etdiyi alışveriş'ə görə
-              MuslimanShop.com saytı məhsuliyyət daşımır.
+              sayt məhsuliyyət daşımır.
             </p>
             <hr className="border-[1px] border-gray-800 my-2" />
           </div>
@@ -36,8 +36,8 @@ const Rules = () => {
 
           <div>
             <p>
-              MuslimanShop.com saytında verilən bank hesablarından başqa
-              hesablara edilən ödənişlərə MuslimanShop.com saytı məhsuliyyət
+              Example.com saytında verilən bank hesablarından başqa
+              hesablara edilən ödənişlərə example.com saytı məhsuliyyət
               daşımır.
             </p>
             <hr className="border-[1px] border-gray-800 my-2" />
@@ -45,7 +45,7 @@ const Rules = () => {
 
           <div>
             <p>
-              MuslimanShop.com saytında paylaşılan bank hesaplarına edilən
+              Example.com saytında paylaşılan bank hesaplarına edilən
               ödənişlərin qəbzini başqalarıyla paylaşmaq qadağandır, əks-halda
               bütün məhsuliyyət paylaşan vətəndaşın üzərindədir.
             </p>
@@ -56,7 +56,7 @@ const Rules = () => {
             <p>
               Edilən ödənişlər gün ərzində sayta bildirilməlidir. Əgər qəbz ləgv
               edilirsə dərhal WhatsApp (+994 518965654 ) əlaqəyə keçərək bunun
-              səbəbin aydınlaşdırmalısınız. Əks halda MuslimanShop.com saytı
+              səbəbin aydınlaşdırmalısınız. Əks halda Example.com saytı
               məhsuliyyət daşımır.
             </p>
             <hr className="border-[1px] border-gray-800 my-2" />
@@ -66,7 +66,7 @@ const Rules = () => {
             <p>
               Sayt hesabınızda pul onaylanana (WhatsApp ilə sifariş verilibsə
               sifariş tamamlanana) kimi terminaldan sizə verilən qəbzi atmayın!
-              Əks halda MuslimanShop.com saytı məhsuliyyət daşımır.
+              Əks halda Example.com saytı məhsuliyyət daşımır.
             </p>
             <hr className="border-[1px] border-gray-800 my-2" />
           </div>
@@ -81,8 +81,8 @@ const Rules = () => {
 
           <div>
             <p>
-              MuslimanShop.com saytında verilən əlaqə nömrələrindən başqa
-              şəxslərlə baş verən problemlərə MuslimanShop.com məhsuliyyət
+              example.com saytında verilən əlaqə nömrələrindən başqa
+              şəxslərlə baş verən problemlərə example.com məhsuliyyət
               daşımır.
             </p>
             <hr className="border-[1px] border-gray-800 my-2" />

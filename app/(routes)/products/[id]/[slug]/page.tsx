@@ -72,7 +72,7 @@ export async function generateMetadata(
       title: "Product Not Found",
       description: "The product you are looking for does not exist.",
       alternates: {
-        canonical: `https://muslimanshop.com/products/${product.id}/${product.slug}`,
+        canonical: `https://e-commerce.saytyarat.com/products/${product.id}/${product.slug}`,
       },
     };
   }

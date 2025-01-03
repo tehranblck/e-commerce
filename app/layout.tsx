@@ -13,8 +13,8 @@ import Script from "next/script";
 
 export const metadata: Metadata = {
   title: {
-    default: "Musliman Shop",
-    template: "%s | Musliman Shop",
+    default: "E-commerce",
+    template: "%s | E-commerce",
   },
   description: "E-commerce platforma, Digital Məhsulların məhsulların satışı ",
   alternates: {

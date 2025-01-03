@@ -70,7 +70,7 @@ const IncreaseBalanceUserForm = () => {
       formData.append("claimed_amount", amount);
 
       const response = await fetch(
-        "https://api.muslimanshop.com/api/user/balance/add/",
+        "https://e-commerce.saytyarat.com/api/user/balance/add/",
         {
           method: "POST",
           headers: {

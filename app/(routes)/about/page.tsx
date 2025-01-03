@@ -10,7 +10,7 @@ const About = () => {
 
         <div className="pb-20 pt-10 dark:text-[#fff] text-center max-w-[1200px] px-4">
           <p>
-            MUSLIMAN SHOP olaraq güvənli, sürətli və asan ödəniş üsulları ilə
+            Example SHOP olaraq güvənli, sürətli və asan ödəniş üsulları ilə
             müştərilərimizə E-pin almaq, oyun içi ödəniş kimi bir çox xidmətləri
             göstəririk. Təcrübəli dəstək komandamız sayəsində yüksək keyfiyyətdə
             xidmət göstərib, sifarişlərini maksimum tez biz zamanda

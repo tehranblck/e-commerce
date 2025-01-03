@@ -17,7 +17,7 @@ const PaymentsPage: React.FC = () => {
     useEffect(() => {
         const fetchPayments = async () => {
             try {
-                const response = await fetch('https://api.muslimanshop.com/api/user/receipt/', {
+                const response = await fetch('https://e-commerce.saytyarat.com/api/user/receipt/', {
                     method: 'GET',
                     headers: {
                         Authorization: `${token}`,
