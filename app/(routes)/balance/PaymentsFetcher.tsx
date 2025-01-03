@@ -1,6 +1,6 @@
 const PaymentsFetcher = async () => {
     try {
-        const req = await fetch('https://api.muslimanshop.com/api/website/cards/');
+        const req = await fetch('https://e-commerce.saytyarat.com/api/website/cards/');
         const cards = await req.json();
         return cards;
     } catch (error) {

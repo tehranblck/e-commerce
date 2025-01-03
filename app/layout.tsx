@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   description: "E-commerce platforma, Digital Məhsulların məhsulların satışı ",
   alternates: {
-    canonical: "https://muslimanshop.com",
+    canonical: "https://e-commerce.saytyarat.com",
   },
   themeColor: "#121212",
 };

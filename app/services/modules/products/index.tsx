@@ -1,5 +1,5 @@
 export async function fetchProducts(page?: number, pageSize: number = 10) {
-  const baseUrl = "https://api.muslimanshop.com/api/products";
+  const baseUrl = "https://e-commerce.saytyarat.com/api/products";
   const url = new URL(baseUrl);
   url.searchParams.append("page", page?.toString() || "");
   url.searchParams.append("page_size", pageSize.toString());

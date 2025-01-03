@@ -5,18 +5,24 @@ import { CategoryType } from "@/app/models/ui/categoryType";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { toast } from "react-toastify";
 
 const FilteredProductsComponent = () => {
-  const pathname = usePathname(); // Mevcut yolu alır
+  const pathname = usePathname();
   const [categories, setCategories] = useState<CategoryType[]>([]);
   const [loading, setLoading] = useState(true);
-  const [showAll, setShowAll] = useState(false); // Başlangıçta 10 kategori gösterilecek
+  const [error, setError] = useState<string | null>(null);
+  const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
       setLoading(true);
+      setError(null);
       try {
-        const res = await fetch("https://api.muslimanshop.com/api/products/type/?page_size=20");
+        const res = await fetch("https://e-commerce.saytyarat.com/api/products/type/?page_size=20");
+        if (!res.ok) {
+          throw new Error("Kategorileri yükləmək mümkün olmadı");
+        }
         const data = await res.json();
 
         if (data.results) {
@@ -24,14 +30,18 @@ const FilteredProductsComponent = () => {
             id: item.id,
             name: item.name,
             image: item.image || "/assets/images/categories/default.png",
-            hasSubTypes: item.sub_types && item.sub_types.length > 0, // Alt kategori kontrolü
+            hasSubTypes: item.sub_types && item.sub_types.length > 0,
           }));
           setCategories(categoriesData);
         } else {
-          console.error("Data format is incorrect:", data);
+          throw new Error("Kateqoriya məlumatları düzgün formatda deyil");
         }
       } catch (error) {
         console.error("Error fetching categories:", error);
+        setError((error as Error).message);
+        toast.error("Kateqoriyaları yükləmək mümkün olmadı", {
+          position: "top-right"
+        });
       } finally {
         setLoading(false);
       }
@@ -41,22 +51,35 @@ const FilteredProductsComponent = () => {
   }, []);
 
   if (loading) {
-    return <div>Yüklənir...</div>;
+    return (
+      <div className="flex justify-center items-center min-h-[200px]">
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-yellow-500"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center min-h-[200px] text-red-500">
+        {error}
+      </div>
+    );
   }
 
   if (!categories.length) {
-    return <div>Kateqoriyalar yüklənmədi...</div>;
+    return (
+      <div className="flex justify-center items-center min-h-[200px] text-gray-500">
+        Kateqoriyalar tapılmadı
+      </div>
+    );
   }
 
-  // Eğer category sayfasındaysak, tüm kategorileri göster
   const isCategoriesPage = pathname === "/categories";
-
-  // Gösterilecek kategori sayısını belirler
   const displayedCategories = isCategoriesPage
-    ? categories // Tüm kategoriler
+    ? categories
     : showAll
       ? categories
-      : categories.slice(0, 10); // İlk 10 kategori
+      : categories.slice(0, 10);
 
   return (
     <section className="dark:bg-[#121212] py-3">
@@ -86,7 +109,6 @@ const FilteredProductsComponent = () => {
           ))}
         </div>
 
-        {/* Daha çox/Daha az göster butonu */}
         {!isCategoriesPage && categories.length > 10 && (
           <div className="flex justify-center mt-4">
             <button

@@ -33,7 +33,7 @@ const ProductDetail = async ({
               height={150}
               src={product.image}
               className="w-full rounded-md "
-              alt={product.title}
+              alt={product.title || product.image}
             />
 
             <div className="w-full flex flex-col justify-between space-y-8">

@@ -18,7 +18,7 @@ const Page = ({ params }: any) => {
             setError(null);
             try {
                 // Fetch all types
-                const typeResponse = await fetch(`https://api.muslimanshop.com/api/products/type/?page_size=20`);
+                const typeResponse = await fetch(`https://e-commerce.saytyarat.com/api/products/type/?page_size=20`);
                 if (!typeResponse.ok) {
                     throw new Error('Failed to fetch types');
                 }
@@ -34,12 +34,12 @@ const Page = ({ params }: any) => {
                 const typeId = matchingType.id;
 
                 // Fetch type details for `about` and `how_to_use`
-                const typeDetailsResponse = await fetch(`https://api.muslimanshop.com/api/products/type/${typeId}/`);
+                const typeDetailsResponse = await fetch(`https://e-commerce.saytyarat.com/api/products/type/${typeId}/`);
                 const typeDetailsData = await typeDetailsResponse.json();
                 setTypeDetails(typeDetailsData);
 
                 // Fetch product subtypes
-                const productResponse = await fetch(`https://api.muslimanshop.com/api/products/type/${typeId}`);
+                const productResponse = await fetch(`https://e-commerce.saytyarat.com/api/products/type/${typeId}`);
                 if (!productResponse.ok) {
                     throw new Error('Failed to fetch product data');
                 }

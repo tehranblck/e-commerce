@@ -21,7 +21,7 @@ const Products = ({ isInforBarVisible }: { isInforBarVisible: boolean }) => {
     const fetchCategories = async () => {
       try {
         const res = await fetch(
-          "https://api.muslimanshop.com/api/products/type/?page_size=20"
+          "https://e-commerce.saytyarat.com/api/products/type/?page_size=20"
         );
         const data = await res.json();
         if (data.results) {
@@ -59,13 +59,13 @@ const Products = ({ isInforBarVisible }: { isInforBarVisible: boolean }) => {
           if (!category) throw new Error("Category not found");
 
           const res = await fetch(
-            `https://api.muslimanshop.com/api/products?type=${category.id}&page=${currentPage}&page_size=${itemsPerPage}`
+            `https://e-commerce.saytyarat.com/api/products?type=${category.id}&page=${currentPage}&page_size=${itemsPerPage}`
           );
           if (!res.ok) throw new Error("Failed to fetch products");
           data = await res.json();
         } else {
           const res = await fetch(
-            `https://api.muslimanshop.com/api/products?page=${currentPage}&page_size=${itemsPerPage}`
+            `https://e-commerce.saytyarat.com/api/products?page=${currentPage}&page_size=${itemsPerPage}`
           );
           if (!res.ok) throw new Error("Failed to fetch products");
           data = await res.json();

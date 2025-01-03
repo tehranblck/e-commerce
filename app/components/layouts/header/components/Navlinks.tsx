@@ -18,13 +18,24 @@ const Navlinks: React.FC = () => {
   const menuRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
-    // Fetch the phone number on mount
+    // Varsayılan numara
+    const defaultNumber = "+994 50 123 45 67";
+
+    // Telefon numarasını çekme
     const fetchNumber = async () => {
-      const fetchedNumber = await NumberFetcher();
-      if (fetchedNumber && fetchedNumber.results[0].number) {
-        setNumber(fetchedNumber.results[0].number); // Assume response contains `number`
+      try {
+        const fetchedNumber = await NumberFetcher();
+        if (fetchedNumber && fetchedNumber.results[0]?.number) {
+          setNumber(fetchedNumber.results[0].number);
+        } else {
+          setNumber(defaultNumber); // Varsayılan numara atanır
+        }
+      } catch (error) {
+        console.error("Telefon numarası alınırken hata oluştu:", error);
+        setNumber(defaultNumber); // Hata durumunda varsayılan numara
       }
     };
+
     fetchNumber();
   }, []);
 
@@ -155,7 +166,7 @@ const Navlinks: React.FC = () => {
             <InstagramIcon className="text-[25px]  cursor-pointer text-end" />
             <span>
               <PhoneIcon className="text-[25px]  cursor-pointer" />
-              {number} {/* Show fetched number or fallback */}
+              {number} {/* Telefon numarasını göster */}
             </span>
           </div>
         </ul>

@@ -37,7 +37,7 @@ const OrdersPage: React.FC = () => {
             }
 
             try {
-                const response = await fetch(`https://api.muslimanshop.com/api/user/baskets/`, {
+                const response = await fetch(`https://e-commerce.saytyarat.com/api/user/baskets/`, {
                     method: "GET",
                     headers: {
                         "Authorization": `${token}`,

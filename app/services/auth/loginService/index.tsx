@@ -1,5 +1,5 @@
 export const loginUser = async (loginData: { email: string; password: string }) => {
-  const response = await fetch("https://api.muslimanshop.com/api/user/login/", {
+  const response = await fetch("https://e-commerce.saytyarat.com/api/user/login/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -16,7 +16,7 @@ export const loginUser = async (loginData: { email: string; password: string }) 
 };
 
 export const fetchUserProfile = async (token: string) => {
-  const response = await fetch("https://api.muslimanshop.com/api/user/profile/", {
+  const response = await fetch("https://e-commerce.saytyarat.com/api/user/profile/", {
     method: "GET",
     headers: {
       Authorization: token,

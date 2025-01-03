@@ -6,12 +6,16 @@ import ProductList from "@/app/components/ui/shared/ProductList";
 import FutureCard from "@/app/components/ui/shared/FutureCard";
 import { fetchProductsByCategory } from "@/app/services/modules/categorizedProductsService";
 import InformationBar from "@/app/components/ui/shared/InformationBar";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const CategorizedProductComponent = ({ params }: any) => {
+    const router = useRouter();
     const [page, setPage] = useState(1);
     const [products, setProducts] = useState([]);
     const [panelProducts, setPanelProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     const [categoryName, setCategoryName] = useState("");
     const { slug } = params;
 
@@ -20,28 +24,27 @@ const CategorizedProductComponent = ({ params }: any) => {
     useEffect(() => {
         const fetchCategoryAndProducts = async () => {
             setLoading(true);
+            setError(null);
             try {
-                // Tüm kategorileri çek
-                const categoriesRes = await fetch("https://api.muslimanshop.com/api/products/type/");
-                if (!categoriesRes.ok) throw new Error("Failed to fetch categories");
+                const categoriesRes = await fetch("https://e-commerce.saytyarat.com/api/products/type/");
+                if (!categoriesRes.ok) {
+                    throw new Error("Kateqoriyaları yükləmək mümkün olmadı");
+                }
                 const categoriesData = await categoriesRes.json();
 
-                // `slug` ile eşleşen kategoriyi bul
                 const matchingCategory = categoriesData.results.find(
                     (category: any) => category.name === slug
                 );
 
                 if (!matchingCategory) {
-                    throw new Error("Category not found");
+                    throw new Error("Kateqoriya tapılmadı");
                 }
 
-                setCategoryName(matchingCategory.name); // Kategori adını ayarla
+                setCategoryName(matchingCategory.name);
 
-                // Eşleşen kategorinin ID'sine göre ürünleri çek
                 const productsResponse = await fetchProductsByCategory(page, matchingCategory.id);
                 const results = productsResponse.results || productsResponse;
 
-                // Panel ürünlerini ve diğer ürünleri filtrele
                 const filteredPanelProducts = results.filter((product: any) =>
                     keywords.some((keyword) => product.title?.includes(keyword))
                 );
@@ -51,8 +54,13 @@ const CategorizedProductComponent = ({ params }: any) => {
 
                 setProducts(nonPanelProducts);
                 setPanelProducts(filteredPanelProducts);
-            } catch (error) {
-                console.error("Error fetching products:", error);
+            } catch (err) {
+                console.error("Error:", err);
+                setError((err as Error).message);
+                toast.error("Məhsulları yükləmək mümkün olmadı", {
+                    position: "top-right"
+                });
+                router.push("/categories");
             } finally {
                 setLoading(false);
             }
@@ -63,7 +71,7 @@ const CategorizedProductComponent = ({ params }: any) => {
         } else {
             setLoading(false);
         }
-    }, [slug, page]);
+    }, [slug, page, router]);
 
     if (loading) {
         return (
@@ -73,9 +81,17 @@ const CategorizedProductComponent = ({ params }: any) => {
         );
     }
 
+    if (error) {
+        return (
+            <div className="flex justify-center items-center pt-48 pb-20 w-full bg-[#181818] text-red-500">
+                {error}
+            </div>
+        );
+    }
+
     return (
         <section className="dark:bg-[#121212]">
-            <div className="mx-auto  text-center  pb-[10px]">
+            <div className="mx-auto text-center pb-[10px]">
                 <div className="flex flex-col justify-center items-center">
                     <h1 className="text-[36px] text-white">
                         <span className="text-yellow-500 uppercase italic font-bold">
@@ -90,19 +106,17 @@ const CategorizedProductComponent = ({ params }: any) => {
                         />
                     </div>
 
-                    {/* Ana Ürün Listesi */}
                     <div>
                         {products.length > 0 ? (
                             <ProductList styleCss="px-4" products={products} />
                         ) : (
                             <p className="text-[24px] pt-10 pb-[140px] text-white">
-                                Bu kategoride ürün bulunamadı
+                                Bu kateqoriyada məhsul tapılmadı
                             </p>
                         )}
                     </div>
                 </div>
 
-                {/* Panel Ürünleri Bölümü */}
                 <div className="flex justify-center">
                     {panelProducts.length > 0 && (
                         <div className="mt-10">
@@ -111,7 +125,6 @@ const CategorizedProductComponent = ({ params }: any) => {
                             </h2>
                             <div className="w-full max-w-[1380px] px-4 pt-2">
                                 <InformationBar
-
                                     HasButton={false}
                                     sideInfo="Panel xidmətləri"
                                     title={categoryName?.toUpperCase() || ""}

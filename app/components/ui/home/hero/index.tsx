@@ -12,7 +12,7 @@ const Hero = () => {
     const fetchSliderImages = async () => {
       try {
         const res = await fetch(
-          "https://api.muslimanshop.com/api/products/slider/?page_size=20"
+          "https://e-commerce.saytyarat.com/api/products/slider/?page_size=20"
         );
         const dataSlider = await res.json();
 
@@ -79,7 +79,7 @@ const Hero = () => {
           </Link>
 
           {/* Telegram Image */}
-          <Link href={"https://t.me/muslimanshop_com"} className="w-1/2 lg:w-full">
+          <Link href={"https://t.me/saytyarat_com"} className="w-1/2 lg:w-full">
             <div className="relative h-[100px] sm:h-[240px] md:h-[300px] lg:h-[225px]">
               <Image
                 src={'/assets/images/tg.png'}

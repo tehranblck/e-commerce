@@ -53,7 +53,7 @@ const CartPayment = () => {
 
     try {
       const response = await fetch(
-        "https://api.muslimanshop.com/api/shops/basket/create/",
+        "https://e-commerce.saytyarat.com/api/shops/basket/create/",
         {
           method: "POST",
           headers: {

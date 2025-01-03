@@ -23,7 +23,7 @@ const NotificationsDropdown = () => {
         }
 
         try {
-            const response = await fetch(`https://api.muslimanshop.com/api/user/notifications/`, {
+            const response = await fetch(`https://e-commerce.saytyarat.com/api/user/notifications/`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `${token}`, // Bearer eklenmeli

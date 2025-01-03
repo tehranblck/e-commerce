@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["ik.imagekit.io", "api.muslimanshop.com"],
+    domains: ["ik.imagekit.io", "e-commerce.saytyarat.com"],
   },
 };
 
