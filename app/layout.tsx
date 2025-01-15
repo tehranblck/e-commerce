@@ -16,6 +16,9 @@ export const metadata: Metadata = {
     default: "Raelli Mağazası - Ziyafət Geyimləri Satışı və Kirayəsi",
     template: "%s | Raelli Mağazası",
   },
+  icons: {
+    icon: "/logo.svg",
+  },
   description: "Raelli mağazası, ziyafət geyimlərinin satışı və kirayəsi üzrə ixtisaslaşmışdır.",
   alternates: {
     canonical: "https://e-commerce.saytyarat.com",
