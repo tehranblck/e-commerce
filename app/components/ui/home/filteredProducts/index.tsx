@@ -85,9 +85,9 @@ const FilteredProductsComponent = () => {
     <section className="dark:bg-[#121212] py-3">
       <div className="max-w-[600px] md:max-w-[1280px] mx-auto">
         <div className="px-2">
-          <InformationBar link="/categories" HasButton={true} title="Məhsul tipləri" />
+          <InformationBar link="/categories" HasButton={false} title=" Kateqoriyalar" />
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-6 px-2 justify-center">
+        <div className="grid grid-cols-2 md:grid-cols-2 gap-12 mt-6 px-2 justify-center">
           {displayedCategories.map((category) => (
             <Link
               href={
@@ -96,11 +96,12 @@ const FilteredProductsComponent = () => {
                   : `/categories/${category.name}`
               }
               key={category.id}
-              className="dark:bg-[#1f1f1f] overflow-hidden dark:border-0 border-2 px-8 w-full hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(75,0,130,0.6)] duration-300 transition-all ease-in-out cursor-pointer h-[140px] rounded-md flex items-center justify-center"
+              className="dark:bg-[#1f1f1f] overflow-hidden dark:border-0 border-2 px-8 w-full hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(75,0,130,0.6)] duration-300 transition-all ease-in-out cursor-pointer h-[150px] rounded-md flex items-center justify-center"
             >
               <Image
-                width={170}
-                height={50}
+                width={5070}
+                height={5000}
+                quality={100}
                 src={category.image}
                 alt={category.name}
                 className="w-full h-auto object-cover"

@@ -73,7 +73,7 @@ const NotificationsDropdown = () => {
     const unreadCount = notifications.filter(notification => !notification.is_read).length;
 
     return (
-        <Menu as="div" className="relative inline-block text-left">
+        <Menu as="div" className="relative dark:text-[#9b936c] text-white inline-block text-left">
             <div className="relative">
                 <Menu.Button className="cursor-pointer flex items-center hover:bg-yellow-500 hover:text-black rounded-full transition-all duration-500 sm:p-2">
                     <Badge

@@ -4,9 +4,9 @@ import Navbar from "./components/Navbar";
 
 const Header = () => {
   return (
-    <header className="flex flex-col w-full  z-[100] ">
+    <header className="flex flex-col  w-full  z-[100] ">
       <TopNavbar />
-      <span className="bg-gray-400 h-[1px] w-full dark:bg-black" />
+      <span className="bg-[#988d57]  h-[2px] w-full dark:bg-black" />
       <Navbar />
     </header  >
   );

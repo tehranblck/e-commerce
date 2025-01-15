@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import Logo from "../../../../public/assets/images/MUSLIMANSHOP-LOGO.png";
+import Logo from "../../../../public/logo_footer.png";
 
 const Footer = () => {
   return (
@@ -16,8 +16,7 @@ const Footer = () => {
               alt="logo"
             />
             <p className="text-[#828282] text-sm max-w-sm ml-4">
-              Pubg Mobile UC, TikTok, Instagram, mobil oyunlar, TV-əyləncə,
-              Epin, rəqəmsal kodlar, və s. ən sərfəli qiymətlərlə
+              Ziyafət donların satışı və kirayəsi
             </p>
           </div>
           <div>

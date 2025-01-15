@@ -5,10 +5,10 @@
 @tailwind utilities;
 
 body {
-    @apply bg-white text-black;
+    @apply bg-[#01878a] text-[#988d57];
 }
 
 
 .dark body {
-    @apply bg-[#121212] text-white;
+    @apply bg-black text-[#988d57];
 }

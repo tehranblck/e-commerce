@@ -78,13 +78,13 @@ const InputSearch: React.FC<InputSearchProps> = ({ dataset, onSearch }) => {
           placeholder="Axtarın..."
           type="text"
           name="text"
-          className="z-50 text-gray-700 dark:text-gray-200 bg-transparent outline-none placeholder-gray-400 w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-pink-500"
+          className="z-50 dark:text-[#988d57] dark:text-gray-200 bg-transparent outline-none placeholder-gray-400 w-full px-4 py-2 rounded-md border-2 border-[#988d57] dark:border-gray-600 focus:ring-2 focus:ring-[#988d57]"
           value={searchValue}
           onChange={handleInputChange}
         />
         <button
           type="submit"
-          className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-300 hover:text-pink-500 transition-transform duration-300"
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#988d57] dark:text-gray-300 hover:text-[#514b2c] transition-transform duration-300"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -84,7 +84,7 @@ const TopNavbar = () => {
   }, [isProfileModalOpen]);
 
   return (
-    <div className="dark:bg-[#1E201E] bg-white px-4 relative">
+    <div className=" px-4 relative">
       <div className="flex items-center justify-between max-w-[1280px] mx-auto">
         <Navlinks />
         <div className="flex items-center space-x-4 whitespace-nowrap dark:text-[#fff] py-4">
@@ -102,16 +102,16 @@ const TopNavbar = () => {
                 <button
                   ref={buttonRef}
                   onClick={toggleProfileModal} // Toggle modal on click
-                  className="flex items-center cursor-pointer hover:text-yellow-400 transition-all duration-300"
+                  className="flex items-center cursor-pointer text-white dark:text-[#988d57] transition-all duration-300"
                 >
-                  <Person2Icon className="mr-2 rounded-full transition-all duration-500" />
-                  <span className="">  {user?.first_name} ({balance} ₼)</span>
+                  <Person2Icon className="mr-2 rounded-full  transition-all duration-500" />
+                  <span className="">  {user?.first_name}</span>
                 </button>
-                <span className="mx-1"> / </span>
+                <span className="mx-1 text-white dark:text-[#988d57]"> / </span>
                 <Link
                   href={"/"}
                   onClick={handleLogout}
-                  className="flex cursor-pointer transition-all duration-300"
+                  className="flex cursor-pointer text-white dark:text-[#988d57] transition-all duration-300"
                 >
                   <LogoutIcon className="mr-2" />
                   <span className="hidden xl:visible"> Hesabdan çıx </span>

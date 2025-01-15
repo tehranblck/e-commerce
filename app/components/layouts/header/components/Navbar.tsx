@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Image from "next/image";
-import Logo from "../../../../../public/assets/images/MUSLIMANSHOP-LOGO.png";
+import Logo from "./../../../../../public/logo.png";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
@@ -38,7 +38,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="dark:bg-[#151515] bg-white px-4">
+    <nav className="dark:bg-[#151515] bg-[#01878a] px-4">
       <div className="flex items-center justify-between max-w-[1280px] mx-auto text-[#fff] py-2 md:space-y-0 flex-col md:flex-row">
         {/* Logo */}
         <div className="flex items-center justify-between w-full md:w-auto">

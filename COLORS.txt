@@ -1,0 +1,5 @@
+main renkler
+#01878a
+
+#988d57
+ve siyah

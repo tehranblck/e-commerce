@@ -13,14 +13,14 @@ import Script from "next/script";
 
 export const metadata: Metadata = {
   title: {
-    default: "E-commerce",
-    template: "%s | E-commerce",
+    default: "Raelli Mağazası - Ziyafət Geyimləri Satışı və Kirayəsi",
+    template: "%s | Raelli Mağazası",
   },
-  description: "E-commerce platforma, Digital Məhsulların məhsulların satışı ",
+  description: "Raelli mağazası, ziyafət geyimlərinin satışı və kirayəsi üzrə ixtisaslaşmışdır.",
   alternates: {
     canonical: "https://e-commerce.saytyarat.com",
   },
-  themeColor: "#121212",
+  themeColor: "#000000",
 };
 
 const DynamicHeader = dynamic(
