@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Slider from "react-slick";
 import Link from "next/link";
-import BalansImage from "../../../../../public/assets/images/balans.png";
+import BalansImage from "../../../../../public/balans.webp";
 
 const Hero = () => {
   const [sliderImages, setSliderImages] = useState<string[]>([]);

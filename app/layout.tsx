@@ -10,6 +10,7 @@ import Footer from "./components/layouts/footer/Footer";
 import ScrollToTop from "./components/ui/shared/ScrollTop";
 import dynamic from "next/dynamic";
 import Script from "next/script";
+import ChatWindow from "./components/ChatWindow";
 
 export const metadata: Metadata = {
   title: {
