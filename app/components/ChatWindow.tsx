@@ -16,9 +16,9 @@ const ChatWindow = () => {
                 setIsOpen(true);
                 setChatHistory(prevHistory => [...prevHistory, { message: "🛍️ Salam! 👋 Xoş gəlmisiniz! Sizə necə kömək edə bilərəm? Zəhmət olmasa bir sual verin və ya aşağıdan ən çox verilən suallarımızı seçin. 😊", isUser: false }]);
             }
-        }, 10000);
+        }, 5000);
         return () => clearTimeout(timer);
-    }, [isOpen]);
+    }, []);
 
     const questionsAndAnswers = [
         { question: "Çatdırılma müddəti nə qədərdir?", answer: "Sifarişləriniz adətən 1-3 iş günü ərzində kargoya verilir. Xüsusi günlərdə sıxlıq səbəbindən müddət uzana bilər. 📞 Daha ətraflı məlumat üçün WhatsApp ilə əlaqə saxlayın! (📩 WhatsApp ilə Dəstək Al düyməsi)" },
