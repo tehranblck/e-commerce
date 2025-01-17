@@ -19,7 +19,6 @@ export default function Home({
         <Products isInforBarVisible={true} />
         <FutureCard />
         <ChatWindow />
-        <script defer src="https://app.fastbots.ai/embed.js" data-bot-id="cm5zisoci05b7n8ltkwurewi3"></script>
 
       </main>
     </ThemeProvider >

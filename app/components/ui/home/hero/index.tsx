@@ -79,10 +79,10 @@ const Hero = () => {
           </Link>
 
           {/* Telegram Image */}
-          <Link href={"https://t.me/saytyarat_com"} className="w-1/2 lg:w-full">
+          <div className="w-1/2 lg:w-full">
             <div className="relative h-[100px] sm:h-[240px] md:h-[300px] lg:h-[225px]">
               <Image
-                src={'/assets/images/tg.png'}
+                src={'/endirim.webp'}
                 layout="fill"
                 objectFit="contain"
                 quality={86}
@@ -90,7 +90,7 @@ const Hero = () => {
                 className="rounded-md"
               />
             </div>
-          </Link>
+          </div>
         </div>
       </div>
 
