@@ -91,7 +91,7 @@ const ChatWindow = () => {
                 <div
                     ref={chatWindowRef}
                     style={{ zIndex: 9999 }}
-                    className="chat-window flex flex-col justify-between fixed bottom-0 right-0 md:bottom-4 md:right-4 bg-white dark:bg-gray-900 shadow-xl rounded-lg p-3 md:p-6 w-full md:w-[90%] lg:w-[28rem] h-[100vh] md:h-auto md:min-h-[36rem] max-h-screen"
+                    className="chat-window flex flex-col justify-between fixed bottom-0 right-0 md:bottom-4 md:right-4 bg-white dark:bg-gray-900 shadow-xl rounded-lg p-3 md:p-6 w-full md:w-[90%] lg:w-[28rem] h-[80vh] md:h-auto md:min-h-[36rem] max-h-screen"
                 >
                     <div className="flex justify-between items-center border-b pb-2 mb-2 md:mb-4">
                         <h2 className="text-lg md:text-xl font-semibold text-gray-800 dark:text-gray-200">Çat Pəncərəsi</h2>
