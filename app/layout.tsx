@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   },
   description: "Raelli mağazası, ziyafət geyimlərinin satışı və kirayəsi üzrə ixtisaslaşmışdır.",
   alternates: {
-    canonical: "https://e-commerce.saytyarat.com",
+    canonical: "https://admin.raelli.az",
   },
   themeColor: "#000000",
 };

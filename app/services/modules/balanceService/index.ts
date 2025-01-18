@@ -9,7 +9,7 @@ export const increaseBalance = async (
   formData.append("receipt_image", selectedFile);
   formData.append("claimed_amount", amount);
 
-  const response = await fetch("https://e-commerce.saytyarat.com/api/user/balance/add/", {
+  const response = await fetch("https://admin.raelli.az/api/user/balance/add/", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,

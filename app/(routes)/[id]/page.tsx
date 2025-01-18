@@ -19,7 +19,7 @@ const ProductDetail = ({ params }: { params: { id: number } }) => {
     const fetchProduct = async () => {
       try {
         const res = await fetch(
-          `https://e-commerce.saytyarat.com/api/products/${params.id}/`,
+          `https://admin.raelli.az/api/products/${params.id}/`,
           {
             cache: "no-cache",
           },

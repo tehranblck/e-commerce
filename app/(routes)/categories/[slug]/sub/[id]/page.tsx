@@ -23,7 +23,7 @@ const Page = ({ params }: any) => {
                 setLoading(true);
 
                 // Fetch categories
-                const categoriesResponse = await fetch(`https://e-commerce.saytyarat.com/api/products/type/?page_size=20`);
+                const categoriesResponse = await fetch(`https://admin.raelli.az/api/products/type/?page_size=20`);
                 if (!categoriesResponse.ok) {
                     throw new Error('Failed to fetch categories');
                 }

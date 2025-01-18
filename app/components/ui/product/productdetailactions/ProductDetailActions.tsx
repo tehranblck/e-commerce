@@ -13,10 +13,11 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 type Props = {
   product: Product;
-  pubgId: string;
+  selectedColor: string | null; // Receive selected color
+  selectedSize: string | null;  // Receive selected size
 };
 
-const ProductDetailActions = ({ product, pubgId }: Props) => {
+const ProductDetailActions = ({ product, selectedColor, selectedSize }: Props) => {
   const products = useSelector((state: any) => state.product.products);
   const cartProduct = products.find((item: Product) => item.id === product.id);
   const auth = typeof window !== "undefined" ? localStorage.getItem("token") : null;
@@ -30,58 +31,37 @@ const ProductDetailActions = ({ product, pubgId }: Props) => {
       return;
     }
 
-    // `token_placeholder` kontrolü: null ise direkt ekleme yap
-    if (product.token_placeholder === null) {
-      if (cartProduct) {
-        dispatch(increaseQuantity(product.id));
-        toast.success("Product miqdarı artırıldı", {
-          position: "top-left",
-        });
-      } else {
-        dispatch(addProduct({ ...product, quantity: 1, pubgId }));
-        toast.success("Product səbətə əlavə edildi", {
-          position: "top-left",
-        });
-      }
-      return; // Geri dönerek diğer kontrolleri atla
+    if (!selectedColor || !selectedSize) {
+      toast.error("Lütfen bir rəng və ölçü seçin.", {
+        position: "top-left",
+      });
+      return;
     }
 
-    // `token_placeholder` null değilse kontroller çalışır
-    if (product.type === "Pubg" && pubgId === "") {
-      toast.error(
-        `${product.token_placeholder || "Pubg ID"} sahəsi boş ola bilməz`,
-        {
-          position: "top-left",
-        }
-      );
-    } else if (product.type !== "Pubg Mobile" && pubgId === "") {
-      toast.error(
-        `${product.token_placeholder || "Mobil nömrə"} sahəsi boş ola bilməz`,
-        {
-          position: "top-left",
-        }
-      );
+    if (cartProduct) {
+      dispatch(increaseQuantity(product.id));
+      toast.success("Məhsulun miqdarı artırıldı", {
+        position: "top-left",
+      });
     } else {
-      if (cartProduct) {
-        dispatch(increaseQuantity(product.id));
-        toast.success("Product miqdarı artırıldı", {
-          position: "top-left",
-        });
-      } else {
-        dispatch(addProduct({ ...product, quantity: 1, pubgId }));
-        toast.success("Product səbətə əlavə edildi", {
-          position: "top-left",
-        });
-      }
+      dispatch(addProduct({
+        ...product,
+        quantity: 1,
+        selectedColor,
+        selectedSize
+      }));
+      toast.success("Məhsul səbətə əlavə edildi", {
+        position: "top-left",
+      });
     }
   };
 
   const handleDecreaseProduct = () => {
-    dispatch(
-      cartProduct?.quantity && cartProduct.quantity !== 1
-        ? decreaseQuantity(product.id)
-        : removeProduct(product)
-    );
+    if (cartProduct?.quantity && cartProduct.quantity !== 1) {
+      dispatch(decreaseQuantity(product.id));
+    } else {
+      dispatch(removeProduct(product.id));
+    }
   };
 
   return (

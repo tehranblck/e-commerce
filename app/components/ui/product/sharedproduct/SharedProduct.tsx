@@ -4,10 +4,13 @@ import ProductTokenInput from "../producttokeninput/ProductTokenInput";
 import ProductDetailActions from "../productdetailactions/ProductDetailActions";
 import { Product } from "@/app/models/ui/Product";
 
-const SharedProduct = ({ product }: { product: Product }) => {
+const SharedProduct = ({ color, size, product }: { color: any, size: any, product: Product }) => {
   const [isInputVisible, setIsInputVisible] = useState<boolean>(false); // Başlangıçta false
   const [pubgId, setPubgId] = useState<string>(""); // Kullanıcının girdiği değer
   const [placeholder, setPlaceholder] = useState<string>(""); // Placeholder değeri
+  const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+
 
   useEffect(() => {
     // Backend'den gelen need_token bilgisine göre görünürlük ve placeholder'ı ayarla

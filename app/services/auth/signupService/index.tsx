@@ -2,7 +2,7 @@ import UserRegister from "@/app/models/auth/UserRegister";
 
 export const registerUser = async (formData: UserRegister) => {
   const response = await fetch(
-    "https://e-commerce.saytyarat.com/api/user/register/",
+    "https://admin.raelli.az/api/user/register/",
     {
       method: "POST",
       headers: {

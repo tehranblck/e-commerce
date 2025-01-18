@@ -53,7 +53,7 @@ const CartPayment = () => {
 
     try {
       const response = await fetch(
-        "https://e-commerce.saytyarat.com/api/shops/basket/create/",
+        "https://admin.raelli.az/api/shops/basket/create/",
         {
           method: "POST",
           headers: {

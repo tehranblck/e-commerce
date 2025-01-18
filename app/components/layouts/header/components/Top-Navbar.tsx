@@ -89,7 +89,7 @@ const TopNavbar = () => {
         <Navlinks />
         <div className="flex items-center space-x-4 whitespace-nowrap dark:text-[#fff] py-4">
           <Switch />
-          <NotificationsDropdown />
+          {/* <NotificationsDropdown /> */}
 
           <div className="flex items-center relative">
             {user ? (

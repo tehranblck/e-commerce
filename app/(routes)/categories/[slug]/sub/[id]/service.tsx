@@ -7,7 +7,7 @@ export const fetchCategoryData = async (
 ) => {
     try {
         const response = await fetch(
-            `https://e-commerce.saytyarat.com/api/products/?page_size=10&page=${page}&sub_type=${subtypeId}&type=${typeId}`
+            `https://admin.raelli.az/api/products/?page_size=10&page=${page}&sub_type=${subtypeId}&type=${typeId}`
         );
 
         if (!response.ok) {
@@ -23,7 +23,7 @@ export const fetchCategoryData = async (
 
 // export const fetchProductsByCategory = async (typeId: number) => {
 //     try {
-//         const response = await fetch(`https://e-commerce.saytyarat.com/api/products/?sub_type=1`);
+//         const response = await fetch(`https://admin.raelli.az/api/products/?sub_type=1`);
 //         if (!response.ok) {
 //             throw new Error("Failed to fetch products data");
 //         }

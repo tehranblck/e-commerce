@@ -11,7 +11,11 @@ export interface Product {
   created_at?: string;
   updated_at?: string;
   token_placeholder: null | string;
-  need_token: boolean
+  need_token: boolean;
+  colors: { id: number; code: string, name: string }[];
+  sizes: { id: number; name: string }[];
+  selectedColor?: string;
+  selectedSize?: string;
 }
 
 export interface ProductResponse {

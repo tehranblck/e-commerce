@@ -2,7 +2,7 @@ export const sendResetPasswordEmail = async (email: string) => {
   const formData = { email };
 
   const response = await fetch(
-    "https://e-commerce.saytyarat.com/api/user/send-reset-password-email/",
+    "https://admin.raelli.az/api/user/send-reset-password-email/",
     {
       method: "POST",
       headers: {

@@ -3,7 +3,7 @@
 export const fetchSubtypesById = async (typeId: number) => {
     try {
         const response = await fetch(
-            `https://e-commerce.saytyarat.com/api/products/type/${typeId}/`
+            `https://admin.raelli.az/api/products/type/${typeId}/`
         );
 
         if (!response.ok) {

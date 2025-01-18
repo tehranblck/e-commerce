@@ -26,7 +26,7 @@ const CategorizedProductComponent = ({ params }: any) => {
             setLoading(true);
             setError(null);
             try {
-                const categoriesRes = await fetch("https://e-commerce.saytyarat.com/api/products/type/");
+                const categoriesRes = await fetch("https://admin.raelli.az/api/products/type/");
                 if (!categoriesRes.ok) {
                     throw new Error("Kateqoriyaları yükləmək mümkün olmadı");
                 }

@@ -12,7 +12,7 @@ const Hero = () => {
     const fetchSliderImages = async () => {
       try {
         const res = await fetch(
-          "https://e-commerce.saytyarat.com/api/products/slider/?page_size=20"
+          "https://admin.raelli.az/api/products/slider/?page_size=20"
         );
         const dataSlider = await res.json();
 

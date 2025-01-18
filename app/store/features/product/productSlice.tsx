@@ -1,5 +1,3 @@
-//counterSlice.jsx
-
 "use client";
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -10,9 +8,7 @@ interface ProductState {
 }
 
 const initialState: ProductState = {
-  products: [
-
-  ],
+  products: [],
 };
 
 export const productSlice = createSlice({
@@ -22,10 +18,18 @@ export const productSlice = createSlice({
     addProduct: (state, action: PayloadAction<Product>) => {
       const newProduct = action.payload;
       const existingProduct = state.products.find(product => product.id === newProduct.id);
+
       if (existingProduct) {
         existingProduct.quantity = (existingProduct.quantity || 0) + 1;
+        existingProduct.selectedColor = newProduct.selectedColor;
+        existingProduct.selectedSize = newProduct.selectedSize;
       } else {
-        state.products.push({ ...newProduct, quantity: 1 });
+        state.products.push({
+          ...newProduct,
+          quantity: 1,
+          selectedColor: newProduct.selectedColor || "",
+          selectedSize: newProduct.selectedSize || ""
+        });
       }
     },
     increaseQuantity: (state, action: PayloadAction<number>) => {
@@ -33,21 +37,22 @@ export const productSlice = createSlice({
       if (existingProduct) {
         existingProduct.quantity = (existingProduct.quantity || 0) + 1;
       }
-
-
     },
     decreaseQuantity: (state, action: PayloadAction<number>) => {
       const existingProduct = state.products.find(product => product.id === action.payload);
-      if (existingProduct && existingProduct.quantity !== undefined && existingProduct.quantity >= 1) {
-        existingProduct.quantity = (existingProduct.quantity || 0) - 1;
+      if (existingProduct && existingProduct.quantity !== undefined) {
+        if (existingProduct.quantity > 1) {
+          existingProduct.quantity -= 1;
+        } else {
+          state.products = state.products.filter(product => product.id !== action.payload);
+        }
       }
     },
-    removeProduct: (state, action: PayloadAction<Product>) => {
-      state.products = state.products.filter(
-        (product) => product.id !== action.payload.id,
-      );
-    }, clearBasket: (state) => {
-      state.products = []; // Səbəti sıfırla
+    removeProduct: (state, action: PayloadAction<number>) => {
+      state.products = state.products.filter(product => product.id !== action.payload);
+    },
+    clearBasket: (state) => {
+      state.products = [];
     },
   },
 });

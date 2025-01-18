@@ -1,7 +1,7 @@
 export const fetchProductsByCategory = async (page: number, category: string) => {
   try {
     // Dinamik URL oluşturma
-    const url = `https://e-commerce.saytyarat.com/api/products/?type=${category}&page=${page}`;
+    const url = `https://admin.raelli.az/api/products/?type=${category}&page=${page}`;
 
     const response = await fetch(url);
 

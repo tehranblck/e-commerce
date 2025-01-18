@@ -43,15 +43,15 @@ const Footer = () => {
           <div>
             <div className="flex flex-col space-y-2 ml-4">
               <h3 className="dark:text-[#fff] text-lg">Xidmətlər</h3>
-              <p className="text-[#828282] text-sm">Epin</p>
-              <p className="text-[#828282] text-sm">Rəqəmsal kodlar</p>
+              <p className="text-[#828282] text-sm">Ziyafət geyimlərinin satışı</p>
+              <p className="text-[#828282] text-sm">Ziyafət donlarının kirayəsi</p>
             </div>
           </div>
         </div>
       </div>
       <div className="w-full h-[1px] dark:bg-black bg-gray-400"></div>
       <div className="text-[#828282] flex justify-center items-center py-4 dark:bg-[#181818]">
-        <span>2024 © Bütün hüquqlar qorunur</span>
+        <span>2024 © Raelli.az Bütün hüquqlar qorunur</span>
       </div>
     </footer>
   );

@@ -1,6 +1,6 @@
 export async function fetchProduct(id: number) {
   const res = await fetch(
-    `https://e-commerce.saytyarat.com/api/products/${id}/`,
+    `https://admin.raelli.az/api/products/${id}/`,
     {
       cache: "no-store",
     },

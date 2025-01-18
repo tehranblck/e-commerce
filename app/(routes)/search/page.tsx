@@ -16,7 +16,7 @@ const SearchPage = () => {
                 setLoading(true);
                 try {
                     const res = await fetch(
-                        `https://e-commerce.saytyarat.com/api/products?search=${encodeURIComponent(query)}`
+                        `https://admin.raelli.az/api/products?search=${encodeURIComponent(query)}`
                     );
                     const data = await res.json();
                     setProducts(data.results);

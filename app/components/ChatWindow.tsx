@@ -9,15 +9,19 @@ const ChatWindow = () => {
     const [isTyping, setIsTyping] = useState(false);
     const chatEndRef = useRef<HTMLDivElement | null>(null);
     const chatWindowRef = useRef<HTMLDivElement | null>(null);
+    const [hasShownWelcome, setHasShownWelcome] = useState(false);
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            if (!isOpen) {
+        const hasShown = sessionStorage.getItem('hasShownWelcome');
+        if (!hasShown) {
+            const timer = setTimeout(() => {
                 setIsOpen(true);
-                setChatHistory(prevHistory => [...prevHistory, { message: "🛍️ Salam! 👋 Xoş gəlmisiniz! Sizə necə kömək edə bilərəm? Zəhmət olmasa bir sual verin və ya aşağıdan ən çox verilən suallarımızı seçin. 😊", isUser: false }]);
-            }
-        }, 5000);
-        return () => clearTimeout(timer);
+                setChatHistory(prevHistory => [...prevHistory, { message: "🛍️ Salam! 👋 Xoş gəlmisiniz! Sizə necə kömək edə bilərəm?😊", isUser: false }]);
+                setHasShownWelcome(true);
+                sessionStorage.setItem('hasShownWelcome', 'true');
+            }, 5000);
+            return () => clearTimeout(timer);
+        }
     }, []);
 
     const questionsAndAnswers = [
@@ -84,45 +88,68 @@ const ChatWindow = () => {
     return (
         <>
             {isOpen ? (
-                <div ref={chatWindowRef} style={{ zIndex: 9999 }} className="chat-window flex flex-col justify-between fixed bottom-4 right-4 bg-white dark:bg-gray-900 shadow-xl rounded-lg p-6 w-[28rem] min-h-[36rem] ">
-                    <div className="flex justify-between items-center border-b pb-2 mb-4">
-                        <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">Çat Pəncərəsi</h2>
-                        <button onClick={toggleChatWindow} className="text-red-500 hover:text-gray-700 text-4xl dark:hover:text-gray-300">✖</button>
+                <div
+                    ref={chatWindowRef}
+                    style={{ zIndex: 9999 }}
+                    className="chat-window flex flex-col justify-between fixed bottom-0 right-0 md:bottom-4 md:right-4 bg-white dark:bg-gray-900 shadow-xl rounded-lg p-3 md:p-6 w-full md:w-[90%] lg:w-[28rem] h-[100vh] md:h-auto md:min-h-[36rem] max-h-screen"
+                >
+                    <div className="flex justify-between items-center border-b pb-2 mb-2 md:mb-4">
+                        <h2 className="text-lg md:text-xl font-semibold text-gray-800 dark:text-gray-200">Çat Pəncərəsi</h2>
+                        <button
+                            onClick={toggleChatWindow}
+                            className="text-red-500 hover:text-gray-700 text-2xl md:text-4xl dark:hover:text-gray-300"
+                        >
+                            ✖
+                        </button>
                     </div>
-                    <div className="chat-bubbles mt-4 space-y-3 w-full max-h-[24rem] pr-6 overflow-y-auto">
+
+                    <div className="chat-bubbles mt-2 md:mt-4 space-y-2 md:space-y-3 w-full flex-grow overflow-y-auto px-2 md:px-4">
                         {renderChatBubbles()}
                         {isTyping && (
-                            <div className="typing-indicator text-gray-500 text-sm">Cavab yazılır...</div>
+                            <div className="typing-indicator text-gray-500 text-xs md:text-sm">Cavab yazılır...</div>
                         )}
                         <div ref={chatEndRef} />
                     </div>
-                    <div className="flex flex-col ">
-                        <div className="flex space-x-2 mt-4">
+
+                    <div className="flex flex-col mt-2 md:mt-4">
+                        <div className="flex space-x-2">
                             <input
                                 type="text"
                                 value={message}
                                 onChange={(e) => setMessage(e.target.value)}
                                 placeholder="Mesajınızı yazın..."
-                                className="flex-grow p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
+                                className="flex-grow p-2 md:p-3 text-sm md:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
                             />
-                            <button onClick={handleSendMessage} className="bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition duration-300">
+                            <button
+                                onClick={handleSendMessage}
+                                className="bg-blue-600 text-white px-3 py-2 md:p-3 rounded-lg hover:bg-blue-700 transition duration-300 text-sm md:text-base"
+                            >
                                 Göndər
                             </button>
-
                         </div>
-                        <button onClick={() => window.open('https://wa.me/994997301998', '_blank')} className="bg-green-600 text-white p-3 rounded-lg hover:bg-green-700 mt-3 transition duration-300">
+
+                        <button
+                            onClick={() => window.open('https://wa.me/994997301998', '_blank')}
+                            className="bg-green-600 text-white p-2 md:p-3 rounded-lg hover:bg-green-700 mt-2 md:mt-3 transition duration-300 text-sm md:text-base"
+                        >
                             WhatsApp ilə Dəstək Al
                         </button>
-                        <button onClick={() => setChatHistory([])} className="bg-red-600 text-white p-3 rounded-lg hover:bg-red-700 mt-3 transition duration-300">
+
+                        <button
+                            onClick={() => setChatHistory([])}
+                            className="bg-red-600 text-white p-2 md:p-3 rounded-lg hover:bg-red-700 mt-2 md:mt-3 transition duration-300 text-sm md:text-base"
+                        >
                             Təmizlə
                         </button>
                     </div>
-
                 </div>
             ) : (
-                <div className="fixed bottom-4 right-4 bg-blue-500 text-white rounded-full p-4 cursor-pointer" onClick={toggleChatWindow}>
+                <button
+                    className="fixed bottom-4 right-4 bg-blue-500 text-white rounded-full p-3 md:p-4 cursor-pointer text-sm md:text-base shadow-lg hover:bg-blue-600 transition-colors duration-300"
+                    onClick={toggleChatWindow}
+                >
                     Çat Aç
-                </div>
+                </button>
             )}
         </>
     );
