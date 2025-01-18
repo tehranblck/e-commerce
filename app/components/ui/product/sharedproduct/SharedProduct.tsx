@@ -5,39 +5,34 @@ import ProductDetailActions from "../productdetailactions/ProductDetailActions";
 import { Product } from "@/app/models/ui/Product";
 
 const SharedProduct = ({ color, size, product }: { color: any, size: any, product: Product }) => {
-  const [isInputVisible, setIsInputVisible] = useState<boolean>(false); // Başlangıçta false
-  const [pubgId, setPubgId] = useState<string>(""); // Kullanıcının girdiği değer
-  const [placeholder, setPlaceholder] = useState<string>(""); // Placeholder değeri
+  const [isInputVisible, setIsInputVisible] = useState<boolean>(false);
+  const [placeholder, setPlaceholder] = useState<string>("");
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
 
-
   useEffect(() => {
-    // Backend'den gelen need_token bilgisine göre görünürlük ve placeholder'ı ayarla
     if (product.need_token) {
       setIsInputVisible(true);
-      setPlaceholder(product.token_placeholder || ""); // Eğer token_placeholder yoksa boş string kullan
+      setPlaceholder(product.token_placeholder || "");
     } else {
       setIsInputVisible(false);
     }
   }, [product.need_token, product.token_placeholder]);
-
-  const handleChangeEvent = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPubgId(e.target.value.trim());
-  };
 
   return (
     <>
       {isInputVisible && (
         <ProductTokenInput
           need_token={product.need_token}
-          pubgId={pubgId}
           productType={product.type}
           placeholder={placeholder}
-          onchange={handleChangeEvent}
         />
       )}
-      <ProductDetailActions product={product} pubgId={pubgId} />
+      <ProductDetailActions
+        product={product}
+        selectedColor={selectedColor}
+        selectedSize={selectedSize}
+      />
     </>
   );
 };
