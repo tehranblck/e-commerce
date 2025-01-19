@@ -112,13 +112,13 @@ const ChatWindow = () => {
                     </div>
 
                     <div className="flex flex-col mt-2 md:mt-4">
-                        <div className="flex space-x-2">
+                        <div className="flex  space-x-2">
                             <input
                                 type="text"
                                 value={message}
                                 onChange={(e) => setMessage(e.target.value)}
                                 placeholder="Mesajınızı yazın..."
-                                className="flex-grow p-2 md:p-3 text-sm md:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
+                                className="flex-grow p-2 md:p-3 text-md md:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
                             />
                             <button
                                 onClick={handleSendMessage}
