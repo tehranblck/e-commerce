@@ -87,7 +87,7 @@ const FilteredProductsComponent = () => {
         <div className="px-2">
           <InformationBar link="/categories" HasButton={false} title=" Kateqoriyalar" />
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-2 gap-12 mt-6 px-2 justify-center">
+        <div className="grid grid-cols-2 md:grid-cols-2 gap-6 md:12 mt-6 px-2 justify-center">
           {displayedCategories.map((category) => (
             <Link
               href={
@@ -96,7 +96,7 @@ const FilteredProductsComponent = () => {
                   : `/categories/${category.name}`
               }
               key={category.id}
-              className="dark:bg-[#1f1f1f] overflow-hidden dark:border-0 border-2 px-8 w-full hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(75,0,130,0.6)] duration-300 transition-all ease-in-out cursor-pointer h-[150px] rounded-md flex items-center justify-center"
+              className="dark:bg-[#1f1f1f] bg-[#988d57] text-white md:text-3xl text-md overflow-hidden dark:border-0 border-2 px-4 md:px-8 w-full hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(75,0,130,0.6)] duration-300 transition-all ease-in-out cursor-pointer h-[150px] rounded-md flex items-center justify-center"
             >
               {  /*  <Image
                 width={5070}

@@ -14,10 +14,10 @@ const ClientProductDetail = ({ product }: { product: Product }) => {
     const dispatch = useDispatch();
 
     return (
-        <section className="dark:bg-[#121212] py-6">
+        <section className="dark:bg-[#121212]  py-6">
             <div className="flex justify-center items-center text-[#fff] mx-2 px-2">
-                <div className="dark:bg-[#181818] py-10 px-6 rounded-md">
-                    <div className="flex sm:w-[300px] md:w-[400px] lg:w-[500px] xl:w-full flex-col xl:flex-row justify-between xl:space-x-4">
+                <div className="dark:bg-[#181818]  py-10 px-6 rounded-3xl">
+                    <div className="flex sm:w-[300px] border-2 border-[#988d57] p-6 rounded-3xl md:w-[400px] lg:w-[500px] xl:w-full flex-col xl:flex-row justify-between xl:space-x-4">
                         <Image
                             width={350}
                             height={150}
@@ -28,10 +28,10 @@ const ClientProductDetail = ({ product }: { product: Product }) => {
 
                         <div className="w-full flex flex-col justify-between space-y-8">
                             <div className="flex flex-col space-y-3 mt-4 xl:mt-0">
-                                <h2 className="sm:text-[16px] md:text-[28px] dark:text-white text-black xl:text-[32px] font-bold">
+                                <h2 className="sm:text-[16px] md:text-[28px] dark:text-[#988d57] text-white xl:text-[32px] font-bold">
                                     {product.title}
                                 </h2>
-                                <p className="text-[#5d5d5d]">{product.description}</p>
+                                <p className="dark:text-[#5d5d5d] text-white">{product.description}</p>
                                 <Link href={"/"} className="text-[14px] text-yellow-500">
                                     Digər məhsullar {"-->"}
                                 </Link>
@@ -43,7 +43,7 @@ const ClientProductDetail = ({ product }: { product: Product }) => {
                                         <span
                                             key={color.id}
                                             style={{ backgroundColor: color.code }}
-                                            className={`w-6 h-6 rounded-full inline-block cursor-pointer ${selectedColor === color.name ? 'border-2 border-white' : ''}`}
+                                            className={`w-6 h-6 rounded-full inline-block cursor-pointer ${selectedColor === color.name ? 'border-4 border-red-900' : ''}`}
                                             onClick={() => setSelectedColor(color.name)}
                                         ></span>
                                     ))}
@@ -53,7 +53,7 @@ const ClientProductDetail = ({ product }: { product: Product }) => {
                                     {product.sizes.map((size) => (
                                         <span
                                             key={size.id}
-                                            className={`px-2 py-1 border rounded-md cursor-pointer ${selectedSize === size.name ? 'bg-gray-300' : ''}`}
+                                            className={`px-2 py-1 border rounded-md cursor-pointer ${selectedSize === size.name ? 'bg-blue-500' : ''}`}
                                             onClick={() => setSelectedSize(size.name)}
                                         >
                                             {size.name}

@@ -22,140 +22,122 @@ const CartItemList: React.FC = () => {
   return (
     <div className="w-full max-w-4xl mx-auto px-4">
       {products.length > 0 ? (
-        <div className="overflow-hidden">
-          <table className="hidden md:table w-full bg-[#1E201E] rounded-lg border border-gray-700">
-            {/* Table Head */}
-            <thead className="bg-black text-white">
-              <tr>
-                {["Məhsul", "Qiymət", "Ədəd", "Ümumi", "Sil"].map((header, index) => (
-                  <th key={index} className="py-3 px-4 text-left text-sm sm:text-md md:text-lg">
-                    {header}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-
-            {/* Table Body */}
-            <tbody>
-              {products.map((product) => (
-                <tr key={product.id} className="text-white border-b border-gray-600">
-                  {/* Product Info */}
-                  <td className="py-4 px-4 flex items-center space-x-4">
-                    <Image
-                      src={product.image}
-                      alt={product.title}
-                      width={50}
-                      height={50}
-                      className="rounded-md"
-                    />
-                    <div className="flex flex-col">
-                      <span className="font-semibold text-sm md:text-md">{product.title}</span>
-                      <p className="text-xs text-gray-400">
-                        Rəng: {product.selectedColor || "Seçilməyib"}
-                      </p>
-                      <p className="text-xs text-gray-400">
-                        Ölçü: {product.selectedSize || "Seçilməyib"}
-                      </p>
-                    </div>
-                  </td>
-
-                  {/* Price */}
-                  <td className="py-3 px-4 text-sm sm:text-md">{(product.price || 0).toFixed(2)} AZN</td>
-
-                  {/* Quantity Controls */}
-                  <td className="py-3 px-4">
-                    <div className="flex items-center space-x-2">
-                      <button
-                        className="bg-yellow-500 text-white w-7 h-7 rounded-md font-bold text-xs sm:text-sm"
-                        onClick={() =>
-                          product.quantity && product.quantity > 1
-                            ? dispatch(decreaseQuantity(product.id))
-                            : dispatch(removeProduct(product.id))
-                        }
-                      >
-                        -
-                      </button>
-                      <span className="text-sm sm:text-md">{product.quantity ?? 0}</span>
-                      <button
-                        className="bg-yellow-500 text-white w-7 h-7 rounded-md font-bold text-xs sm:text-sm"
-                        onClick={() => dispatch(increaseQuantity(product.id))}
-                      >
-                        +
-                      </button>
-                    </div>
-                  </td>
-
-                  {/* Total Price */}
-                  <td className="py-3 px-4 text-sm sm:text-md">{calculateTotalPrice(product).toFixed(2)} AZN</td>
-
-                  {/* Remove Button */}
-                  <td className="py-3 px-4">
-                    <button
-                      className="p-2 rounded-md hover:bg-gray-800"
-                      onClick={() => dispatch(removeProduct(product.id))}
-                    >
-                      <DeleteIcon className="text-red-500 w-6 h-6" />
-                    </button>
-                  </td>
+        <div className="space-y-4">
+          {/* Desktop View */}
+          <div className="hidden md:block">
+            <table className="w-full bg-[#1E201E] rounded-lg border border-gray-700">
+              <thead className="bg-black text-white">
+                <tr>
+                  {["Məhsul", "Qiymət", "Ədəd", "Ümumi", ""].map((header, index) => (
+                    <th key={index} className="py-4 px-6 text-left text-sm font-medium">
+                      {header}
+                    </th>
+                  ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {products.map((product) => (
+                  <tr key={product.id} className="text-white border-b border-gray-700">
+                    <td className="py-4 px-6">
+                      <div className="flex items-center space-x-4">
+                        <div className="relative w-16 h-16">
+                          <Image
+                            src={product.image}
+                            alt={product.title}
+                            layout="fill"
+                            objectFit="cover"
+                            className="rounded-md"
+                          />
+                        </div>
+                        <div>
+                          <p className="font-medium">{product.title}</p>
+                          <p className="text-sm text-gray-400">Rəng: {product.selectedColor || "Seçilməyib"}</p>
+                          <p className="text-sm text-gray-400">Ölçü: {product.selectedSize || "Seçilməyib"}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="py-4 px-6">{product.price.toFixed(2)} AZN</td>
+                    <td className="py-4 px-6">
+                      <div className="flex items-center space-x-2">
+                        <button
+                          onClick={() => dispatch(decreaseQuantity(product.id))}
+                          className="bg-yellow-500 hover:bg-yellow-600 text-white w-8 h-8 rounded-md transition-colors"
+                        >
+                          -
+                        </button>
+                        <span className="w-8 text-center">{product.quantity}</span>
+                        <button
+                          onClick={() => dispatch(increaseQuantity(product.id))}
+                          className="bg-yellow-500 hover:bg-yellow-600 text-white w-8 h-8 rounded-md transition-colors"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </td>
+                    <td className="py-4 px-6">{calculateTotalPrice(product).toFixed(2)} AZN</td>
+                    <td className="py-4 px-6">
+                      <button
+                        onClick={() => dispatch(removeProduct(product.id))}
+                        className="text-red-500 hover:text-red-600 transition-colors"
+                      >
+                        <DeleteIcon />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
           {/* Mobile View */}
           <div className="md:hidden space-y-4">
             {products.map((product) => (
-              <div
-                key={product.id}
-                className="bg-[#1E201E] text-white p-4 rounded-lg border border-gray-700 flex flex-col space-y-3"
-              >
-                {/* Product Info */}
-                <div className="flex items-center space-x-4">
-                  <Image
-                    src={product.image}
-                    alt={product.title}
-                    width={50}
-                    height={50}
-                    className="rounded-md"
-                  />
-                  <div>
-                    <p className="font-semibold text-sm">{product.title}</p>
-                    <p className="text-xs text-gray-400">Rəng: {product.selectedColor || "Seçilməyib"}</p>
-                    <p className="text-xs text-gray-400">Ölçü: {product.selectedSize || "Seçilməyib"}</p>
+              <div key={product.id} className="bg-[#1E201E] rounded-lg p-4 border border-gray-700">
+                <div className="flex items-center space-x-4 mb-4">
+                  <div className="relative w-20 h-20">
+                    <Image
+                      src={product.image}
+                      alt={product.title}
+                      layout="fill"
+                      objectFit="cover"
+                      className="rounded-md"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-medium text-white">{product.title}</h3>
+                    <p className="text-sm text-gray-400">Rəng: {product.selectedColor || "Seçilməyib"}</p>
+                    <p className="text-sm text-gray-400">Ölçü: {product.selectedSize || "Seçilməyib"}</p>
+                    <p className="text-white mt-1">{product.price.toFixed(2)} AZN</p>
                   </div>
                 </div>
-
-                {/* Price & Quantity */}
-                <div className="flex justify-between items-center">
-                  <p className="text-sm sm:text-md font-semibold">{(product.price || 0).toFixed(2)} AZN</p>
-                  <div className="flex items-center space-x-2">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
                     <button
-                      className="bg-yellow-500 text-white w-8 h-8 rounded-md font-bold text-xs"
-                      onClick={() =>
-                        product.quantity && product.quantity > 1
-                          ? dispatch(decreaseQuantity(product.id))
-                          : dispatch(removeProduct(product.id))
-                      }
+                      onClick={() => dispatch(decreaseQuantity(product.id))}
+                      className="bg-yellow-500 hover:bg-yellow-600 text-white w-10 h-10 rounded-md transition-colors text-lg"
                     >
                       -
                     </button>
-                    <span className="text-sm">{product.quantity ?? 0}</span>
+                    <span className="text-white w-8 text-center text-lg">{product.quantity}</span>
                     <button
-                      className="bg-yellow-500 text-white w-8 h-8 rounded-md font-bold text-xs"
                       onClick={() => dispatch(increaseQuantity(product.id))}
+                      className="bg-yellow-500 hover:bg-yellow-600 text-white w-10 h-10 rounded-md transition-colors text-lg"
                     >
                       +
                     </button>
                   </div>
+                  <button
+                    onClick={() => dispatch(removeProduct(product.id))}
+                    className="text-red-500 hover:text-red-600 transition-colors"
+                  >
+                    <DeleteIcon />
+                  </button>
                 </div>
-
-                {/* Remove Button */}
-                <button
-                  className="bg-red-500 text-white p-2 rounded-md w-full mt-2"
-                  onClick={() => dispatch(removeProduct(product.id))}
-                >
-                  Məhsulu Sil
-                </button>
+                <div className="mt-4 text-right">
+                  <p className="text-white font-medium">
+                    Ümumi: {calculateTotalPrice(product).toFixed(2)} AZN
+                  </p>
+                </div>
               </div>
             ))}
           </div>

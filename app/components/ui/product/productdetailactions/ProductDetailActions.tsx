@@ -65,18 +65,20 @@ const ProductDetailActions = ({ product, selectedColor, selectedSize }: Props) =
   };
 
   return (
-    <div className="flex space-x-5">
-      <div className="flex items-center">
+    <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
+      <div className="flex items-center justify-center space-x-2">
         <button
           onClick={handleDecreaseProduct}
-          className="bg-yellow-500 hover:bg-white transition-all duration-300 text-lg w-[30px] rounded-md border-[1px] border-[#000] py-[7px] text-black font-bold"
+          className="bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 text-white w-12 h-12 rounded-md text-xl font-medium"
         >
           -
         </button>
-        <span className="mx-2 text-black dark:text-white">{cartProduct?.quantity || "1"}</span>
+        <span className="w-10 text-center text-lg text-black dark:text-white">
+          {cartProduct?.quantity || "1"}
+        </span>
         <button
           onClick={handleAddProduct}
-          className="bg-yellow-500 hover:bg-white transition-all duration-300 text-lg w-[30px] rounded-md border-[1px] border-[#000] py-[7px] text-black font-bold"
+          className="bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 text-white w-12 h-12 rounded-md text-xl font-medium"
         >
           +
         </button>
@@ -84,9 +86,10 @@ const ProductDetailActions = ({ product, selectedColor, selectedSize }: Props) =
 
       <button
         onClick={handleAddProduct}
-        className="bg-yellow-500 hover:bg-white whitespace-nowrap px-2 transition-all duration-300 text-lg w-full rounded-md border-[1px] border-[#000] py-[7px] text-black font-bold"
+        className="flex items-center justify-center bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 text-white px-6 py-3 rounded-md text-lg font-medium w-full sm:w-auto"
       >
-        <ShoppingCartIcon className="mr-1 text-[22px]" /> Səbətə əlavə et
+        <ShoppingCartIcon className="mr-2 text-2xl" />
+        <span>Səbətə əlavə et</span>
       </button>
     </div>
   );

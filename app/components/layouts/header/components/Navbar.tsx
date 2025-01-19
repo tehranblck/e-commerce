@@ -66,7 +66,7 @@ const Navbar = () => {
           {/* Balance Link */}
           <Link
             href={"/balance"}
-            className="transition-all duration-500 ease-in-out px-4 py-2 rounded-md bg-yellow-400 text-black hover:bg-white relative text-sm md:text-base"
+            className="transition-all duration-500 ease-in-out px-4 py-2 rounded-md bg-[#988d57] text-white hover:bg-[#ceb226]  relative text-sm md:text-base"
           >
             <span>
               <AccountBalanceWalletIcon className="mr-2" />
@@ -77,7 +77,7 @@ const Navbar = () => {
           {/* Cart Link */}
           <Link
             href={"/cart"}
-            className="relative transition-all duration-500 ease-in-out px-4 py-2 rounded-md bg-yellow-400 text-black hover:bg-white text-sm md:text-base"
+            className="relative transition-all duration-500 ease-in-out px-4 py-2 rounded-md bg-[#988d57] text-white hover:bg-[#ceb226] text-sm md:text-base"
           >
             <p className="w-full">
               <span className="text-[#fff] bg-indigo-500 rounded-full px-2 absolute top-[-10px] right-[-10px] text-xs">
