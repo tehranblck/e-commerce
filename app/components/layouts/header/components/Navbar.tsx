@@ -39,7 +39,7 @@ const Navbar = () => {
 
   return (
     <nav className="dark:bg-[#151515] bg-[#01878a] px-4">
-      <div className="flex items-center justify-between max-w-[1280px] mx-auto text-[#fff] py-2 md:space-y-0 flex-col md:flex-row">
+      <div className="flex items-center justify-between max-w-[1280px] mx-auto text-[#fff] py-0 md:space-y-0 flex-col md:flex-row">
         {/* Logo */}
         <div className="flex items-center justify-between w-full md:w-auto">
           <Link href={"/"}>
@@ -77,7 +77,7 @@ const Navbar = () => {
           {/* Cart Link */}
           <Link
             href={"/cart"}
-            className="relative transition-all duration-500 ease-in-out px-4 py-2 rounded-md bg-[#988d57] text-white hover:bg-[#ceb226] text-sm md:text-base"
+            className="relative transition-all duration-500 ease-in-out px-4 py-0 rounded-md bg-[#988d57] text-white hover:bg-[#ceb226] text-sm md:text-base"
           >
             <p className="w-full">
               <span className="text-[#fff] bg-indigo-500 rounded-full px-2 absolute top-[-10px] right-[-10px] text-xs">

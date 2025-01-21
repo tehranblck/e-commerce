@@ -20,9 +20,10 @@ const ClientProductDetail = ({ product }: { product: Product }) => {
                     <div className="flex sm:w-[300px] border-2 border-[#988d57] p-6 rounded-3xl md:w-[400px] lg:w-[500px] xl:w-full flex-col xl:flex-row justify-between xl:space-x-4">
                         <Image
                             width={350}
-                            height={150}
+                            height={950}
+                            quality={100}
                             src={product.image}
-                            className="w-full rounded-md"
+                            className="w-full h-full rounded-md"
                             alt={product.title || product.image}
                         />
 

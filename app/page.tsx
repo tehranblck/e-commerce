@@ -14,8 +14,9 @@ export default function Home({
   return (
     <ThemeProvider>
       <main className="relative">
-        <Hero />
         <FilteredProductsComponent />
+
+        <Hero />
         <Products isInforBarVisible={true} />
         <FutureCard />
         <ChatWindow />

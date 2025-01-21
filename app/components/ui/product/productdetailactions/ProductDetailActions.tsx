@@ -32,7 +32,7 @@ const ProductDetailActions = ({ product, selectedColor, selectedSize }: Props) =
     }
 
     if (!selectedColor || !selectedSize) {
-      toast.error("Lütfen bir rəng və ölçü seçin.", {
+      toast.error("Zəhmət olmasa bir rəng və ölçü seçin.", {
         position: "top-left",
       });
       return;
