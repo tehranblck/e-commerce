@@ -85,7 +85,7 @@ const FilteredProductsComponent = () => {
     <section className="dark:bg-[#121212] py-0">
       <div className="max-w-[600px] md:max-w-[1280px] mx-auto">
         <div className="px-2">
-          <InformationBar link="/categories" HasButton={false} title=" Kateqoriyalar" />
+          {/* <InformationBar link="/categories" HasButton={false} title=" Kateqoriyalar" /> */}
         </div>
         <div className="grid grid-cols-2 md:grid-cols-2 gap-6 md:12 mt-2 px-2 justify-center">
           {displayedCategories.map((category) => (
