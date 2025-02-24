@@ -13,8 +13,8 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 type Props = {
   product: Product;
-  selectedColor?: number | null;
-  selectedSize?: number | null;
+  selectedColor?: number;
+  selectedSize?: number;
 };
 
 const ProductDetailActions = ({ product, selectedColor, selectedSize }: Props) => {
