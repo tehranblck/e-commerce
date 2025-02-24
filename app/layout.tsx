@@ -1,16 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "./components/layouts/header/Header";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Providers } from "./store/provider";
 const inter = Inter({ subsets: ["latin"] });
-import Footer from "./components/layouts/footer/Footer";
-import ScrollToTop from "./components/ui/shared/ScrollTop";
 import dynamic from "next/dynamic";
-import Script from "next/script";
-import ChatWindow from "./components/ChatWindow";
+import { useEffect } from "react";
 
 export const metadata: Metadata = {
   title: {
@@ -26,6 +22,7 @@ export const metadata: Metadata = {
   },
   themeColor: "#000000",
 };
+
 
 const DynamicHeader = dynamic(
   () => import("./components/layouts/header/Header"),
@@ -48,7 +45,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning={true} className={inter.className}>
+      <body suppressHydrationWarning={true} className={inter.className + "dark"}>
         <Providers>
           <DynamicHeader />
           {/* <ScrollToTop /> */}
@@ -75,6 +72,6 @@ export default function RootLayout({
         </Providers>
         <ToastContainer />
       </body>
-    </html>
+    </html >
   );
 }

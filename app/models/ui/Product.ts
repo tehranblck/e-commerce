@@ -6,16 +6,16 @@ export interface Product {
   image: string;
   type: string;
   slug: string;
-  pubgId?: string;
   quantity?: number;
   created_at?: string;
   updated_at?: string;
   token_placeholder: null | string;
   need_token: boolean;
+  token?: string;
   colors: { id: number; code: string, name: string }[];
   sizes: { id: number; name: string }[];
-  selectedColor?: string;
-  selectedSize?: string;
+  selectedColor?: number;
+  selectedSize?: number;
 }
 
 export interface ProductResponse {

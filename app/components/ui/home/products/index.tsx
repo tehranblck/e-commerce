@@ -119,25 +119,20 @@ const Products = ({ isInforBarVisible }: { isInforBarVisible: boolean }) => {
     <section className="dark:bg-[#121212] py-6">
       <div className="flex flex-col max-w-[1280px] mx-auto px-2">
         {/* Kategori Slider */}
-        <div className="relative flex items-center px-12">
-          <button
-            onClick={() => handleScroll('left')}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black text-white rounded-full p-3 z-10 hover:bg-gray-800 transition-all"
-            aria-label="Sola kaydır"
-          >
-            <FaChevronLeft size={20} />
-          </button>
+        <div className="relative flex items-center justify-center w-full">
+          {/* Sol Ok */}
+
 
           <div
             ref={scrollRef}
-            className="bg-[#988d57] border-2 border-white text-white px-4 rounded-md mt-4 flex gap-2 overflow-x-hidden scrollbar-hide"
+            className="flex gap-3 px-4 py-2 overflow-x-hidden scroll-smooth"
           >
             <button
               onClick={() => handleCategorySelect(null)}
-              className={`px-4 py-2 text-black font-semibold rounded-md border transition-all duration-300 
+              className={`min-w-fit px-6 py-3 text-sm font-medium rounded-lg transition-all duration-300 
                 ${selectedCategory === null
-                  ? "border-black border-l-yellow-500 border-r-yellow-500 bg-black text-white shadow-md"
-                  : "hover:bg-gray-200 border-transparent"}`}
+                  ? "bg-blue-500 text-white shadow-lg transform scale-105"
+                  : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"}`}
             >
               Bütün Məhsullar
             </button>
@@ -146,23 +141,18 @@ const Products = ({ isInforBarVisible }: { isInforBarVisible: boolean }) => {
               <button
                 key={category.id}
                 onClick={() => handleCategorySelect(category.name)}
-                className={`px-4 py-2 text-black font-semibold rounded-md transition-all duration-300 border 
+                className={`min-w-fit px-6 py-3 text-sm font-medium rounded-lg transition-all duration-300
                   ${selectedCategory === category.name
-                    ? "bg-black text-white shadow-md border-l-yellow-500 border-r-yellow-500"
-                    : "hover:bg-gray-200 border-transparent"}`}
+                    ? "bg-blue-600 text-white shadow-lg transform scale-105"
+                    : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"}`}
               >
                 {category.name}
               </button>
             ))}
           </div>
 
-          <button
-            onClick={() => handleScroll('right')}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black text-white rounded-full p-3 z-10 hover:bg-gray-800 transition-all"
-            aria-label="Sağa kaydır"
-          >
-            <FaChevronRight size={20} />
-          </button>
+          {/* Sağ Ok */}
+
         </div>
 
         {/* Ürün Listesi */}

@@ -44,7 +44,7 @@ const FutureCard = () => {
               className="flex flex-col items-center justify-center dark:bg-[#1f1f1f] bg-[#988d57] border-2 border-gray-500 border-opacity-10 rounded-md  w-full   lg:w-[300px] h-[200px] lg:space-y-2 p-1"
               key={item.id}
             >
-              <div>{item.icon}</div>
+              <div className="hover:rotate-45 transition-all duration-300">{item.icon}</div>
               <span className="text-md  dark:text-white  text-white">{item.title}</span>
               <p className="text-center text-gray-300 dark:text-[#828282] text-sm">
                 {item.description}

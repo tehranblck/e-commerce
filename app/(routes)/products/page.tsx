@@ -4,10 +4,10 @@ import React from "react";
 
 const ProductPage = () => {
   return (
-    <section className="dark:bg-[#121212]  lg:pt-[4px]">
+    <section className="bg-[#121212]  lg:pt-[4px]">
       <div className="">
         <div className=" flex items-center justify-center w-full  ">
-          <h1 className="text-[42px] dark:text-[#fff]">Produktlar</h1>
+          <h1 className="text-[42px] text-[#fff]">Məhsullar</h1>
         </div>
         <Products isInforBarVisible={false} />
         <FutureCard />

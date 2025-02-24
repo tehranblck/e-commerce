@@ -27,8 +27,8 @@ export const productSlice = createSlice({
         state.products.push({
           ...newProduct,
           quantity: 1,
-          selectedColor: newProduct.selectedColor || "",
-          selectedSize: newProduct.selectedSize || ""
+          selectedColor: newProduct.selectedColor,
+          selectedSize: newProduct.selectedSize
         });
       }
     },

@@ -9,12 +9,12 @@ import ProductDetailActions from "@/app/components/ui/product/productdetailactio
 import { Product } from "@/app/models/ui/Product";
 
 const ClientProductDetail = ({ product }: { product: Product }) => {
-    const [selectedColor, setSelectedColor] = useState<string | null>(null);
-    const [selectedSize, setSelectedSize] = useState<string | null>(null);
+    const [selectedColor, setSelectedColor] = useState<number | null>(null);
+    const [selectedSize, setSelectedSize] = useState<number | null>(null);
     const dispatch = useDispatch();
 
     return (
-        <section className="dark:bg-[#121212]  py-6">
+        <section className="bg-[#212121]  py-6">
             <div className="flex justify-center items-center text-[#fff] mx-2 px-2">
                 <div className="dark:bg-[#181818]  py-10 px-6 rounded-3xl">
                     <div className="flex sm:w-[300px] border-2 border-[#988d57] p-6 rounded-3xl md:w-[400px] lg:w-[500px] xl:w-full flex-col xl:flex-row justify-between xl:space-x-4">
@@ -44,8 +44,8 @@ const ClientProductDetail = ({ product }: { product: Product }) => {
                                         <span
                                             key={color.id}
                                             style={{ backgroundColor: color.code }}
-                                            className={`w-6 h-6 rounded-full inline-block cursor-pointer ${selectedColor === color.name ? 'border-4 border-red-900' : ''}`}
-                                            onClick={() => setSelectedColor(color.name)}
+                                            className={`w-6 h-6 rounded-full inline-block cursor-pointer ${selectedColor === color.id ? 'border-4 border-red-900' : ''}`}
+                                            onClick={() => setSelectedColor(color.id)}
                                         ></span>
                                     ))}
                                 </div>
@@ -54,8 +54,8 @@ const ClientProductDetail = ({ product }: { product: Product }) => {
                                     {product.sizes.map((size) => (
                                         <span
                                             key={size.id}
-                                            className={`px-2 py-1 border rounded-md cursor-pointer ${selectedSize === size.name ? 'bg-blue-500' : ''}`}
-                                            onClick={() => setSelectedSize(size.name)}
+                                            className={`px-2 py-1 border rounded-md cursor-pointer ${selectedSize === size.id ? 'bg-blue-500' : ''}`}
+                                            onClick={() => setSelectedSize(size.id)}
                                         >
                                             {size.name}
                                         </span>

@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <header className="flex flex-col  w-full  z-[100] ">
       <TopNavbar />
-      <span className="bg-[#988d57]  h-[2px] w-full dark:bg-black" />
+      <span className="bg-[#121212]  h-[2px] w-full" />
       <Navbar />
     </header  >
   );

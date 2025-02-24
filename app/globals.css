@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 body {
-    @apply bg-[#01878a] text-[#988d57];
+    @apply bg-black text-[#988d57];
 }
 
 

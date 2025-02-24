@@ -2,13 +2,13 @@ import React from "react";
 
 const Rules = () => {
   return (
-    <section className="dark:bg-[#121212] py-6 ">
+    <section className="bg-[#121212] py-6 ">
       <div className="max-w-[1280px] mx-auto flex  flex-col">
         <div className=" flex items-center justify-center w-full mb-4">
-          <h1 className="text-[42px] dark:text-[#fff]">Qaydalar</h1>
+          <h1 className="text-[42px] text-[#fff]">Qaydalar</h1>
         </div>
 
-        <div className="pb-20 pt-4 dark:text-[#fff] space-y-12  max-w-[px] px-4">
+        <div className="pb-20 pt-4 text-[#fff] space-y-12  max-w-[px] px-4">
           <div>
             <p>
               18 yaşdan aşağı olan azyaşlıların valideynlərdən icazəsiz saytdan

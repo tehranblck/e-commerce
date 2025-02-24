@@ -15,10 +15,7 @@ const Navbar = () => {
   const products = useSelector((state: any) => state.product.products); // Redux'dan ürünleri al
   const router = useRouter();
 
-  // Tam eşleşme arama fonksiyonu
-  const handleExactMatchSearch = (query: string) => {
-    // Backend'den içerik çekmek için bir API çağrısı yapılabilir
-  };
+
 
   // Genel arama fonksiyonu
   const handleSearch = (query: string) => {
@@ -38,7 +35,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="dark:bg-[#151515] mb-1 py-2 bg-[#01878a] px-4">
+    <nav className="bg-[#151515] mb-1 py-2  px-4">
       <div className="flex items-center justify-between max-w-[1280px] mx-auto text-[#fff] py-0 md:space-y-0 flex-col md:flex-row">
         {/* Logo */}
         <div className="flex items-center justify-between w-full md:w-auto">
@@ -64,15 +61,7 @@ const Navbar = () => {
         {/* Actions */}
         <div className="flex items-center space-x-4 mt-4 md:mt-0">
           {/* Balance Link */}
-          <Link
-            href={"/balance"}
-            className="transition-all duration-500 ease-in-out px-4 py-2 rounded-md bg-[#988d57] text-white hover:bg-[#ceb226]  relative text-sm md:text-base"
-          >
-            <span>
-              <AccountBalanceWalletIcon className="mr-2" />
-              Balans
-            </span>
-          </Link>
+
 
           {/* Cart Link */}
           <Link

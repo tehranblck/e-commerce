@@ -56,11 +56,7 @@ const ProfileModal = ({ onClose }: { onClose: () => void }) => {
                         <EmailIcon className="text-gray-600 dark:text-yellow-400" />
                         <span className="text-black dark:text-white">{userData.email}</span>
                     </div>
-                    <div className="flex items-center space-x-2">
-                        <MonetizationOnIcon className="text-gray-600 dark:text-yellow-400" />
-                        <span className="font-medium text-black dark:text-white">Balans:</span>
-                        <span className="font-semibold text-green-600 dark:text-green-400">{userData.balance} ₼</span>
-                    </div>
+
                     <Link
                         href="/orders"
                         onClick={onClose}
@@ -69,21 +65,8 @@ const ProfileModal = ({ onClose }: { onClose: () => void }) => {
                         <AssignmentIcon />
                         <span>Sifarişlərim</span>
                     </Link>
-                    <Link
-                        href="/balance"
-                        className="flex items-center justify-center space-x-2 mt-2 w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition duration-300"
-                    >
-                        <ExitToAppIcon />
-                        <span>Balans Artırma</span>
-                    </Link>
-                    <Link
-                        href="/payments"
-                        onClick={onClose}
-                        className="flex items-center justify-center space-x-2 mt-2 w-full bg-purple-500 text-white py-2 rounded-md hover:bg-purple-600 transition duration-300"
-                    >
-                        <MonetizationOnIcon />
-                        <span>Ödənişlərim</span>
-                    </Link>
+
+
                     <button
                         onClick={handleLogout}
                         className="flex items-center justify-center space-x-2 mt-2 w-full bg-red-500 text-white py-2 rounded-md hover:bg-red-600 transition duration-300"

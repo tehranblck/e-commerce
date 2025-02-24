@@ -2,13 +2,13 @@ import React from "react";
 
 const About = () => {
   return (
-    <section className="dark:bg-[#121212] py-6 ">
+    <section className="bg-[#121212] py-6 ">
       <div className="max-w-[1280px] mx-auto flex justify-center items-center flex-col">
         <div className=" flex items-center justify-center w-full mb-4">
-          <h1 className="text-[42px] dark:text-[#fff]">Haqqımızda</h1>
+          <h1 className="text-[42px] text-[#fff]">Haqqımızda</h1>
         </div>
 
-        <div className="pb-20 pt-10 dark:text-[#fff] text-center max-w-[1200px] px-4">
+        <div className="pb-20 pt-10 text-[#fff] text-center max-w-[1200px] px-4">
           <p>
             Bizim məqsədimiz müştərilərimizə ən yüksək keyfiyyətli ziyafət donlarının satışı və kirayəsi xidmətini təqdim etməkdir. İllərin təcrübəsinə əsaslanan komandamız, hər bir müştərinin xüsusi anlarını daha da gözəlləşdirmək üçün çalışır. Hər zövqə və büdcəyə uyğun geniş seçimlərimizlə, sizə unudulmaz bir təcrübə yaşatmağı hədəfləyirik.
 

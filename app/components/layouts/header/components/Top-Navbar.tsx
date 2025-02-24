@@ -11,7 +11,6 @@ import { getCookie } from "cookies-next";
 import { fetchUserProfile } from "@/app/services/auth/loginService";
 import { useLogout } from "@/app/hooks/useLogout";
 import Switch from "@/app/components/ThemeToggler";
-import NotificationsDropdown from "@/app/components/Notifications";
 import ProfileModal from "./ProfileModal";
 import Navlinks from "./Navlinks";
 
@@ -88,7 +87,6 @@ const TopNavbar = () => {
       <div className="flex items-center justify-between max-w-[1280px] mx-auto">
         <Navlinks />
         <div className="flex items-center space-x-4 whitespace-nowrap dark:text-[#fff] py-4">
-          <Switch />
           {/* <NotificationsDropdown /> */}
 
           <div className="flex items-center relative">

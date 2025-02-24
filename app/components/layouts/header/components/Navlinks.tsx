@@ -82,15 +82,10 @@ const Navlinks: React.FC = () => {
     {
       id: 3,
       link: "/products",
-      title: "Produktlar",
+      title: "Məhsullar",
       icon: <ExtensionIcon className="text-[18px] cursor-pointer" />,
     },
-    {
-      id: 4,
-      link: "/categories",
-      title: "Kateqoriyalar",
-      icon: <CategoryIcon className="text-[18px] cursor-pointer" />,
-    },
+
     {
       id: 5,
       link: "/rules",

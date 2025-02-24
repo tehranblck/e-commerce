@@ -9,6 +9,38 @@ import InformationBar from "@/app/components/ui/shared/InformationBar";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
+// Slug oluşturma yardımcı fonksiyonu
+const createSlug = (text: string | undefined | null): string => {
+    if (!text) return '';
+    return text
+        .toLowerCase()
+        .replace(/ə/g, 'e')
+        .replace(/ı/g, 'i')
+        .replace(/ö/g, 'o')
+        .replace(/ü/g, 'u')
+        .replace(/ş/g, 's')
+        .replace(/ç/g, 'c')
+        .replace(/ğ/g, 'g')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+};
+
+interface Category {
+    id: number;
+    name: string;  // API'den gelen kategori adı
+    image: string | null;
+    sub_types: any[];
+    about: string;
+}
+
+interface Product {
+    id: number;
+    title: string;  // API'den gelen ürün başlığı
+    description: string;
+    image: string;
+    type: string;
+}
+
 const CategorizedProductComponent = ({ params }: any) => {
     const router = useRouter();
     const [page, setPage] = useState(1);
@@ -18,8 +50,6 @@ const CategorizedProductComponent = ({ params }: any) => {
     const [error, setError] = useState<string | null>(null);
     const [categoryName, setCategoryName] = useState("");
     const { slug } = params;
-
-    const keywords = ["Bəyəni", "Takipçi", "Yorum", "Şərh", "Abunə", "Baxış", "Like"];
 
     useEffect(() => {
         const fetchCategoryAndProducts = async () => {
@@ -32,8 +62,11 @@ const CategorizedProductComponent = ({ params }: any) => {
                 }
                 const categoriesData = await categoriesRes.json();
 
+                // Eşleştirme yapmadan önce slug'ları kontrol et
+                const searchSlug = createSlug(decodeURIComponent(slug));
+
                 const matchingCategory = categoriesData.results.find(
-                    (category: any) => category.name === slug
+                    (category: Category) => createSlug(category.name) === searchSlug
                 );
 
                 if (!matchingCategory) {
@@ -43,17 +76,25 @@ const CategorizedProductComponent = ({ params }: any) => {
                 setCategoryName(matchingCategory.name);
 
                 const productsResponse = await fetchProductsByCategory(page, matchingCategory.id);
-                const results = productsResponse.results || productsResponse;
+                console.log('API Response:', productsResponse); // API yanıtını kontrol et
 
-                const filteredPanelProducts = results.filter((product: any) =>
-                    keywords.some((keyword) => product.title?.includes(keyword))
-                );
-                const nonPanelProducts = results.filter(
-                    (product: any) => !keywords.some((keyword) => product.title?.includes(keyword))
-                );
+                // Yanıt kontrolü
+                if (!productsResponse || !Array.isArray(productsResponse)) {
+                    console.error('Geçersiz API yanıtı:', productsResponse);
+                    throw new Error("Məhsullar yüklənərkən xəta baş verdi");
+                }
 
-                setProducts(nonPanelProducts);
-                setPanelProducts(filteredPanelProducts);
+                // Ürünlere slug ekle
+                const productsWithSlugs = productsResponse.map((product: Product) => {
+                    console.log('İşlenen Ürün:', product); // Her ürünü kontrol et
+                    return {
+                        ...product,
+                        slug: createSlug(product.title)
+                    };
+                });
+
+                console.log('İşlenmiş Ürünler:', productsWithSlugs); // Son hali kontrol et
+                setProducts(productsWithSlugs);
             } catch (err) {
                 console.error("Error:", err);
                 setError((err as Error).message);
@@ -87,7 +128,7 @@ const CategorizedProductComponent = ({ params }: any) => {
                 {error}
             </div>
         );
-    }
+    };
 
     return (
         <section className="dark:bg-[#121212]">
@@ -106,9 +147,9 @@ const CategorizedProductComponent = ({ params }: any) => {
                         />
                     </div>
 
-                    <div>
+                    <div className="w-full max-w-[1380px] px-4 pt-2">
                         {products.length > 0 ? (
-                            <ProductList styleCss="px-4" products={products} />
+                            <ProductList products={products} />
                         ) : (
                             <p className="text-[24px] pt-10 pb-[140px] text-white">
                                 Bu kateqoriyada məhsul tapılmadı
@@ -117,25 +158,7 @@ const CategorizedProductComponent = ({ params }: any) => {
                     </div>
                 </div>
 
-                <div className="flex justify-center">
-                    {panelProducts.length > 0 && (
-                        <div className="mt-10">
-                            <h2 className="text-[30px] text-yellow-500 uppercase font-bold italic">
-                                Panel xidmətləri
-                            </h2>
-                            <div className="w-full max-w-[1380px] px-4 pt-2">
-                                <InformationBar
-                                    HasButton={false}
-                                    sideInfo="Panel xidmətləri"
-                                    title={categoryName?.toUpperCase() || ""}
-                                />
-                            </div>
-                            <div className="mt-4">
-                                <ProductList styleCss="px-4" products={panelProducts} />
-                            </div>
-                        </div>
-                    )}
-                </div>
+
 
                 <div>
                     <FutureCard />

@@ -56,42 +56,42 @@ const Footer = () => {
           <div>
             <div className="flex flex-col space-y-2 ml-4">
               <h3 className="dark:text-[#828282] text-white text-lg">Məhsullarımız</h3>
-              <Link href="/categories/ziyafet-donlari" className="dark:text-[#828282] text-white hover:text-yellow-500 transition-colors text-sm">
+              <p className="dark:text-[#828282] text-white hover:text-yellow-500 transition-colors text-sm">
                 Ziyafət Donları
-              </Link>
-              <Link href="/categories/toy-geyimleri" className="dark:text-[#828282] text-white hover:text-yellow-500 transition-colors text-sm">
+              </p>
+              <p className="dark:text-[#828282] text-white hover:text-yellow-500 transition-colors text-sm">
                 Toy Geyimləri
-              </Link>
-              <Link href="/categories/nisan-geyimleri" className="dark:text-[#828282] text-white hover:text-yellow-500 transition-colors text-sm">
+              </p>
+              <p className="dark:text-[#828282] text-white hover:text-yellow-500 transition-colors text-sm">
                 Nişan Geyimləri
-              </Link>
-              <Link href="/categories/aksam-geyimleri" className="dark:text-[#828282] text-white hover:text-yellow-500 transition-colors text-sm">
+              </p>
+              <p className="dark:text-[#828282] text-white hover:text-yellow-500 transition-colors text-sm">
                 Axşam Geyimləri
-              </Link>
-              <Link href="/categories/kokteyl-donlari" className="dark:text-[#828282] text-white hover:text-yellow-500 transition-colors text-sm">
+              </p>
+              <p className="dark:text-[#828282] text-white hover:text-yellow-500 transition-colors text-sm">
                 Kokteyl Donları
-              </Link>
+              </p>
             </div>
           </div>
 
           <div>
             <div className="flex flex-col space-y-2 ml-4">
               <h3 className="dark:text-[#828282] text-white text-lg">Xidmətlərimiz</h3>
-              <Link href="/services/premium" className="dark:text-[#828282] text-white  hover:text-yellow-500 transition-colors text-sm">
+              <p className="dark:text-[#828282] text-white  hover:text-yellow-500 transition-colors text-sm">
                 Premium Ziyafət Geyimləri
-              </Link>
-              <Link href="/services/custom" className="dark:text-[#828282] text-white hover:text-yellow-500 transition-colors text-sm">
+              </p>
+              <p className="dark:text-[#828282] text-white hover:text-yellow-500 transition-colors text-sm">
                 Xüsusi Sifariş
-              </Link>
-              <Link href="/services/rental" className="dark:text-[#828282] text-white hover:text-yellow-500 transition-colors text-sm">
+              </p>
+              <p className="dark:text-[#828282] text-white hover:text-yellow-500 transition-colors text-sm">
                 Kirayə Xidməti
-              </Link>
-              <Link href="/services/adjustment" className="dark:text-[#828282] text-white hover:text-yellow-500 transition-colors text-sm">
+              </p>
+              <p className="dark:text-[#828282] text-white hover:text-yellow-500 transition-colors text-sm">
                 Ölçüyə görə Düzəliş
-              </Link>
-              <Link href="/services/consultation" className="dark:text-[#828282] text-white hover:text-yellow-500 transition-colors text-sm">
+              </p>
+              <p className="dark:text-[#828282] text-white hover:text-yellow-500 transition-colors text-sm">
                 Məsləhət Xidməti
-              </Link>
+              </p>
             </div>
           </div>
 
@@ -129,7 +129,7 @@ const Footer = () => {
 
       <div className="w-full h-[1px] bg-[#988d57]"></div>
       <div className="dark:text-[#828282] text-white flex justify-center items-center py-4 dark:bg-[#181818]">
-        <span>2024 © Raelli.az - Bütün hüquqlar qorunur</span>
+        <span>Designed by <a href="https://www.saytyarat.com/" target="_blank" rel="noopener noreferrer" className="text-yellow-500">SaytYarat</a> 2025 © Raelli.az - Bütün hüquqlar qorunur</span>
       </div>
     </footer>
   );
