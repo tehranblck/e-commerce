@@ -74,22 +74,7 @@ const OrderDetailsModal: React.FC<OrderDetailsModalProps> = ({ open, onClose, or
                                             <div key={index} className="pl-4 text-sm border-l-2 border-gray-300">
                                                 <p>Məhsul ID: {item.product}</p>
                                                 <p>Miqdarı: {item.quantity}</p>
-                                                <p>Token: {item.product_token}</p>
-                                                {item.key ? (
-                                                    item.key.split(',').map((keyValue, keyIndex) => (
-                                                        <div key={keyIndex} className="flex items-center mb-2">
-                                                            <p>Epin: {keyValue.trim()}</p>
-                                                            <button
-                                                                onClick={() => copyToClipboard(keyValue.trim())}
-                                                                className="ml-2 dark:bg-gray-600 bg-gray-800 dark:text-white text-white hover:bg-gray-300 text-sm px-2 py-1 rounded-md transition"
-                                                            >
-                                                                Kopyala
-                                                            </button>
-                                                        </div>
-                                                    ))
-                                                ) : (
-                                                    <p className="text-gray-500">Epin mövcud deyil.</p>
-                                                )}
+
                                             </div>
                                         ))
                                     ) : (
