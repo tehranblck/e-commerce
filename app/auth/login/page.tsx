@@ -95,14 +95,7 @@ const Login = () => {
               className="border-[3px] text-black py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
             />
           </div>
-          <div className="w-full text-end mt-6">
-            <Link
-              href={"/auth/forgotpassword"}
-              className="dark:text-white text-[14px] underline cursor-pointer"
-            >
-              Şifrəni Unutmuşam
-            </Link>
-          </div>
+
           <div className="flex flex-col items-center justify-center w-full mt-4">
             <button
               type="submit"
