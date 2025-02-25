@@ -81,7 +81,7 @@ const Login = () => {
                 setEmail(e.target.value)
               }
               required
-              placeholder="Email Addresi *"
+              placeholder="Email Adresi *"
               className="border-[2px] py-2 text-black rounded-md outline-none pl-2 focus:border-yellow-500"
             />
             <input
