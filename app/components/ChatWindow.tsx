@@ -5,6 +5,7 @@ import { FaRobot } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { MdOutlineCleaningServices } from "react-icons/md";
 import { RiAccountCircleLine } from "react-icons/ri";
+import { FaWhatsapp } from "react-icons/fa";
 import Image from 'next/image';
 
 interface ChatMessage {
@@ -185,6 +186,12 @@ const ChatBot = () => {
         }]);
     };
 
+    const handleWhatsAppClick = () => {
+        const phoneNumber = "994503332133";
+        const message = "Salam, məlumat almaq istəyirəm.";
+        window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
+    };
+
     return (
         <>
             {/* Chat Window */}
@@ -276,6 +283,14 @@ const ChatBot = () => {
                                     border border-gray-200 dark:border-gray-700
                                     focus:outline-none focus:ring-2 focus:ring-yellow-400 dark:focus:ring-indigo-500"
                             />
+                            <button
+                                onClick={handleWhatsAppClick}
+                                className="p-2 sm:p-2.5 rounded-lg bg-green-500 text-white
+                                    hover:bg-green-600 transition-colors duration-200"
+                                title="WhatsApp ilə əlaqə"
+                            >
+                                <FaWhatsapp size={16} className="sm:w-5 sm:h-5" />
+                            </button>
                             <button
                                 onClick={handleClearChat}
                                 className="p-2 sm:p-2.5 rounded-lg bg-gray-100 dark:bg-[#232323] text-gray-700 dark:text-gray-300

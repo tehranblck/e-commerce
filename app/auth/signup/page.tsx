@@ -143,7 +143,7 @@ const SignUp = () => {
                 setEmail(e.target.value)
               }
               type="email"
-              placeholder="Email Asdresi"
+              placeholder="Email Adresi"
               className="border-[2px] text-black py-2 rounded-md outline-none pl-2 focus:border-yellow-500"
             />
             <input
