@@ -14,14 +14,13 @@ const Navbar = () => {
   const [categories, setCategories] = useState<string[]>([]); // Kategoriler
   const products = useSelector((state: any) => state.product.products); // Redux'dan ürünleri al
   const router = useRouter();
-
+  const [searchProducts, setSearchProducts] = useState<any[]>([]);
 
 
   // Genel arama fonksiyonu
   const handleSearch = (query: string) => {
     router.push(`/search?query=${encodeURIComponent(query)}`);
   };
-
   // Kategorileri LocalStorage'dan al
   useEffect(() => {
     const savedCategories = localStorage.getItem("categories");
@@ -53,7 +52,6 @@ const Navbar = () => {
         {/* Arama Kutusu */}
         <div className="w-full md:w-1/2 lg:w-1/3">
           <InputSearch
-            dataset={categories}
             onSearch={handleSearch}
           />
         </div>

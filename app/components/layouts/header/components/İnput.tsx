@@ -3,34 +3,47 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent, useRef } from "react";
 import { usePathname } from "next/navigation";
 
-const fuzzySearch = (query: string, dataset: string[]): string[] => {
-  const lowerQuery = query.toLowerCase();
-  return dataset.filter((item) =>
-    item.toLowerCase().includes(lowerQuery)
-  );
-};
-
-interface InputSearchProps {
-  dataset: string[]; // Arama yapılacak veri kümesi
-  onSearch: (query: string) => void; // Arama işlevi
+interface Product {
+  id: number;
+  name: string;
+  // Add other product fields as needed
 }
 
-const InputSearch: React.FC<InputSearchProps> = ({ dataset, onSearch }) => {
-  const pathname = usePathname(); // Mevcut yol
-  const [searchValue, setSearchValue] = useState<string>(""); // Kullanıcının yazdığı değer
-  const [suggestions, setSuggestions] = useState<string[]>([]); // Öneriler
-  const wrapperRef = useRef<HTMLDivElement>(null); // Arama kutusunu saran div referansı
+interface InputSearchProps {
+  onSearch: (query: string) => void;
+}
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+const InputSearch: React.FC<InputSearchProps> = ({ onSearch }) => {
+  const pathname = usePathname();
+  const [searchValue, setSearchValue] = useState<string>("");
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  const fetchProducts = async (query: string) => {
+    if (query.trim().length < 2) {
+      setProducts([]);
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await fetch(`https://admin.raelli.az/api/products/?search=${encodeURIComponent(query)}`);
+      if (!response.ok) throw new Error('Network response was not ok');
+      const data = await response.json();
+      setProducts(data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      setProducts([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleInputChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setSearchValue(value);
-
-    if (value.trim() !== "") {
-      const matches = fuzzySearch(value, dataset);
-      setSuggestions(matches.slice(0, 5)); // Maksimum 5 öneri
-    } else {
-      setSuggestions([]);
-    }
+    await fetchProducts(value);
   };
 
   const handleSearch = (event: FormEvent<HTMLFormElement>) => {
@@ -39,35 +52,35 @@ const InputSearch: React.FC<InputSearchProps> = ({ dataset, onSearch }) => {
 
     if (trimmedValue !== "") {
       onSearch(trimmedValue);
-      setSuggestions([]);
+      setProducts([]);
     }
   };
 
-  const handleSuggestionClick = (suggestion: string) => {
-    setSearchValue(suggestion);
-    setSuggestions([]);
-    onSearch(suggestion);
+  const handleProductClick = (product: Product) => {
+    setSearchValue(product.name);
+    setProducts([]);
+    onSearch(product.name);
   };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
-        setSuggestions([]);
+        setProducts([]);
       }
     };
 
-    if (suggestions.length > 0) {
+    if (products.length > 0) {
       document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [suggestions]);
+  }, [products]);
 
   useEffect(() => {
     setSearchValue("");
-    setSuggestions([]);
+    setProducts([]);
   }, [pathname]);
 
   return (
@@ -78,7 +91,7 @@ const InputSearch: React.FC<InputSearchProps> = ({ dataset, onSearch }) => {
           placeholder="Axtarın..."
           type="text"
           name="text"
-          className="z-50 dark:text-[#988d57] dark:text-gray-200 bg-transparent outline-none placeholder-gray-400 w-full px-4 py-2 rounded-md border-2 border-[#988d57] dark:border-gray-600 focus:ring-2 focus:ring-[#988d57]"
+          className="z-50 text-gray-200 bg-transparent outline-none placeholder-gray-400 w-full px-4 py-2 rounded-md border-2 border-[#988d57] dark:border-gray-600 focus:ring-2 focus:ring-[#988d57]"
           value={searchValue}
           onChange={handleInputChange}
         />
@@ -102,18 +115,24 @@ const InputSearch: React.FC<InputSearchProps> = ({ dataset, onSearch }) => {
           </svg>
         </button>
 
-        {suggestions.length > 0 && (
+        {loading && (
+          <div className="absolute right-12 top-1/2 transform -translate-y-1/2">
+            <div className="animate-spin rounded-full h-4 w-4 border-2 border-[#988d57] border-t-transparent"></div>
+          </div>
+        )}
+
+        {products.length > 0 && (
           <ul
             role="listbox"
             className="absolute bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md mt-2 w-full z-50 shadow-lg"
           >
-            {suggestions.map((suggestion, index) => (
+            {products.map((product) => (
               <li
-                key={index}
-                onClick={() => handleSuggestionClick(suggestion)}
+                key={product.id}
+                onClick={() => handleProductClick(product)}
                 className="px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 dark:text-white text-black cursor-pointer"
               >
-                {suggestion}
+                {product.name}
               </li>
             ))}
           </ul>

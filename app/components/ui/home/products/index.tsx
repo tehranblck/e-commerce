@@ -119,17 +119,16 @@ const Products = ({ isInforBarVisible }: { isInforBarVisible: boolean }) => {
     <section className="dark:bg-[#121212] py-6">
       <div className="flex flex-col max-w-[1280px] mx-auto px-2">
         {/* Kategori Slider */}
-        <div className="relative flex items-center justify-center w-full">
-          {/* Sol Ok */}
+        <div className="relative flex items-center justify-center w-full mb-6">
 
 
           <div
             ref={scrollRef}
-            className="flex gap-3 px-4 py-2 overflow-x-hidden scroll-smooth"
+            className="flex gap-2 md:gap-3 px-2 md:px-4 py-2 overflow-x-auto scrollbar-hide scroll-smooth"
           >
             <button
               onClick={() => handleCategorySelect(null)}
-              className={`min-w-fit px-6 py-3 text-sm font-medium rounded-lg transition-all duration-300 
+              className={`whitespace-nowrap min-w-fit px-3 md:px-6 py-2 md:py-3 text-xs md:text-sm font-medium rounded-lg transition-all duration-300 
                 ${selectedCategory === null
                   ? "bg-blue-500 text-white shadow-lg transform scale-105"
                   : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"}`}
@@ -141,7 +140,7 @@ const Products = ({ isInforBarVisible }: { isInforBarVisible: boolean }) => {
               <button
                 key={category.id}
                 onClick={() => handleCategorySelect(category.name)}
-                className={`min-w-fit px-6 py-3 text-sm font-medium rounded-lg transition-all duration-300
+                className={`whitespace-nowrap min-w-fit px-3 md:px-6 py-2 md:py-3 text-xs md:text-sm font-medium rounded-lg transition-all duration-300
                   ${selectedCategory === category.name
                     ? "bg-blue-600 text-white shadow-lg transform scale-105"
                     : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"}`}
@@ -150,8 +149,6 @@ const Products = ({ isInforBarVisible }: { isInforBarVisible: boolean }) => {
               </button>
             ))}
           </div>
-
-          {/* Sağ Ok */}
 
         </div>
 
