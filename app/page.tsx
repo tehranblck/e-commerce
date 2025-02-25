@@ -3,7 +3,7 @@ import Hero from "./components/ui/home/hero";
 import Products from "./components/ui/home/products";
 import FutureCard from "./components/ui/shared/FutureCard";
 import FilteredProductsComponent from "./components/ui/home/filteredProducts";
-import ChatWindow from "./components/ChatWindow";
+import ChatBot from "./components/ChatWindow";
 
 export default function Home({
   searchParams,
@@ -17,7 +17,7 @@ export default function Home({
       <Hero />
       <Products isInforBarVisible={true} />
       <FutureCard />
-      <ChatWindow />
+      <ChatBot />
 
     </main>
   );
