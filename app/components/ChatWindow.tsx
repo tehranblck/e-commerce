@@ -62,6 +62,26 @@ const ChatBot = () => {
     };
 
     useEffect(() => {
+        const isMobile = window.innerWidth < 768; // 768px'den küçük ekranları mobil olarak kabul ediyoruz
+
+        if (isMobile && isOpen) {
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+        } else {
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
+        }
+
+        return () => {
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
+        };
+    }, [isOpen]);
+
+    useEffect(() => {
         scrollToBottom();
     }, [messages]);
 
