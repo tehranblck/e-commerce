@@ -6,6 +6,22 @@ import OrderDetailsModal from "./orderDetails";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
 
+interface Order {
+    id: number;
+    created_at: string;
+    updated_at: string;
+    delivery_status: string;
+    delivery_status_display: string;
+    payment_status: string;
+    payment_status_display: string;
+    phone_number: string;
+    total_price: number;
+    user: number;
+    user_email: string;
+    user_full_name: string;
+    items: OrderItem[];
+}
+
 interface OrderItem {
     id: number;
     color: number;
@@ -23,21 +39,13 @@ interface OrderItem {
     size_name: string;
 }
 
-interface Order {
-    id: number;
-    created_at: string;
-    is_done: boolean;
-    is_payed: boolean;
-    items: OrderItem[];
-}
-
 const OrdersPage = () => {
     const user = useSelector((state: RootState) => state.auth.user);
     const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
     const [orders, setOrders] = useState<Order[]>([]);
     const [loading, setLoading] = useState(true);
     const [open, setOpen] = useState(false);
-    const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+    const [selectedOrderId, setSelectedOrderId] = useState<number | null>(null);
 
     useEffect(() => {
         const fetchOrders = async () => {
@@ -47,7 +55,7 @@ const OrdersPage = () => {
             }
 
             try {
-                const response = await fetch(`https://admin.raelli.az/api/shops/basket/`, {
+                const response = await fetch(`https://admin.raelli.az/api/shops/orders/`, {
                     method: "GET",
                     headers: {
                         "Authorization": `${token}`,
@@ -61,7 +69,6 @@ const OrdersPage = () => {
 
                 const data = await response.json();
                 setOrders(data.results);
-                console.log(data.results)
             } catch (error) {
                 console.error("Failed to fetch orders:", error);
             } finally {
@@ -72,14 +79,14 @@ const OrdersPage = () => {
         fetchOrders();
     }, [user, token]);
 
-    const handleOpen = (order: Order) => {
-        setSelectedOrder(order);
+    const handleOpen = (orderId: number) => {
+        setSelectedOrderId(orderId);
         setOpen(true);
     };
 
     const handleClose = () => {
         setOpen(false);
-        setSelectedOrder(null);
+        setSelectedOrderId(null);
     };
 
     if (loading) {
@@ -102,7 +109,7 @@ const OrdersPage = () => {
         <div className="container mx-auto px-4 py-8">
             <h1 className="text-2xl font-bold mb-6 text-gray-200 dark:text-white">Sifarişlərim</h1>
             <div className="space-y-6">
-                {orders.map((order) => (
+                {orders?.map((order) => (
                     <div
                         key={order.id}
                         className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6"
@@ -115,25 +122,28 @@ const OrdersPage = () => {
                                 <p className="text-sm text-gray-600 dark:text-gray-400">
                                     Tarix: {format(new Date(order.created_at), 'dd.MM.yyyy HH:mm')}
                                 </p>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    Telefon: {order.phone_number}
+                                </p>
                             </div>
                             <div className="flex space-x-2">
-                                <span className={`px-3 py-1 rounded-full text-sm ${order.is_payed
+                                <span className={`px-3 py-1 rounded-full text-sm ${order.payment_status === "FullyPaid"
                                     ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
                                     : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
                                     }`}>
-                                    {order.is_payed ? 'Ödənilib' : 'Ödənilməyib'}
+                                    {order.payment_status_display}
                                 </span>
-                                <span className={`px-3 py-1 rounded-full text-sm ${order.is_done
+                                <span className={`px-3 py-1 rounded-full text-sm ${order.delivery_status === "Delivered"
                                     ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
                                     : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
                                     }`}>
-                                    {order.is_done ? 'Tamamlandı' : 'Gözləmədə'}
+                                    {order.delivery_status_display}
                                 </span>
                             </div>
                         </div>
 
                         <div className="divide-y divide-gray-200 dark:divide-gray-700">
-                            {order.items.map((item) => (
+                            {order.items?.map((item) => (
                                 <div key={item.id} className="py-4">
                                     <div className="flex justify-between">
                                         <div>
@@ -175,15 +185,13 @@ const OrdersPage = () => {
                                     Ümumi məbləğ:
                                 </span>
                                 <span className="text-lg font-bold text-gray-900 dark:text-white">
-                                    {order.items.reduce((total, item) =>
-                                        total + (parseFloat(item.price_at_purchase) * item.quantity), 0
-                                    ).toFixed(2)} AZN
+                                    {order.total_price} AZN
                                 </span>
                             </div>
                         </div>
 
                         <button
-                            onClick={() => handleOpen(order)}
+                            onClick={() => handleOpen(order.id)}
                             className="mt-4 bg-blue-500 text-white py-1 px-4 rounded-md hover:bg-blue-600 transition"
                         >
                             Detallar
@@ -191,7 +199,7 @@ const OrdersPage = () => {
                     </div>
                 ))}
             </div>
-            <OrderDetailsModal open={open} onClose={handleClose} order={selectedOrder} />
+            <OrderDetailsModal open={open} onClose={handleClose} orderId={selectedOrderId} />
         </div>
     );
 };

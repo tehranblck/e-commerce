@@ -65,32 +65,38 @@ const ProductDetailActions = ({ product, selectedColor, selectedSize }: Props) =
   };
 
   return (
-    <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
-      <div className="flex items-center justify-center space-x-2">
-        <button
-          onClick={handleDecreaseProduct}
-          className="bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 text-white w-12 h-12 rounded-md text-xl font-medium"
-        >
-          -
-        </button>
-        <span className="w-10 text-center text-lg text-white dark:text-white">
-          {cartProduct?.quantity || "1"}
-        </span>
+    <div className="flex flex-col space-y-4">
+      <div className="flex items-center justify-between">
+        <span className="text-lg font-medium text-white">Qiymət:</span>
+        <span className="text-2xl font-bold text-yellow-500">{product.price.toFixed(2)} AZN</span>
+      </div>
+      <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
+        <div className="flex items-center justify-center space-x-2">
+          <button
+            onClick={handleDecreaseProduct}
+            className="bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 text-white w-12 h-12 rounded-md text-xl font-medium"
+          >
+            -
+          </button>
+          <span className="w-10 text-center text-lg text-white dark:text-white">
+            {cartProduct?.quantity || "1"}
+          </span>
+          <button
+            onClick={handleAddProduct}
+            className="bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 text-white w-12 h-12 rounded-md text-xl font-medium"
+          >
+            +
+          </button>
+        </div>
+
         <button
           onClick={handleAddProduct}
-          className="bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 text-white w-12 h-12 rounded-md text-xl font-medium"
+          className="flex items-center justify-center bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 text-white px-6 py-3 rounded-md text-lg font-medium w-full sm:w-auto"
         >
-          +
+          <ShoppingCartIcon className="mr-2 text-2xl" />
+          <span>Səbətə əlavə et</span>
         </button>
       </div>
-
-      <button
-        onClick={handleAddProduct}
-        className="flex items-center justify-center bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 text-white px-6 py-3 rounded-md text-lg font-medium w-full sm:w-auto"
-      >
-        <ShoppingCartIcon className="mr-2 text-2xl" />
-        <span>Səbətə əlavə et</span>
-      </button>
     </div>
   );
 };

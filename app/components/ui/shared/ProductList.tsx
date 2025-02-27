@@ -9,6 +9,7 @@ interface Product {
   image: string;
   type: string;
   slug: string;
+  price: number;
 }
 
 interface ProductListProps {
@@ -82,6 +83,13 @@ const ProductList: React.FC<ProductListProps> = ({ products }) => {
                 <p className="text-sm text-gray-200 line-clamp-2 mb-4 opacity-90">
                   {product?.description || 'Təsvir yoxdur'}
                 </p>
+
+                {/* Fiyat Gösterimi */}
+                <div className="mb-4">
+                  <span className="text-2xl font-bold text-yellow-500">
+                    {product?.price?.toFixed(2)} AZN
+                  </span>
+                </div>
 
                 {/* Alt Bilgi */}
                 <div className="flex items-center mt-auto">
