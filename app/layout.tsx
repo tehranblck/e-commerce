@@ -4,9 +4,10 @@ import "./globals.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Providers } from "./store/provider";
+import Header from "./components/layouts/header/Header";
+import Footer from "./components/layouts/footer/Footer";
+
 const inter = Inter({ subsets: ["latin"] });
-import dynamic from "next/dynamic";
-import { useEffect } from "react";
 
 export const metadata: Metadata = {
   title: {
@@ -23,21 +24,6 @@ export const metadata: Metadata = {
   themeColor: "#000000",
 };
 
-
-const DynamicHeader = dynamic(
-  () => import("./components/layouts/header/Header"),
-  {
-    loading: () => <p>Loading...</p>,
-  },
-);
-
-const DynamicFooter = dynamic(
-  () => import("./components/layouts/footer/Footer"),
-  {
-    loading: () => <p>Loading...</p>,
-  },
-);
-
 export default function RootLayout({
   children,
 }: {
@@ -47,7 +33,7 @@ export default function RootLayout({
     <html lang="en">
       <body suppressHydrationWarning={true} className={inter.className + "dark"}>
         <Providers>
-          <DynamicHeader />
+          <Header />
           {/* <ScrollToTop /> */}
           {/* <Script
             id="tawk-to"
@@ -68,10 +54,10 @@ export default function RootLayout({
           /> */}
 
           {children}
-          <DynamicFooter />
+          <Footer />
         </Providers>
         <ToastContainer />
       </body>
-    </html >
+    </html>
   );
 }
