@@ -1,70 +1,37 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import InformationBar from "../../shared/InformationBar";
+import React from "react";
 import { CategoryType } from "@/app/models/ui/categoryType";
-import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { toast } from "react-toastify";
+import { headers } from "next/headers";
 
-const FilteredProductsComponent = () => {
-  const pathname = usePathname();
-  const [categories, setCategories] = useState<CategoryType[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [showAll, setShowAll] = useState(false);
+async function getCategories(): Promise<CategoryType[]> {
+  try {
+    const res = await fetch("https://admin.raelli.az/api/products/type/?page_size=20", {
+      next: { revalidate: 3600 }
+    });
+    if (!res.ok) {
+      throw new Error("Kategorileri yükləmək mümkün olmadı");
+    }
+    const data = await res.json();
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const res = await fetch("https://admin.raelli.az/api/products/type/?page_size=20");
-        if (!res.ok) {
-          throw new Error("Kategorileri yükləmək mümkün olmadı");
-        }
-        const data = await res.json();
-
-        if (data.results) {
-          const categoriesData = data.results.map((item: any) => ({
-            id: item.id,
-            name: item.name,
-            image: item.image || "/assets/images/categories/default.png",
-            hasSubTypes: item.sub_types && item.sub_types.length > 0,
-          }));
-          setCategories(categoriesData);
-        } else {
-          throw new Error("Kateqoriya məlumatları düzgün formatda deyil");
-        }
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-        setError((error as Error).message);
-        toast.error("Kateqoriyaları yükləmək mümkün olmadı", {
-          position: "top-right"
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCategories();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-[200px]">
-        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-yellow-500"></div>
-      </div>
-    );
+    if (data.results) {
+      return data.results.map((item: any) => ({
+        id: item.id,
+        name: item.name,
+        image: item.image || "/assets/images/categories/default.png",
+        hasSubTypes: item.sub_types && item.sub_types.length > 0,
+      }));
+    }
+    return [];
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    return [];
   }
+}
 
-  if (error) {
-    return (
-      <div className="flex justify-center items-center min-h-[200px] text-red-500">
-        {error}
-      </div>
-    );
-  }
+export default async function FilteredProductsComponent() {
+  const headersList = headers();
+  const pathname = headersList.get("x-pathname") || "/";
+  const categories = await getCategories();
 
   if (!categories.length) {
     return (
@@ -75,11 +42,7 @@ const FilteredProductsComponent = () => {
   }
 
   const isCategoriesPage = pathname === "/categories";
-  const displayedCategories = isCategoriesPage
-    ? categories
-    : showAll
-      ? categories
-      : categories.slice(0, 10);
+  const displayedCategories = isCategoriesPage ? categories : categories.slice(0, 10);
 
   return (
     <section className="dark:bg-[#121212] py-0">
@@ -96,7 +59,7 @@ const FilteredProductsComponent = () => {
                   : `/categories/${category.name}`
               }
               key={category.id}
-              className="bg-[#212121]  text-white md:text-3xl text-md overflow-hidden  px-4 md:px-8 w-full hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(75,0,130,0.6)] duration-300 transition-all ease-in-out cursor-pointer h-[50px] rounded-md flex items-center justify-center"
+              className="bg-[#212121] text-white md:text-3xl text-md overflow-hidden px-4 md:px-8 w-full hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(75,0,130,0.6)] duration-300 transition-all ease-in-out cursor-pointer h-[50px] rounded-md flex items-center justify-center"
             >
               {  /*  <Image
                 width={5070}
@@ -111,20 +74,7 @@ const FilteredProductsComponent = () => {
             </Link>
           ))}
         </div>
-
-        {!isCategoriesPage && categories.length > 10 && (
-          <div className="flex justify-center mt-4">
-            <button
-              onClick={() => setShowAll(!showAll)}
-              className="relative transition-all duration-500 ease-in-out px-4 py-2 rounded-md bg-yellow-400 text-black hover:bg-white"
-            >
-              {showAll ? "Daha az göstər" : "Daha çox göstər"}
-            </button>
-          </div>
-        )}
       </div>
     </section>
   );
-};
-
-export default FilteredProductsComponent;
+}
