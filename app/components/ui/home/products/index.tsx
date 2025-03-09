@@ -62,7 +62,7 @@ export default async function Products({ isInforBarVisible }: { isInforBarVisibl
               Bütün Məhsullar
             </button>
 
-            {categories.map((category) => (
+            {categories?.map((category) => (
               <button
                 key={category.id}
                 className="whitespace-nowrap min-w-fit px-3 md:px-6 py-2 md:py-3 text-xs md:text-sm font-medium rounded-lg transition-all duration-300 bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
