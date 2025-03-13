@@ -22,7 +22,6 @@ interface ResponseData {
 }
 
 export async function POST(request: NextRequest) {
-    console.log("Payment API request received");
 
     try {
         const body: RequestBody = await request.json();
