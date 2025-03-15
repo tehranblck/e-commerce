@@ -1,19 +1,14 @@
 import Hero from "./components/ui/home/hero";
-import Products from "./components/ui/home/products";
 import FutureCard from "./components/ui/shared/FutureCard";
-import FilteredProductsComponent from "./components/ui/home/filteredProducts";
+import ProductsWrapper from "./components/ui/home/products/ProductsWrapper";
 import ChatBot from "./components/ChatWindow";
-
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
+import FilteredProductsComponent from "./components/ui/home/filteredProducts";
+export default async function Home() {
   return (
     <main className="relative">
       <FilteredProductsComponent />
       <Hero />
-      <Products isInforBarVisible={true} />
+      <ProductsWrapper />
       <FutureCard />
       <ChatBot />
     </main>

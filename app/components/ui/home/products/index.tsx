@@ -2,73 +2,129 @@
 
 import React from "react";
 import ProductList from "../../shared/ProductList";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 interface Category {
   id: number;
   name: string;
 }
 
+interface Product {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  type: string;
+  slug: string;
+  price: number;
+}
+
 interface ProductsResponse {
   count: number;
-  results: any[];
+  results: Product[];
 }
 
-const ITEMS_PER_PAGE = 10;
+interface ProductsProps {
+  initialCategories: Category[];
+  initialProducts: Product[];
+  totalCount: number;
+  isInforBarVisible: boolean;
+}
+
+const ITEMS_PER_PAGE = 12;
 const API_BASE_URL = "https://admin.raelli.az/api";
 
-async function getCategories() {
+async function getProducts(page: number = 1, category?: string): Promise<ProductsResponse> {
   try {
-    const res = await fetch(`${API_BASE_URL}/products/type/?page_size=20`, {
-      next: { revalidate: 3600 }
-    });
+    const url = new URL(`${API_BASE_URL}/products/`);
+    url.searchParams.append('page', page.toString());
+    url.searchParams.append('page_size', ITEMS_PER_PAGE.toString());
+    if (category) url.searchParams.append('type', category);
+
+    const res = await fetch(url.toString());
+    if (!res.ok) throw new Error('Failed to fetch products');
+
     const data = await res.json();
-    return data.results.map((item: any) => ({
-      id: item.id,
-      name: item.name,
-    }));
-  } catch (error) {
-    console.error("Categories loading error:", error);
-    return [];
-  }
-}
-
-async function getProducts(page: number = 1, category?: string) {
-  try {
-    const url = category
-      ? `${API_BASE_URL}/products/?page=${page}&page_size=${ITEMS_PER_PAGE}&type=${category}`
-      : `${API_BASE_URL}/products/?page=${page}&page_size=${ITEMS_PER_PAGE}`;
-
-    const res = await fetch(url, {
-      next: { revalidate: 3600 }
-    });
-    return await res.json();
+    return data as ProductsResponse;
   } catch (error) {
     console.error("Products loading error:", error);
     return { count: 0, results: [] };
   }
 }
 
-export default function Products({ isInforBarVisible }: { isInforBarVisible: boolean }) {
+export default function Products({
+  initialCategories,
+  initialProducts,
+  totalCount,
+  isInforBarVisible
+}: ProductsProps) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [products, setProducts] = useState<ProductsResponse>({ count: 0, results: [] });
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories] = useState<Category[]>(initialCategories);
+  const [products, setProducts] = useState<Product[]>(initialProducts);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(initialProducts.length >= ITEMS_PER_PAGE);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
-  React.useEffect(() => {
-    const fetchData = async () => {
-      const categoriesData = await getCategories();
-      const productsData = await getProducts(1);
-      setCategories(categoriesData);
-      setProducts(productsData);
-    };
-    fetchData();
+  // Fetch products when category changes
+  useEffect(() => {
+    if (!selectedCategory) {
+      setProducts(initialProducts);
+      setHasMore(initialProducts.length >= ITEMS_PER_PAGE);
+      setPage(1);
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+    setPage(1);
+
+    getProducts(1, selectedCategory)
+      .then((data) => {
+        setProducts(data.results);
+        setHasMore(data.results.length >= ITEMS_PER_PAGE);
+      })
+      .catch((err) => setError("Məhsulları yükləyərkən xəta baş verdi"))
+      .finally(() => setIsLoading(false));
+  }, [selectedCategory, initialProducts]);
+
+  // Handle category selection
+  const handleCategoryClick = useCallback((categoryId: number | null) => {
+    setSelectedCategory(categoryId?.toString() || null);
   }, []);
 
-  const handleCategoryClick = async (categoryId: number | null) => {
-    setSelectedCategory(categoryId?.toString() || null);
-    const productsData = await getProducts(1, categoryId?.toString());
-    setProducts(productsData);
-  };
+  // Load more products
+  const loadMore = useCallback(async () => {
+    if (isLoadingMore || !hasMore) return;
+
+    setIsLoadingMore(true);
+    try {
+      const nextPage = page + 1;
+      const data = await getProducts(nextPage, selectedCategory);
+      setProducts(prev => [...prev, ...data.results]);
+      setHasMore(data.results.length >= ITEMS_PER_PAGE);
+      setPage(nextPage);
+    } catch (err) {
+      setError("Əlavə məhsulları yükləyərkən xəta baş verdi");
+    } finally {
+      setIsLoadingMore(false);
+    }
+  }, [isLoadingMore, hasMore, page, selectedCategory]);
+
+  // Handle scroll-based loading
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 1000) {
+        if (hasMore && !isLoadingMore) {
+          loadMore();
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [hasMore, isLoadingMore, loadMore]);
 
   return (
     <section className="dark:bg-[#121212] py-6">
@@ -101,8 +157,25 @@ export default function Products({ isInforBarVisible }: { isInforBarVisible: boo
           </div>
         </div>
 
-        {/* Product List */}
-        <ProductList products={products?.results || []} />
+        {/* Product List with Loading States */}
+        {isLoading ? (
+          <div className="flex justify-center items-center py-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
+          </div>
+        ) : error ? (
+          <div className="text-center py-8 text-red-500">
+            {error}
+          </div>
+        ) : (
+          <>
+            <ProductList products={products} />
+            {isLoadingMore && (
+              <div className="flex justify-center items-center py-4">
+                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500" />
+              </div>
+            )}
+          </>
+        )}
       </div>
     </section>
   );

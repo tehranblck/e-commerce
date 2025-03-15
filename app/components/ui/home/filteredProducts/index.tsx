@@ -29,8 +29,7 @@ async function getCategories(): Promise<CategoryType[]> {
 }
 
 export default async function FilteredProductsComponent() {
-  const headersList = headers();
-  const pathname = headersList.get("x-pathname") || "/";
+  const pathname = headers().get("x-pathname") || "/";
   const categories = await getCategories();
 
   if (!categories.length) {
