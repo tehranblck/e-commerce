@@ -32,7 +32,10 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/(routes)/cart/page.tsx"
+    "app/(routes)/cart/page.tsx",
+    "app/(routes)/products/page.jsx",
+    "app/(routes)/products/[id]/[slug]/page.jsx",
+    "app/(routes)/products/[id]/[slug]/ClientProductDetail.jsx"
   ],
   "exclude": [
     "node_modules"

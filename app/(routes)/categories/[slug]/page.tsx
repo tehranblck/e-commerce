@@ -76,6 +76,7 @@ const CategorizedProductComponent = ({ params }: any) => {
                 setCategoryName(matchingCategory.name);
 
                 const productsResponse = await fetchProductsByCategory(page, matchingCategory.id);
+                console.log('API Response:', productsResponse); // API yanıtını kontrol et
 
                 // Yanıt kontrolü
                 if (!productsResponse || !Array.isArray(productsResponse)) {
@@ -85,12 +86,14 @@ const CategorizedProductComponent = ({ params }: any) => {
 
                 // Ürünlere slug ekle
                 const productsWithSlugs = productsResponse.map((product: Product) => {
+                    console.log('İşlenen Ürün:', product); // Her ürünü kontrol et
                     return {
                         ...product,
                         slug: createSlug(product.title)
                     };
                 });
 
+                console.log('İşlenmiş Ürünler:', productsWithSlugs); // Son hali kontrol et
                 setProducts(productsWithSlugs);
             } catch (err) {
                 console.error("Error:", err);

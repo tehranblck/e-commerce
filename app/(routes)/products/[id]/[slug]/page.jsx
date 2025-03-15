@@ -1,17 +1,12 @@
 import React from "react";
 import Loading from "@/app/components/ui/shared/Loading";
 import { fetchProduct } from "@/app/services/modules/productdetail";
-import type { Metadata, ResolvingMetadata } from "next";
+
 
 import ClientProductDetail from "./ClientProductDetail";
 
-const ProductDetail = async ({
-  params,
-}: {
-  params: { id: number; slug: string };
-}) => {
+const ProductDetail = async ({ params }) => {
   const product = await fetchProduct(params.id);
-  console.log(product);
 
   if (!product) {
     return (
@@ -25,10 +20,7 @@ const ProductDetail = async ({
 };
 
 // `generateMetadata` to set metadata for each product page
-export async function generateMetadata(
-  { params }: { params: { id: number; slug: string } },
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata({ params }) {
   const product = await fetchProduct(params.id);
 
   if (!product) {

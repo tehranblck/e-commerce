@@ -18,7 +18,11 @@ interface ProductListProps {
 
 
 const ProductList: React.FC<ProductListProps> = ({ products }) => {
-
+  // Detaylı debug için
+  console.log('ProductList - Gelen Products:', {
+    productsLength: products?.length,
+    productsData: products
+  });
 
   // Eğer products undefined veya boş ise
   if (!products || products.length === 0) {
@@ -33,6 +37,8 @@ const ProductList: React.FC<ProductListProps> = ({ products }) => {
     <div className="w-full max-w-[1280px] mx-auto px-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {products?.map((product) => {
+          // Her ürün için debug
+          console.log('Ürün Detayı:', product);
 
           return (
             <Link
